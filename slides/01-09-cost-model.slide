@@ -1,7 +1,7 @@
 # Cost model — DBUs, autoscaling, auto-termination
 
-- DBU (Databricks Unit) — the normalized unit of compute Databricks bills per hour
-- Total cost = DBUs + underlying cloud VM cost (bundled for serverless)
-- DBU rate varies by workload — job clusters are cheaper than all-purpose
-- Autoscaling — add/remove workers between min & max to match load
-- Auto-termination — idle clusters shut down after N minutes; serverless scales to zero
+- **DBU (Databricks Unit)** — the normalized unit of compute Databricks bills per hour
+- **Total cost** = DBUs + underlying cloud VM cost (bundled for serverless)
+- **DBU rate varies** by workload — job clusters are cheaper than all-purpose
+- **Autoscaling** — add/remove workers between min & max to match load
+- **Auto-termination** — idle clusters shut down after N minutes; serverless scales to zero

@@ -1,7 +1,7 @@
 # Databricks Runtime & Photon
 
-- Databricks Runtime (DBR) — the cluster image: tuned Spark + Delta + libraries + OS
-- Versioned releases; pick LTS (long-term support) for stable production
-- ML runtime variant adds ML libraries and GPU support
-- Photon — Databricks' C++ vectorized engine, a drop-in speedup for SQL & DataFrame work
-- Transparent to your code — no rewrite; faster and cheaper per query
+- **Databricks Runtime (DBR)** — the cluster image: tuned Spark + Delta + libraries + OS
+- **Versioned releases** — pick **LTS** (long-term support) for stable production
+- **ML runtime** variant adds ML libraries and GPU support
+- **Photon** — Databricks' C++ vectorized engine, a drop-in speedup for SQL & DataFrame work
+- **Transparent to your code** — no rewrite; faster and cheaper per query
