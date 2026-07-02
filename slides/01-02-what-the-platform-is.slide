@@ -1,7 +1,7 @@
 # The Data Intelligence Platform
 
-- One platform for data engineering, SQL, streaming, data science & ML — on one governed copy
-- Open lakehouse foundation — Delta tables on your own cloud storage, in open formats
-- Unified governance — Unity Catalog over tables, files, models & dashboards, across clouds
-- Data intelligence engine — generative AI that understands your data: search, auto-optimize
-- Formerly the "Lakehouse Platform" — renamed for that AI layer
+- **One platform** for data engineering, SQL, streaming, data science & ML — on one governed copy
+- **Open lakehouse foundation** — Delta tables on your own cloud storage, in open formats
+- **Unified governance** — Unity Catalog over tables, files, models & dashboards, across clouds
+- **Data intelligence engine** — generative AI that understands your data: search, auto-optimize
+- Formerly the **"Lakehouse Platform"** — renamed for that AI layer

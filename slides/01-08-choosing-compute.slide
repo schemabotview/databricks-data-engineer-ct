@@ -1,7 +1,7 @@
 # Choosing compute — the cheat sheet
 
-- Interactive dev / notebook exploration → all-purpose cluster
-- Scheduled production ETL → job cluster (ephemeral, cheaper, isolated)
-- BI dashboards & ad-hoc SQL → SQL warehouse (serverless for best start + price)
-- Bursty / don't-manage-infra → serverless compute (seconds to start, no idle cost)
-- ML training → all-purpose or job cluster on the ML runtime
+- **Interactive dev** / notebook exploration → all-purpose cluster
+- **Scheduled production ETL** → job cluster (ephemeral, cheaper, isolated)
+- **BI dashboards & ad-hoc SQL** → SQL warehouse (serverless for best start + price)
+- **Bursty / don't-manage-infra** → serverless compute (seconds to start, no idle cost)
+- **ML training** → all-purpose or job cluster on the ML runtime

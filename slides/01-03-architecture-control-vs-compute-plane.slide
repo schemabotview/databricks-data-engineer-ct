@@ -1,7 +1,7 @@
 # Control plane vs. compute plane
 
-- Control plane (Databricks-managed) — UI, notebook/SQL editors, job scheduler, cluster manager, UC metadata
-- Compute plane — clusters & SQL warehouses that actually process your data with Spark
-- Classic compute runs in YOUR cloud account & network; serverless runs in Databricks' account
-- Data at rest always stays in your own cloud object storage — never in the control plane
-- Serverless = instant start, managed network; classic = your network, tighter isolation
+- **Control plane** (Databricks-managed) — UI, notebook/SQL editors, job scheduler, cluster manager, UC metadata
+- **Compute plane** — clusters & SQL warehouses that actually process your data with Spark
+- **Classic** compute runs in YOUR cloud account & network; **serverless** runs in Databricks' account
+- **Data at rest** always stays in your own cloud object storage — never in the control plane
+- **Serverless** = instant start, managed network; **classic** = your network, tighter isolation
