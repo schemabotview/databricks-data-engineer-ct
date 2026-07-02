@@ -19,6 +19,9 @@
           "notebook": "notebooks/01-02-what-the-platform-is.ipynb",
           "slide": "slides/01-02-what-the-platform-is.slide",
           "audio": "audio/01-02-what-the-platform-is.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "data-intelligence-platform",
+          "highlight": ["foundation"],
           "spine": true
         },
         {
@@ -26,6 +29,9 @@
           "notebook": "notebooks/01-03-architecture-control-vs-compute-plane.ipynb",
           "slide": "slides/01-03-architecture-control-vs-compute-plane.slide",
           "audio": "audio/01-03-architecture-control-vs-compute-plane.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "workspace-compute",
+          "highlight": ["workspace-compute"],
           "spine": true
         },
         {
@@ -33,6 +39,9 @@
           "notebook": "notebooks/01-04-the-platform-stack.ipynb",
           "slide": "slides/01-04-the-platform-stack.slide",
           "audio": "audio/01-04-the-platform-stack.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "foundation",
+          "highlight": ["delta-lake", "engine", "unity-catalog", "cloud-storage"],
           "spine": true
         },
         {
@@ -40,6 +49,9 @@
           "notebook": "notebooks/01-05-the-workspace.ipynb",
           "slide": "slides/01-05-the-workspace.slide",
           "audio": "audio/01-05-the-workspace.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "workspace-compute",
+          "highlight": ["notebooks", "dbutils", "repos"],
           "spine": true
         },
         {
@@ -47,6 +59,9 @@
           "notebook": "notebooks/01-06-clusters.ipynb",
           "slide": "slides/01-06-clusters.slide",
           "audio": "audio/01-06-clusters.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "compute",
+          "highlight": ["all-purpose-cluster", "job-cluster"],
           "spine": true
         },
         {
@@ -54,6 +69,9 @@
           "notebook": "notebooks/01-07-sql-warehouses-serverless.ipynb",
           "slide": "slides/01-07-sql-warehouses-serverless.slide",
           "audio": "audio/01-07-sql-warehouses-serverless.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "compute",
+          "highlight": ["sql-warehouse", "serverless"],
           "spine": true
         },
         {
@@ -61,6 +79,9 @@
           "notebook": "notebooks/01-08-choosing-compute.ipynb",
           "slide": "slides/01-08-choosing-compute.slide",
           "audio": "audio/01-08-choosing-compute.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "compute",
+          "highlight": ["compute"],
           "spine": true
         },
         {
@@ -68,6 +89,9 @@
           "notebook": "notebooks/01-09-cost-model.ipynb",
           "slide": "slides/01-09-cost-model.slide",
           "audio": "audio/01-09-cost-model.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "compute",
+          "highlight": ["all-purpose-cluster", "job-cluster", "serverless"],
           "spine": true
         },
         {
@@ -75,6 +99,9 @@
           "notebook": "notebooks/01-10-runtime-photon.ipynb",
           "slide": "slides/01-10-runtime-photon.slide",
           "audio": "audio/01-10-runtime-photon.wav",
+          "scene": "databricks-data-engineer",
+          "focus": ["engine", "dbr-runtime"],
+          "highlight": ["dbr-runtime", "spark-engine", "photon"],
           "spine": true
         }
       ]
