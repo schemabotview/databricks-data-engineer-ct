@@ -42,10 +42,10 @@ The course outline (module spine + per-module sections) lives in [`README.md`](.
 
 ## Status
 
-Structure settled ([`README.md`](./README.md): **9 modules, 90 sections**). Authoring in progress, one notebook per section.
+Structure settled ([`README.md`](./README.md): **9 modules, 90 sections**). Pushed public at `github.com/schemabotview/databricks-data-engineer-ct` (fetched by the app over raw GitHub).
 
-- **Module 01 — authored** (10 sections): `notebooks/01-*.ipynb` + `tts/01-*.tts` + `slides/01-*.slide` (30 files). Audio `.wav`s **not yet generated** (Colab step from the `.tts`).
-- **Modules 02–09** — not started.
-- **`manifest.json`** — not written yet (wires sections → notebook/slide/scene/highlight/focus/audio; the Databricks scene lives in the graphl-movie app, not yet built, so `highlight`/`focus` wait on it).
+- **Module 01 — complete & recordable end-to-end** (10 sections): `notebooks/01-*.ipynb` + `tts/01-*.tts` + `slides/01-*.slide` + `audio/01-*.wav` (audio generated via `scripts/colab_generate_audio.ipynb`). `manifest.json` wires all 10 sections with `scene`/`highlight`/`focus`/`audio`/`slide`. The graphl-movie app records module 01 to a 1080p video.
+- **Scenes are app-side** (`graphl-movie/src/scenes`): §01 rides `lakehouse-evolution`, §02–10 ride the dense `databricks-data-engineer` platform map (framed per section). Highlight/focus ids in the manifest must match those scenes' node ids.
+- **Modules 02–09** — not started (section lists agreed in `README.md`; repeat the module-01 pipeline).
 
-Next: review module 01, then author module 02 the same way.
+Next: author module 02 (`notebook → .tts → .slide` per section), generate audio, wire the manifest.

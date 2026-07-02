@@ -2,7 +2,9 @@
 
 Video-first content for the **Databricks Certified Data Engineer Associate** concept, consumed at runtime by the [`graphl-movie`](../graphl-movie) app. Content only — notebooks, narration (`.tts` → `.wav`), authored slides (`.slide`), and the wiring `manifest.json`. Nothing to build or run here. For the authoring contract and folder layout, see [`CLAUDE.md`](./CLAUDE.md).
 
-This file is the **course outline** — the human-facing map of modules and sections. It is the plan we author against; the eventual machine source of truth for structure is `manifest.json`.
+This file is the **course outline** — the human-facing map of modules and sections. It is the plan we author against; the machine source of truth for structure is `manifest.json`.
+
+**Status:** repo pushed public (`github.com/schemabotview/databricks-data-engineer-ct`). **Module 01 is complete** — all 10 sections have `.ipynb` + `.tts` + `.wav` + `.slide`, and `manifest.json` wires them (scene/highlight/focus/audio) so graphl-movie records it to a 1080p video. Modules 02–09: section lists agreed below, not yet authored.
 
 ## Target exam
 
