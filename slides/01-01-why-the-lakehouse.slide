@@ -1,7 +1,11 @@
 # Why the lakehouse
 
+Before the lakehouse, two parallel stacks:
 - **Warehouse** — fast SQL, ACID, governance; but rigid schema, closed storage, costly at scale
 - **Lake** — cheap open storage, any format; but no transactions, schema, or governance
-- Running **both** means duplicated data, drift, split governance, and double cost
-- **Lakehouse** — one open copy with the lake's economics and the warehouse's guarantees
+
+Running **both** means duplicated data, drift, split governance, and double cost.
+
+The lakehouse fuses them into one open copy:
+- **Lakehouse** — the lake's economics with the warehouse's guarantees
 - On Databricks: **Delta Lake** for transactions, **Unity Catalog** for governance
