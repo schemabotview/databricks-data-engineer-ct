@@ -32,7 +32,7 @@ databricks-data-engineer-ct/
 
 Naming: every artifact for a section shares the stem `<NN>-<SS>-<slug>`, where `NN` = module number, `SS` = section position (so a sorted glob stays in reading order): `notebooks/<NN>-<SS>-<slug>.ipynb`, `tts/…​.tts` → `audio/…​.wav`, `slides/…​.slide`.
 
-The `.slide` format (provisional): a `# Title` line + `- bullet` lines (optional nested `  - sub-bullets`); plain text, no inline markdown yet. Title may be punchier than the notebook `## ` heading.
+The `.slide` format: a `# Title` line + `- bullet` lines. Each bullet marks its **key term** with inline **`**bold**`** — the app renders it bright white, the rest a softer gray (scannable hierarchy). Title may be punchier than the notebook `## ` heading.
 
 ## Curriculum
 
