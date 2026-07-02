@@ -1,0 +1,83 @@
+{
+  "concept": "Databricks Data Engineer",
+  "modules": [
+    {
+      "id": "01-platform-and-compute",
+      "title": "Data Intelligence Platform & Compute",
+      "sections": [
+        {
+          "heading": "Why the lakehouse — warehouse vs. lake, and why they fused",
+          "notebook": "notebooks/01-01-why-the-lakehouse.ipynb",
+          "slide": "slides/01-01-why-the-lakehouse.slide",
+          "audio": "audio/01-01-why-the-lakehouse.wav",
+          "scene": "lakehouse-evolution",
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "What the Data Intelligence Platform is",
+          "notebook": "notebooks/01-02-what-the-platform-is.ipynb",
+          "slide": "slides/01-02-what-the-platform-is.slide",
+          "audio": "audio/01-02-what-the-platform-is.wav",
+          "spine": true
+        },
+        {
+          "heading": "Architecture — control plane vs. compute plane",
+          "notebook": "notebooks/01-03-architecture-control-vs-compute-plane.ipynb",
+          "slide": "slides/01-03-architecture-control-vs-compute-plane.slide",
+          "audio": "audio/01-03-architecture-control-vs-compute-plane.wav",
+          "spine": true
+        },
+        {
+          "heading": "The platform stack at a glance",
+          "notebook": "notebooks/01-04-the-platform-stack.ipynb",
+          "slide": "slides/01-04-the-platform-stack.slide",
+          "audio": "audio/01-04-the-platform-stack.wav",
+          "spine": true
+        },
+        {
+          "heading": "The workspace — what a data engineer touches daily",
+          "notebook": "notebooks/01-05-the-workspace.ipynb",
+          "slide": "slides/01-05-the-workspace.slide",
+          "audio": "audio/01-05-the-workspace.wav",
+          "spine": true
+        },
+        {
+          "heading": "Clusters — all-purpose vs. job",
+          "notebook": "notebooks/01-06-clusters.ipynb",
+          "slide": "slides/01-06-clusters.slide",
+          "audio": "audio/01-06-clusters.wav",
+          "spine": true
+        },
+        {
+          "heading": "SQL warehouses & serverless compute",
+          "notebook": "notebooks/01-07-sql-warehouses-serverless.ipynb",
+          "slide": "slides/01-07-sql-warehouses-serverless.slide",
+          "audio": "audio/01-07-sql-warehouses-serverless.wav",
+          "spine": true
+        },
+        {
+          "heading": "Choosing compute — the four-scenario cheat sheet",
+          "notebook": "notebooks/01-08-choosing-compute.ipynb",
+          "slide": "slides/01-08-choosing-compute.slide",
+          "audio": "audio/01-08-choosing-compute.wav",
+          "spine": true
+        },
+        {
+          "heading": "Cost model — DBUs, autoscaling, auto-termination",
+          "notebook": "notebooks/01-09-cost-model.ipynb",
+          "slide": "slides/01-09-cost-model.slide",
+          "audio": "audio/01-09-cost-model.wav",
+          "spine": true
+        },
+        {
+          "heading": "Databricks Runtime & Photon",
+          "notebook": "notebooks/01-10-runtime-photon.ipynb",
+          "slide": "slides/01-10-runtime-photon.slide",
+          "audio": "audio/01-10-runtime-photon.wav",
+          "spine": true
+        }
+      ]
+    }
+  ]
+}
