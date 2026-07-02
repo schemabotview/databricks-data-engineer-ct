@@ -1,0 +1,11 @@
+The workspace, and what a data engineer touches daily.
+
+The workspace is the browser environment where you get work done, and everything a data engineer touches sits in its left sidebar.
+
+Notebooks are the primary surface. You write pyspark or sequel in cells, attach the notebook to compute, and run. Alongside them, the workspace file tree and git folders keep your code under version control.
+
+Catalog explorer is your window into unity catalog. You browse catalogs, schemas, tables, and volumes, inspect schema and lineage, and manage permissions.
+
+The sequel editor runs ad-hoc queries against a sequel warehouse. Lakeflow jobs is where you orchestrate multi-step workflows. Lakeflow pipelines is where declarative pipelines live. And the compute page is where you create and manage clusters and warehouses.
+
+One level up from the workspace is the account. An account can hold many workspaces, and the unity catalog metastore lives at the account level. That means the same governed data is shared across every workspace, rather than being trapped in just one.

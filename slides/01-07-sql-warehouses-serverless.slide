@@ -1,0 +1,7 @@
+# SQL warehouses & serverless
+
+- SQL warehouse — compute tuned for SQL & BI: powers Databricks SQL, dashboards, BI tools
+- Three kinds — Classic & Pro (your account), Serverless (Databricks account, instant)
+- Warehouses autoscale by adding clusters to absorb query concurrency
+- Serverless = a modality across SQL, jobs, notebooks & pipelines: seconds to start, no idle cost
+- Trade: less network control for speed + zero cluster management

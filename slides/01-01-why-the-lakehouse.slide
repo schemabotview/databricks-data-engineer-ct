@@ -1,0 +1,7 @@
+# Why the lakehouse
+
+- Warehouse — fast SQL, ACID, governance; but rigid schema, closed storage, costly at scale
+- Lake — cheap open storage, any format; but no transactions, schema, or governance
+- Running both means duplicated data, drift, split governance, and double cost
+- Lakehouse — one open copy with the lake's economics and the warehouse's guarantees
+- On Databricks: Delta Lake for transactions, Unity Catalog for governance

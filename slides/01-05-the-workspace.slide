@@ -1,0 +1,7 @@
+# The workspace — a data engineer's daily surfaces
+
+- Notebooks — write PySpark / SQL, attach to compute, run
+- Git folders & the file tree — code under version control
+- Catalog Explorer — browse Unity Catalog: catalogs, schemas, tables, volumes, lineage
+- SQL editor, Lakeflow Jobs & pipelines, the Compute page
+- Account > workspaces: the UC metastore is account-level, shared across workspaces

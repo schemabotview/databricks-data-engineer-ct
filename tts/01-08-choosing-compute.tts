@@ -1,0 +1,15 @@
+Choosing compute, the four-scenario cheat sheet.
+
+The exam is scenario-driven. It hands you a workload and asks which compute fits. Here's the cheat sheet.
+
+For interactive development and ad-hoc exploration in notebooks, use an all-purpose cluster. It stays up, multiple people can share it, and you can rerun cells as you iterate.
+
+For scheduled, automated production pipelines, use a job cluster. It spins up per run, it's isolated, it tears down when done, and it bills at the cheaper job rate.
+
+For business intelligence dashboards and ad-hoc sequel, or connecting business intelligence tools, use a sequel warehouse. Prefer serverless, for the fastest start and the best price and performance.
+
+For bursty or unpredictable work, or when you simply don't want to manage infrastructure, use serverless compute. It starts in seconds, autoscales, and has no idle cost.
+
+One more comes up often: machine learning training runs on an all-purpose or job cluster using the machine learning runtime, which bundles the machine learning libraries and can use G-P-Us.
+
+The throughline is to match the shape of the work to the compute. Interactive and shared goes to all-purpose. Scheduled and isolated goes to a job cluster. Sequel and business intelligence go to a warehouse. Spiky and hands-off goes to serverless.

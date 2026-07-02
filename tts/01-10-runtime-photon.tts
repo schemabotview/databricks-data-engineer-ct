@@ -1,0 +1,9 @@
+Databricks runtime and photon.
+
+Every cluster boots a databricks runtime, or D-B-R: a pre-built image of a tuned apache spark, plus optimized libraries, delta lake, and the operating system. Runtimes are versioned, for example D-B-R fifteen, and each release pins specific spark and library versions, so your environment is reproducible. For production, prefer a long-term support version, an L-T-S release, for stability.
+
+There are a few variants. The standard runtime covers data engineering. The machine learning runtime adds machine learning libraries and G-P-U support for training workloads.
+
+Photon is Databricks' vectorized query engine, written in C plus plus. It's a drop-in replacement for spark's execution engine that accelerates sequel and dataframe workloads. The same query runs faster, and because it finishes sooner, usually cheaper. Best of all, it's transparent to your code. You don't rewrite anything. You enable photon on a supported cluster or sequel warehouse, and eligible operations run on the native engine.
+
+For the exam: the D-B-R is the runtime image, that's spark plus delta plus libraries; pick an L-T-S release for production, and the machine learning runtime for training. Photon is the C plus plus vectorized engine that speeds up sequel and dataframe operations, with no code changes.

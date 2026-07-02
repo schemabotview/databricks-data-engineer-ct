@@ -1,0 +1,7 @@
+# Clusters — all-purpose vs. job
+
+- A cluster = cloud VMs running Spark: one driver + one or more workers
+- All-purpose — interactive, multi-user, stays up for dev in notebooks; higher rate
+- Job cluster — created per run, terminates when done; isolated, cheaper rate
+- Rule: dev & exploration → all-purpose; scheduled production → job clusters
+- Anti-pattern: production jobs on all-purpose — costs more, loses per-run isolation

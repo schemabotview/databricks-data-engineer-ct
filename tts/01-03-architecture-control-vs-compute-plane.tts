@@ -1,0 +1,15 @@
+Control plane versus compute plane.
+
+Every Databricks deployment splits into two halves, and knowing which is which explains where your code runs and where your data lives.
+
+The control plane is managed by Databricks, in Databricks' own cloud account. It holds the web interface, the notebook and sequel editors, the job scheduler, the cluster manager, query history, and the unity catalog metadata. Think of it as the brains and the management services. It stores metadata and results, but not your bulk data.
+
+The compute plane is where your data is actually processed. It's the clusters and sequel warehouses running spark. It comes in two flavors.
+
+Classic compute runs in your cloud account, inside your own network. Your data never leaves your account, which suits stricter isolation requirements.
+
+Serverless compute runs in Databricks' account and is available almost instantly, with the network managed for you. You trade some network control for speed and zero cluster management.
+
+In both cases, your data at rest stays in your own cloud object storage. It never sits in the control plane.
+
+So the mental model for the exam is simple: notebooks, metadata, and results live in the control plane; data processing happens in the compute plane; and your data at rest lives in your own storage.

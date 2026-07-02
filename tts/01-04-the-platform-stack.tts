@@ -1,0 +1,13 @@
+The platform stack at a glance.
+
+Zoom out, and the platform is a stack of four layers, each one depending on the layer below it.
+
+At the bottom is cloud object storage: S-three, A-D-L-S, or G-C-S. This is the cheap, durable place where your bytes actually sit.
+
+On top of storage sits delta lake. It's the open table format that turns loose files into transactional tables, with acid guarantees, schema, and time travel.
+
+Above delta sits unity catalog. It's the governance layer that names, secures, and audits every table, file, and model, through one three-level namespace.
+
+And on top run the engines and workloads: the spark and photon engines, databricks sequel, and lakeflow ingestion, pipelines, and jobs. All of them read through unity catalog to the same delta tables.
+
+You'll go deep on the two foundation layers, delta lake and unity catalog, in the next module. For now, the point is the shape: cheap open storage at the base, transactions and governance in the middle, and every engine on top sharing one copy of the data.

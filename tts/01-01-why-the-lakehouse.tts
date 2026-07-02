@@ -1,0 +1,13 @@
+Why the lakehouse.
+
+For about twenty years, analytics teams had to choose between two very different systems, and neither one could do the whole job.
+
+A data warehouse stores structured, tabular data and is built for fast sequel and business intelligence. It gives you acid transactions, strong governance, and predictable performance. The price you pay is a rigid schema you must define up front, proprietary storage you can't read with other tools, and a cost that climbs steeply as data grows. Warehouses were never designed for unstructured data, streaming, or machine learning.
+
+A data lake is the opposite. It's cheap object storage, like S-three, A-D-L-S, or G-C-S, holding files in any format: jay-son, C-S-V, parquet, images, logs. It's open and it scales endlessly, which is why data science and streaming gravitated to it. But a raw lake has no transactions, no schema enforcement, and no governance. Concurrent writes corrupt tables, a failed job leaves half-written files behind, and with no rules the lake slowly rots into a data swamp that nobody trusts.
+
+So most companies ran both. They landed everything in a lake, then copied the curated slice into a warehouse for reporting. That split is the real problem. Data is duplicated, the two copies drift out of sync, governance is spread across two tools, and you pay for two platforms plus all the pipelines that shuttle data between them.
+
+The lakehouse collapses the two into one. You keep the lake's cheap, open object storage, but you add a transaction and metadata layer on top, so the very same files gain acid guarantees, schema enforcement, and governance. Now business intelligence, streaming, and machine learning all read one governed copy.
+
+On Databricks, that layer is delta lake, which brings transactions to the files, plus unity catalog, which governs them. The product built around that idea is the Data Intelligence Platform, and that is what this module is about.
