@@ -105,6 +105,113 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "02-delta-lake-unity-catalog",
+      "title": "Delta Lake & Unity Catalog Foundations",
+      "sections": [
+        {
+          "heading": "Why Delta Lake — what raw Parquet on object storage doesn't give you",
+          "notebook": "notebooks/02-01-why-delta-lake.ipynb",
+          "slide": "slides/02-01-why-delta-lake.slide",
+          "audio": "audio/02-01-why-delta-lake.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "foundation",
+          "highlight": ["storage-formats", "delta-lake"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The transaction log & ACID — how a commit buys the guarantees",
+          "notebook": "notebooks/02-02-transaction-log-acid.ipynb",
+          "slide": "slides/02-02-transaction-log-acid.slide",
+          "audio": "audio/02-02-transaction-log-acid.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "delta-lake",
+          "highlight": ["delta-log", "acid"],
+          "spine": true
+        },
+        {
+          "heading": "Time travel — querying an old version of a table",
+          "notebook": "notebooks/02-03-time-travel.ipynb",
+          "slide": "slides/02-03-time-travel.slide",
+          "audio": "audio/02-03-time-travel.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "delta-lake",
+          "highlight": ["time-travel"],
+          "spine": true
+        },
+        {
+          "heading": "Schema enforcement & evolution",
+          "notebook": "notebooks/02-04-schema-enforcement-evolution.ipynb",
+          "slide": "slides/02-04-schema-enforcement-evolution.slide",
+          "audio": "audio/02-04-schema-enforcement-evolution.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "delta-lake",
+          "highlight": ["delta-lake"],
+          "spine": true
+        },
+        {
+          "heading": "Changing data — MERGE INTO, UPDATE, DELETE",
+          "notebook": "notebooks/02-05-changing-data-merge.ipynb",
+          "slide": "slides/02-05-changing-data-merge.slide",
+          "audio": "audio/02-05-changing-data-merge.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "delta-lake",
+          "highlight": ["merge-into"],
+          "spine": true
+        },
+        {
+          "heading": "Table maintenance — OPTIMIZE, ZORDER, VACUUM",
+          "notebook": "notebooks/02-06-table-maintenance.ipynb",
+          "slide": "slides/02-06-table-maintenance.slide",
+          "audio": "audio/02-06-table-maintenance.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "delta-lake",
+          "highlight": ["optimize-zorder", "vacuum"],
+          "spine": true
+        },
+        {
+          "heading": "Liquid Clustering — the modern replacement for partitioning + ZORDER",
+          "notebook": "notebooks/02-07-liquid-clustering.ipynb",
+          "slide": "slides/02-07-liquid-clustering.slide",
+          "audio": "audio/02-07-liquid-clustering.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "delta-lake",
+          "highlight": ["optimize-zorder"],
+          "spine": true
+        },
+        {
+          "heading": "Unity Catalog & the three-level namespace",
+          "notebook": "notebooks/02-08-unity-catalog-namespace.ipynb",
+          "slide": "slides/02-08-unity-catalog-namespace.slide",
+          "audio": "audio/02-08-unity-catalog-namespace.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-metastore", "uc-namespace"],
+          "spine": true
+        },
+        {
+          "heading": "Managed vs. external tables — and converting between them",
+          "notebook": "notebooks/02-09-managed-vs-external.ipynb",
+          "slide": "slides/02-09-managed-vs-external.slide",
+          "audio": "audio/02-09-managed-vs-external.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-namespace", "cloud-storage"],
+          "spine": true
+        },
+        {
+          "heading": "Volumes — governed storage for files, not rows",
+          "notebook": "notebooks/02-10-volumes.ipynb",
+          "slide": "slides/02-10-volumes.slide",
+          "audio": "audio/02-10-volumes.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-volumes"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

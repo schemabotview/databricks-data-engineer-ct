@@ -1,0 +1,15 @@
+# Table maintenance — OPTIMIZE, ZORDER, VACUUM
+
+Three commands every Delta table needs over its life.
+
+## Compact, cluster, reclaim
+
+- **`OPTIMIZE`** — compacts many small files into fewer ~1 GB files; small files (from streaming + `MERGE`) mean slow reads
+- **`ZORDER BY (cols)`** — co-locates similar values so file-skipping improves; `ZORDER BY (customer_id)` reads **1% of files** for a per-customer lookup
+- **`VACUUM`** — deletes `remove`-d files older than retention (**default 7 days**); this is what reclaims storage
+
+## The guardrail
+
+- Delta **blocks** a shorter `VACUUM` retention unless you override — short retention breaks in-flight readers and time travel
+
+On UC managed tables, **Predictive Optimization** runs these automatically (module 08).

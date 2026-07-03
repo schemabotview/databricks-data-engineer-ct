@@ -1,0 +1,18 @@
+# Managed vs. external tables
+
+Every UC table is one flavour or the other — and it decides ownership, `DROP`, and features.
+
+## The split
+
+- **Managed** — UC owns metadata **and** files (UC-managed location); `DROP` deletes both after retention
+- **External** — UC owns metadata; files at **your** path; `DROP` removes metadata only, **files stay**
+
+## What managed gets that external doesn't
+
+- **Predictive Optimization** ✅ (external ❌)
+- Full UC lifecycle management
+
+## Choosing & converting
+
+- **Exam default: prefer managed.** Go external only for a multi-tool lake, files made outside Databricks, or a regulator-fixed path
+- **`ALTER TABLE … SET MANAGED / SET EXTERNAL`** — metadata-level on UC; three-part name unchanged; files may move; needs storage-location privileges

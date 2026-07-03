@@ -1,0 +1,17 @@
+# Changing data — MERGE, UPDATE, DELETE
+
+Delta does row-level changes on immutable storage. **`MERGE INTO`** is the workhorse — the most-used Delta DML in production.
+
+## MERGE — one statement, every case
+
+- Joins a **source** of changes to the **target** on a key
+- `WHEN MATCHED … UPDATE` · `WHEN NOT MATCHED … INSERT` · `WHEN NOT MATCHED BY SOURCE … DELETE`
+- **SCD Type 1** — update in place, no history
+- **SCD Type 2** — close the old row, insert a new active one (`APPLY CHANGES INTO` wraps this)
+
+## UPDATE / DELETE — two strategies
+
+- **Copy-on-write** — rewrite each file holding matching rows (expensive for a few rows in a big file)
+- **Deletion vectors** (modern default) — a small bitmap marks skipped rows; the file stays, `OPTIMIZE` resolves it later
+
+Deletion vectors turn a GDPR delete from a **multi-GB rewrite** into a **tiny commit**.

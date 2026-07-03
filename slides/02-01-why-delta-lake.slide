@@ -1,0 +1,17 @@
+# Why Delta Lake
+
+Raw Parquet on object storage is just files in a folder — three things keep breaking on the bank's card feed.
+
+## What plain Parquet can't do
+
+- **Partial writes are visible** — a job that dies mid-batch exposes half its files; nothing wrapped them in a transaction
+- **Concurrent writers corrupt each other** — no lock, so the last writer wins and data is lost
+- **No schema enforcement** — an upstream column change is silently dropped or fails the read
+
+Add to that: no time travel, no efficient row-level updates, no audit trail.
+
+## Delta Lake — one log over the same files
+
+- An open table format that layers a **transaction log** over ordinary Parquet
+- The **same files** gain ACID, schema enforcement, time travel, and audit
+- Open source, and the **default table format** on Databricks

@@ -1,0 +1,20 @@
+# Unity Catalog & the three-level namespace
+
+Delta makes the **files** trustworthy; **Unity Catalog** makes the **objects** discoverable and governed — one catalog across SQL, Python, ML, BI.
+
+## What UC adds over the hive metastore
+
+- **Unified permissions** — GRANT/REVOKE on principals at any level
+- **Lineage & audit** out of the box
+- **Cross-workspace, cross-cloud** — one metastore per region
+
+## Three-level namespace: `catalog.schema.object`
+
+- **metastore → catalog → schema → object**
+- Six securables at the schema level: **tables, views, volumes, functions, models, materialized views**
+- Permissions **flow down** — `USE CATALOG` + `SELECT` on `gold` reads all of gold, not bronze/silver
+
+## Legacy callout — `hive_metastore`
+
+- Per-**workspace**, not regional — no cross-workspace governance
+- **Never** put new tables there; the three-part UC name always wins

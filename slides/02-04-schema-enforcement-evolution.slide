@@ -1,0 +1,18 @@
+# Schema enforcement & evolution
+
+Delta checks the schema on **every write** — the default keeps your table honest.
+
+## Enforcement — on by default
+
+- A write that adds an unexpected column **fails**
+- Stops a misbehaving upstream from silently growing the table a `merchant_country` column
+
+## Evolution — opt in, per write
+
+- **`mergeSchema = true`** — add the new columns; existing rows get `NULL`
+- **`overwriteSchema = true`** — replace the schema entirely (destructive; rare)
+- **`ALTER TABLE … ADD COLUMNS`** — explicit DDL, most auditable for production
+
+Auto Loader's modes (`addNewColumns`, `rescue`, `failOnNewColumns`, `none`) ride this same primitive.
+
+**Exam rule:** enforcement is on by default; evolution is opt-in. **Silent column additions are not a thing on Delta.**

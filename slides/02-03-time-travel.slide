@@ -1,0 +1,18 @@
+# Time travel
+
+The log is **append-only**, so every past version still exists — until its files are `VACUUM`-ed. Query the past by version or time.
+
+## Three operations
+
+- **`VERSION AS OF n`** — the table at commit `n` (*what did the model train on?*)
+- **`TIMESTAMP AS OF '…'`** — the table at a wall-clock time (*what did the dashboard show before the bad backfill?*)
+- **`RESTORE TABLE …`** — writes a new commit that makes *current* equal a past version
+
+Time travel rewinds your **read**; `RESTORE` rewinds the **table**.
+
+## Retention decides how far back
+
+- **`logRetentionDuration`** — default **30 days** (commit JSONs)
+- **`deletedFileRetentionDuration`** — default **7 days** (removed files before `VACUUM`)
+
+`VACUUM` aggressively and you lose the ability to travel back past retention.

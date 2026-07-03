@@ -1,0 +1,9 @@
+Changing data — merge-into, update, and delete.
+
+Delta supports row-level changes even though object storage is immutable. The workhorse is merge-into — the single most-used piece of Delta D-M-L in production. It joins a source of incoming changes to the target table on a key, and lets you say what to do in each case: when a row matches, update it; when it doesn't match, insert it; and optionally, when a target row isn't in the source at all, delete it.
+
+Two patterns the bank leans on constantly. Slowly-changing-dimension type one is an overwrite — a customer's city changes, so you just update it in place, and keep no history. Type two keeps history — you close the old row by setting is-current to false and stamping a valid-to date, then insert a fresh active row. Apply-changes-into, which we'll see in module five, is really a declarative wrapper over this exact machinery.
+
+Plain update and delete work too, and there are two strategies underneath. Copy-on-write rewrites every Parquet file that holds a matching row — correct, but expensive when only a handful of rows in a big file actually change. Deletion vectors, the modern default, instead write a small bitmap that says "skip rows seventeen and two-thirty-four in this file." The Parquet file stays exactly where it is, reads apply the bitmap on the fly, and the next optimize resolves it for real.
+
+For the bank, that's the difference between a G-D-P-R "right to be forgotten" delete being a multi-gigabyte file rewrite, and it being a tiny, instant commit.

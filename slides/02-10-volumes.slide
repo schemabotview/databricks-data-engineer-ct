@@ -1,0 +1,18 @@
+# Volumes — governed storage for files, not rows
+
+Tables are for rows. **Volumes** govern everything that isn't tabular — JSON dumps, PDFs, model artifacts, libraries, images.
+
+## How they work
+
+- A UC object like any other: **`catalog.schema.volume`**
+- Read/write files at **`/Volumes/catalog/schema/volume/…`**
+
+## Two flavours (mirroring tables)
+
+- **Managed volume** — UC owns the location; for unstructured data your team produces
+- **External volume** — UC catalogs files at a path you own; for external drops (the bank's **SFTP landing zone**)
+
+## Why they matter
+
+- **Replace legacy `dbfs:/mnt/…` mounts** — mounts had no UC permissions, volumes do
+- **Exam:** volumes are the answer for governing **files that aren't Delta tables**

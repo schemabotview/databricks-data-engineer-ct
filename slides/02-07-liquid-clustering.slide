@@ -1,0 +1,21 @@
+# Liquid Clustering
+
+Partitioning is a **one-time bet** — choose `transaction_date` vs. `customer_id` wrong and re-partitioning a TB table is a full rewrite.
+
+## The old cost
+
+- Over-partitioning → **small files per partition** + **skew** (one partition 100× the rest)
+- Cluster keys effectively locked in at create time
+
+## One property, evolvable
+
+- **`CLUSTER BY (cols)`** replaces partitioning **and** `ZORDER`
+- Delta re-balances clusters **incrementally**
+- **Change the keys later** with `ALTER TABLE … CLUSTER BY` — no full rewrite
+
+## Trade
+
+- **Give up:** explicit partition folders
+- **Gain:** no small-file/skew problem, a layout that evolves with queries
+
+**Exam:** Liquid Clustering is the **recommended layout for new Delta tables**.
