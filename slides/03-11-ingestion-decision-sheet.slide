@@ -1,0 +1,16 @@
+# The ingestion decision sheet
+
+| Source shape | Pick |
+|---|---|
+| Daily drop, few files, simple SQL | **`COPY INTO`** |
+| Continuous, maybe millions, schema evolves | **Auto Loader** |
+| Billion-file scale, listing too slow | **+ file notification** |
+| SaaS with a managed connector | **Lakeflow Connect (managed)** |
+| Relational DB with CDC | **Managed DB connector** |
+| Kafka / Kinesis / Event Hubs | **Structured Streaming** |
+| Long-tail SaaS, no connector | **Partner connector** |
+| Operational DB, nightly snapshot | **JDBC** in a Jobs task |
+| Custom REST API | Land JSON → Auto Loader |
+| Small/cold, no copies allowed | **Lakehouse Federation** |
+
+**Two pivots:** ① files in storage, or a system with an API? ② streaming, incremental, or once a day?

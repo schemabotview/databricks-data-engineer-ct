@@ -1,0 +1,17 @@
+# COPY INTO vs. Auto Loader
+
+Both load files into Delta, both idempotent — pick by *operational shape*.
+
+| | `COPY INTO` | Auto Loader |
+|---|---|---|
+| API | Pure SQL | Structured Streaming |
+| Idempotency | Delta load history | Streaming checkpoint |
+| Best for | Daily batch, few files | Continuous / high-volume |
+| Schema evolution | Manual per run | Built-in |
+| Throughput | Hundreds–thousands | Millions+ (notification) |
+| Latency | Cron cadence | Down to seconds |
+
+## The most common exam pattern
+
+- *Continuous arrival, schema may evolve* → **Auto Loader**
+- *One daily batch, simple SQL* → **`COPY INTO`**

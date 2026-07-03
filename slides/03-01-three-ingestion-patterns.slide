@@ -1,0 +1,15 @@
+# Three ingestion patterns
+
+Every source falls into one of three shapes — this drives every later choice.
+
+## Batch · incremental · streaming
+
+- **Batch** — the full dataset every time; simple, but wasteful when only 1% changed
+- **Incremental** — only new/changed records since the last load; most production ingestion lives here
+- **Streaming** — records flow in continuously, target updates within seconds — same engine, continuous trigger
+
+## Exam vocabulary
+
+- **`Trigger.AvailableNow`** (was `Trigger.Once`) — process what's there, then stop (micro-batch on a cron)
+- **`Trigger.ProcessingTime`** — fire every N seconds/minutes (continuous)
+- **Checkpoint location** — offsets already processed, so a restart resumes exactly-once

@@ -1,0 +1,17 @@
+# Auto Loader — listing vs. notification
+
+Two ways to discover new files — a cost-and-scale trade.
+
+## Directory listing (default)
+
+- Lists the source dir each micro-batch, diffs against what's processed
+- Works on any cloud, **no extra resources**
+- Bottoms out at **millions of files** in one directory — listing becomes the bottleneck
+
+## File notification
+
+- Subscribes to a managed event queue (SQS+SNS, Event Grid, Pub/Sub)
+- Reads only the file each event names — **no listing**; scales to **billions**
+- Trade: needs IAM to create/manage the queue + queue costs — set `cloudFiles.useNotifications = true`
+
+**Exam:** millions → listing is fine; hundreds of millions+ → **file notification**.

@@ -1,0 +1,9 @@
+Lakeflow Connect, and managed connectors.
+
+Copy-into and Auto Loader both solve one problem — files arriving in object storage. But the bank also has data sitting inside operational systems: PostgreSQL for loan origination, Salesforce for customer cases, NetSuite for finance. Lakeflow Connect is the Databricks-managed ingestion family that handles those, and it comes in three peer tiers.
+
+Managed connectors are fully Databricks-operated pipelines. You give credentials and a target catalog, and Databricks runs the connector — handling change-data-capture, schema evolution, retries, and monitoring for you. Standard connectors are the open building blocks: Auto Loader for files, and Structured Streaming for Kafka, Kinesis, Event Hubs, or Pub/Sub — you write the code, Databricks provides the runtime. And partner connectors are third-party tools like Fivetran, Airbyte, and d-b-t, through Partner Connect. All three land data into Unity-Catalog-governed Delta tables; the difference is just who operates the moving parts.
+
+The managed connector is the low-effort default whenever the source is supported. On the SaaS side that's Salesforce, Workday, ServiceNow, and NetSuite; on the database side, with C-D-C, it's SQL Server, PostgreSQL, MySQL, and Oracle.
+
+Here's the bank's case. The payments team uses Salesforce for case management. Rather than writing a custom REST poller that has to handle pagination, rate limits, and field changes, they simply enable the Salesforce managed connector, pick the objects they want — Case, Contact, and Account — and point it at bronze-dot-salesforce. Databricks handles the rest, including incremental C-D-C sync. And that's why the exam favours managed connectors: the lowest operational burden, native C-D-C where supported, built-in monitoring, and tables that land in Unity Catalog already governed, with lineage in place.

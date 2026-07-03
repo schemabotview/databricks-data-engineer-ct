@@ -1,0 +1,19 @@
+# Auto Loader — cloudFiles, the workhorse
+
+A Structured Streaming source (`format("cloudFiles")`) that **discovers new files and streams them into Delta** at any scale, with checkpointed exactly-once writes.
+
+```python
+(spark.readStream.format("cloudFiles")
+   .option("cloudFiles.format", "json")
+   .option("cloudFiles.schemaLocation", schema_path)
+   .load(src)
+ .writeStream
+   .option("checkpointLocation", ckpt)
+   .trigger(availableNow=True)
+   .toTable("bronze.card_transactions_raw"))
+```
+
+- **`schemaLocation`** — caches the inferred schema · **`checkpointLocation`** — tracks offsets
+- **`trigger(availableNow=True)`** — process all files now, then stop (replaces `trigger.once`)
+
+**Beats COPY INTO** at huge file counts, continuous arrival, and built-in schema evolution.

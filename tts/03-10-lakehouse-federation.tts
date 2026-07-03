@@ -1,0 +1,9 @@
+Lakehouse Federation — when not to ingest at all.
+
+Sometimes the right answer to "how should we ingest this?" is: don't. Lakehouse Federation lets Unity Catalog register foreign databases — PostgreSQL, MySQL, SQL Server, Snowflake, Redshift, BigQuery — as Unity Catalog catalogs, and query them in place, right through Databricks. No data movement, no pipeline. You just write a select against the federated catalog as if it were any other table.
+
+Use federation when the source data is small, or you query it only rarely — cases where the cost of building and running an ingestion pipeline outweighs just querying it live. Use it when latency matters more than throughput, and you need the current row, not last night's snapshot. And use it when compliance forbids copying the data into the lakehouse at all.
+
+But don't use federation when the data is hot for the platform — when analysts are querying it every day. In that case, ingest it, so you're not hammering the source database with every query. Don't use it when you need joins across multiple sources at scale, because each federated query reaches out across the network. And don't use it when you need historical or time-travel semantics, because federation only ever reads the current state of the source.
+
+Federation is just one row in the decision sheet we're about to see — but it's a row the exam loves to plant in the wrong answers, so keep it straight.

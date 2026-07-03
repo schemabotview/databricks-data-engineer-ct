@@ -1,0 +1,14 @@
+# Semi-structured & nested JSON
+
+The card feed is nested JSON (`card`, `merchant`, `auth` sub-objects). Two options:
+
+- **Land nested, flatten in silver** (the exam's pick) — Auto Loader infers `STRUCT`/`ARRAY<STRUCT>`; bronze keeps it nested, silver flattens. Keeps original shape + replay
+- **Land flat at the source** — cleaner downstream, but you lose the shape
+
+## Three primitives to memorise
+
+- **Dot access** — `df.select("merchant.name")` on `STRUCT` fields
+- **`explode(arr)`** — one row per array element
+- **`from_json(str, schema)`** — parse a JSON string into a struct (turns `_rescued_data` typed)
+
+For one object spread across lines, use **`multiLine = true`** (an Auto Loader `json` format option).

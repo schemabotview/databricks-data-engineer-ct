@@ -1,0 +1,19 @@
+# Other inbound paths — partner, JDBC, REST
+
+Three more paths cover the long tail.
+
+## Partner connectors
+
+- Fivetran, Airbyte via **Partner Connect** — for long-tail SaaS not yet in Lakeflow Connect
+- Exam: a *peer* option; prefer **managed** when the source is supported
+
+## JDBC / ODBC
+
+- Read an operational DB directly when there's no connector — a **pull** pattern
+- Credentials from a **secret scope** (`dbutils.secrets.get`), never hardcoded
+- Parallelise big pulls: `partitionColumn` / `lowerBound` / `upperBound` / `numPartitions`
+
+## REST API
+
+- Paginate, auth from secrets, **land raw JSON to a volume first**, *then* Auto Loader / COPY INTO
+- REST is a **landing strategy**, not a target

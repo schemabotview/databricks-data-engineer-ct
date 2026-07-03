@@ -1,0 +1,19 @@
+# Lakehouse Federation — don't ingest at all
+
+Sometimes the right answer to *"how do we ingest this?"* is **don't**. UC registers a foreign DB (Postgres, Snowflake, Redshift, BigQuery) as a catalog and **queries it in place** — no movement, no pipeline.
+
+```sql
+SELECT * FROM federated_postgres.public.loan_accounts
+WHERE status = 'defaulted';
+```
+
+## Use it when
+
+- Source is **small or queried rarely** — ingestion costs more than querying live
+- You need the **current** row (latency > throughput)
+- Compliance **forbids copying** the data
+
+## Don't when
+
+- Data is **hot** (queried daily) → ingest, don't hammer the source
+- You need **cross-source joins at scale** or **time-travel** — federation reads only current state

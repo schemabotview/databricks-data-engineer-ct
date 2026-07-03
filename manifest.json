@@ -212,6 +212,123 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "03-data-ingestion",
+      "title": "Data Ingestion: COPY INTO, Auto Loader, Lakeflow Connect",
+      "sections": [
+        {
+          "heading": "Three ingestion patterns — batch, incremental, streaming",
+          "notebook": "notebooks/03-01-three-ingestion-patterns.ipynb",
+          "slide": "slides/03-01-three-ingestion-patterns.slide",
+          "audio": "audio/03-01-three-ingestion-patterns.wav",
+          "scene": "databricks-data-engineer",
+          "focus": ["sources", "connectivity"],
+          "highlight": ["batch-sources", "stream-sources", "connectivity"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "COPY INTO — idempotent file ingestion in pure SQL",
+          "notebook": "notebooks/03-02-copy-into.ipynb",
+          "slide": "slides/03-02-copy-into.slide",
+          "audio": "audio/03-02-copy-into.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "connectivity",
+          "highlight": ["copy-into"],
+          "spine": true
+        },
+        {
+          "heading": "Auto Loader — cloudFiles, the workhorse",
+          "notebook": "notebooks/03-03-auto-loader-cloudfiles.ipynb",
+          "slide": "slides/03-03-auto-loader-cloudfiles.slide",
+          "audio": "audio/03-03-auto-loader-cloudfiles.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "connectivity",
+          "highlight": ["auto-loader"],
+          "spine": true
+        },
+        {
+          "heading": "Auto Loader — directory listing vs. file-notification mode",
+          "notebook": "notebooks/03-04-auto-loader-listing-vs-notification.ipynb",
+          "slide": "slides/03-04-auto-loader-listing-vs-notification.slide",
+          "audio": "audio/03-04-auto-loader-listing-vs-notification.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "connectivity",
+          "highlight": ["auto-loader"],
+          "spine": true
+        },
+        {
+          "heading": "Auto Loader — schema inference & evolution modes",
+          "notebook": "notebooks/03-05-auto-loader-schema-evolution.ipynb",
+          "slide": "slides/03-05-auto-loader-schema-evolution.slide",
+          "audio": "audio/03-05-auto-loader-schema-evolution.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "connectivity",
+          "highlight": ["auto-loader"],
+          "spine": true
+        },
+        {
+          "heading": "COPY INTO vs. Auto Loader — when each wins",
+          "notebook": "notebooks/03-06-copy-into-vs-auto-loader.ipynb",
+          "slide": "slides/03-06-copy-into-vs-auto-loader.slide",
+          "audio": "audio/03-06-copy-into-vs-auto-loader.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "connectivity",
+          "highlight": ["copy-into", "auto-loader"],
+          "spine": true
+        },
+        {
+          "heading": "Lakeflow Connect & managed connectors",
+          "notebook": "notebooks/03-07-lakeflow-connect-managed-connectors.ipynb",
+          "slide": "slides/03-07-lakeflow-connect-managed-connectors.slide",
+          "audio": "audio/03-07-lakeflow-connect-managed-connectors.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "lakeflow-connect",
+          "highlight": ["lakeflow-connect", "connectors"],
+          "spine": true
+        },
+        {
+          "heading": "Other inbound paths — partner connectors, JDBC, REST",
+          "notebook": "notebooks/03-08-other-inbound-paths.ipynb",
+          "slide": "slides/03-08-other-inbound-paths.slide",
+          "audio": "audio/03-08-other-inbound-paths.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "connectivity",
+          "highlight": ["connectors", "connect-api"],
+          "spine": true
+        },
+        {
+          "heading": "Semi-structured & nested data — JSON into Delta",
+          "notebook": "notebooks/03-09-semi-structured-nested-json.ipynb",
+          "slide": "slides/03-09-semi-structured-nested-json.slide",
+          "audio": "audio/03-09-semi-structured-nested-json.wav",
+          "scene": "databricks-data-engineer",
+          "focus": ["connectivity", "medallion"],
+          "highlight": ["auto-loader", "bronze"],
+          "spine": true
+        },
+        {
+          "heading": "Lakehouse Federation — when not to ingest at all",
+          "notebook": "notebooks/03-10-lakehouse-federation.ipynb",
+          "slide": "slides/03-10-lakehouse-federation.slide",
+          "audio": "audio/03-10-lakehouse-federation.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "connectivity",
+          "highlight": ["lakehouse-federation"],
+          "spine": true
+        },
+        {
+          "heading": "The decision sheet — pick the right ingestion path",
+          "notebook": "notebooks/03-11-ingestion-decision-sheet.ipynb",
+          "slide": "slides/03-11-ingestion-decision-sheet.slide",
+          "audio": "audio/03-11-ingestion-decision-sheet.wav",
+          "scene": "databricks-data-engineer",
+          "focus": ["sources", "connectivity"],
+          "highlight": ["copy-into", "auto-loader", "lakeflow-connect", "lakehouse-federation"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

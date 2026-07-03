@@ -1,0 +1,15 @@
+# Auto Loader — schema evolution modes
+
+Auto Loader caches the schema at `schemaLocation`; `schemaEvolutionMode` decides what a new column does.
+
+| Mode | On a new column |
+|---|---|
+| **`addNewColumns`** (default) | Stream fails; restart evolves + continues |
+| **`rescue`** | Continues; unknowns → `_rescued_data` |
+| **`failOnNewColumns`** | Fails until you evolve it yourself |
+| **`none`** | Silently ignored |
+
+- **`_rescued_data`** captures anything that didn't fit (new column, uncastable value) as JSON — with `rescue`, **nothing is silently dropped**
+- **`schemaHints`** pin types without a full schema
+
+**Exam:** `addNewColumns` = production default; `rescue` = never lose data.

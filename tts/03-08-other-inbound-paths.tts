@@ -1,0 +1,9 @@
+Other inbound paths — partner connectors, J-D-B-C, and REST.
+
+Beyond managed connectors, three more paths cover the long tail of sources.
+
+First, partner connectors. These are third-party ingestion tools — Fivetran, Airbyte, and friends — that surface under Partner Connect in the workspace, with sign-up and billing flowing through Databricks, landing tables directly into Unity Catalog. You reach for one when the source is in the long tail — Marketo, Stripe, Zendesk — where a partner has a connector and Lakeflow Connect does not yet, or when you're already standardized on that partner tool across other warehouses. The exam only expects you to treat partner connectors as a peer option, and to prefer a managed connector when the source is supported.
+
+Second, J-D-B-C and O-D-B-C. When there's no managed connector for a database, or you just need a one-off pull, you can read directly from a J-D-B-C source in a notebook. Two things the exam insists on. Credentials must come from a secret scope — d-b-utils-dot-secrets-dot-get — never hardcoded. And for large tables, you parallelise with partition-column, lower-bound, upper-bound, and num-partitions; otherwise Spark reads the whole table on a single executor. This is a pull pattern, and it's typically wrapped in a nightly Lakeflow Jobs task.
+
+Third, the REST A-P-I. For a source with neither a connector nor a driver, you may have to call REST yourself. Paginate through the responses, authenticate from secrets, and — this is the key move — land the raw JSON to a U-C volume first, and then ingest it with Auto Loader or copy-into. Treat REST as a landing strategy, not a target. Once the data is a file on storage, your normal ingestion logic takes over, with all its idempotency and schema-evolution guarantees.

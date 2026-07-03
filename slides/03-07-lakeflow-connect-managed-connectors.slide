@@ -1,0 +1,13 @@
+# Lakeflow Connect & managed connectors
+
+Files are handled by COPY INTO / Auto Loader. **Operational systems** (Postgres, Salesforce, NetSuite) need **Lakeflow Connect** — three peer tiers:
+
+- **Managed connectors** — Databricks runs the whole pipeline (CDC, schema, retries, monitoring)
+- **Standard connectors** — Auto Loader for files, Structured Streaming for Kafka/Kinesis; you write the code
+- **Partner connectors** — Fivetran, Airbyte, dbt via Partner Connect
+
+## Managed connector — the low-effort default
+
+- **SaaS:** Salesforce, Workday, ServiceNow, NetSuite · **DBs (CDC):** SQL Server, Postgres, MySQL, Oracle
+- Bank: enable the **Salesforce** connector, pick `Case`/`Contact`/`Account`, point at `bronze.salesforce` — CDC handled, no REST poller
+- Exam favours it: least ops, native CDC, tables land **pre-governed in UC**

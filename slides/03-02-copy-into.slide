@@ -1,0 +1,19 @@
+# COPY INTO — idempotent SQL ingestion
+
+A SQL statement that loads files into a Delta table and **remembers which it has already loaded** — idempotency is the whole point.
+
+```sql
+COPY INTO fintech_dev.bronze.bank_accounts_raw
+FROM '/Volumes/.../landing_zone/accounts/'
+FILEFORMAT = CSV
+FORMAT_OPTIONS ('header' = 'true')
+COPY_OPTIONS  ('mergeSchema' = 'true');
+```
+
+- Re-running is a **no-op** for already-loaded files (Delta tracks them)
+- **`FORMAT_OPTIONS`** = reader/source options · **`COPY_OPTIONS`** = Delta writer options
+
+## Pick COPY INTO when
+
+- A **daily batch** of few files, predictable cadence (a scheduled Jobs task)
+- You want **declarative SQL**, no streaming machinery to debug

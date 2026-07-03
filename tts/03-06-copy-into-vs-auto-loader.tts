@@ -1,0 +1,7 @@
+Copy-into versus Auto Loader — when each one wins.
+
+Both of these load files from object storage into Delta, and both are idempotent — Auto Loader through its streaming checkpoint, copy-into through Delta's tracked load history. So you don't pick between them on correctness; you pick on operational shape.
+
+Start with the A-P-I. Copy-into is pure S-Q-L; Auto Loader is a data frame, a Structured Streaming job. Their idempotency mechanisms differ — a Delta-tracked list of loaded files versus a streaming checkpoint. Copy-into is best for daily batch with small-to-medium file counts; Auto Loader is best for continuous or high-volume incremental. Schema evolution is manual per run with copy-into — you pass merge-schema — but it's built in with Auto Loader. On throughput, copy-into tops out around hundreds to low thousands of files per run, while Auto Loader goes to millions and beyond with file notification. And on latency, copy-into runs at whatever cadence your cron gives it, while Auto Loader can get down to seconds with a continuous trigger.
+
+If you remember one thing, remember the single most common exam question pattern. When the scenario says new files arrive continuously and the schema may evolve — that's Auto Loader. When it says a single batch of files lands once a day and simple S-Q-L is preferred — that's copy-into.
