@@ -1,7 +1,14 @@
 # Why the lakehouse
 
-- **Warehouse** — fast SQL, ACID, governance; but rigid schema, closed storage, costly at scale
-- **Lake** — cheap open storage, any format; but no transactions, schema, or governance
-- Running **both** means duplicated data, drift, split governance, and double cost
-- **Lakehouse** — one open copy with the lake's economics and the warehouse's guarantees
-- On Databricks: **Delta Lake** for transactions, **Unity Catalog** for governance
+## Before — two systems, neither did the whole job
+
+1. **Data warehouse** — fast SQL, ACID, and governance for BI; but a rigid up-front schema, closed storage, and cost that climbs steeply at scale
+2. **Data lake** — cheap, open storage for any format; but no transactions, no schema enforcement, no governance — it rots into a swamp
+
+Running **both** — land everything in the lake, copy the curated slice to the warehouse — means duplicated data that drifts, split governance, and double the cost.
+
+## The lakehouse — one open copy, both sets of guarantees
+
+1. Keeps the lake's cheap, open object storage, adding a transaction layer on top
+2. The **same files** gain ACID, schema enforcement, and governance
+3. On Databricks: **Delta Lake** for transactions, **Unity Catalog** for governance
