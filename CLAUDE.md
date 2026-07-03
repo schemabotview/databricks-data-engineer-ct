@@ -4,6 +4,8 @@ A **content repo**, not an app. It holds the **Databricks Data Engineer** concep
 
 This is the first `-ct` (video-target) content repo. It is authored **fresh** — the existing `../databricks-data-engineer-content` (the graphl-ux-era repo) and `~/Projects/databricks-data-engineer` (the source curriculum) are **reference material**, not something to copy wholesale. We are refining structure, not porting it.
 
+Concretely, each module's section notebooks are **split from that reference repo's per-module notebook** — the source of truth for the split — then refined for the video target (trimmed to the agreed spine, `## `-per-section, images dropped). Example: module 02's ten `notebooks/02-*.ipynb` were split from `../databricks-data-engineer-content/notebooks/02-delta-lake-unity-catalog.ipynb`, dropping the deferred beats (Predictive Optimization → module 08, UniForm cut) and the hands-on/self-check scaffolding.
+
 There is **nothing to build, run, or test** here. The one executable (later) is a Colab tool that turns `tts/` scripts into `audio/` `.wav`s.
 
 ## Working agreement
@@ -32,7 +34,7 @@ databricks-data-engineer-ct/
 
 Naming: every artifact for a section shares the stem `<NN>-<SS>-<slug>`, where `NN` = module number, `SS` = section position (so a sorted glob stays in reading order): `notebooks/<NN>-<SS>-<slug>.ipynb`, `tts/…​.tts` → `audio/…​.wav`, `slides/…​.slide`.
 
-The `.slide` format: a `# Title` line + `- bullet` lines. Each bullet marks its **key term** with inline **`**bold**`** — the app renders it bright white, the rest a softer gray (scannable hierarchy). Title may be punchier than the notebook `## ` heading.
+The `.slide` format is a one-screen, scannable Markdown subset — **not** just title + bullets: a `# Title`, then `## ` sub-labels, short paragraphs, fenced ` ```code``` ` blocks, and numbered / `- ` lists, each key term marked with inline **`**bold**`** (rendered bright white, the rest a softer gray). **Keep the whole slide inside the fixed 1920×1080 frame:** the app's right pane does not scroll or auto-shrink type, so an over-long slide clips top and bottom — trim it to fit (drop connective prose the narration already carries) rather than expecting the engine to resize. Title may be punchier than the notebook `## ` heading.
 
 ## Curriculum
 
@@ -46,6 +48,7 @@ Structure settled ([`README.md`](./README.md): **9 modules, 90 sections**). Push
 
 - **Module 01 — complete & recordable end-to-end** (10 sections): `notebooks/01-*.ipynb` + `tts/01-*.tts` + `slides/01-*.slide` + `audio/01-*.wav` (audio generated via `scripts/colab_generate_audio.ipynb`). `manifest.json` wires all 10 sections with `scene`/`highlight`/`focus`/`audio`/`slide`. The graphl-movie app records module 01 to a 1080p video.
 - **Scenes are app-side** (`graphl-movie/src/scenes`): §01 rides `lakehouse-evolution`, §02–10 ride the dense `databricks-data-engineer` platform map (framed per section). Highlight/focus ids in the manifest must match those scenes' node ids.
-- **Modules 02–09** — not started (section lists agreed in `README.md`; repeat the module-01 pipeline).
+- **Module 02 — authored** (10 sections): `notebooks/02-*.ipynb` split from the reference `02-delta-lake-unity-catalog.ipynb`, `slides/02-*.slide` + `tts/02-*.tts` written, and `manifest.json` wired — §01 hook framed on the platform map's `foundation`, §02–10 on the Delta/UC nodes (all riding the shared `databricks-data-engineer` scene). Pending: generate `audio/02-*.wav` from the `.tts` via Colab.
+- **Modules 03–09** — not started (section lists agreed in `README.md`; repeat the module-01 pipeline).
 
-Next: author module 02 (`notebook → .tts → .slide` per section), generate audio, wire the manifest.
+Next: generate module 02 audio (Colab), then author module 03 (`notebook → .tts → .slide` per section, wire the manifest).

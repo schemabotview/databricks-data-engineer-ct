@@ -1,10 +1,10 @@
 # databricks-data-engineer-ct
 
-Video-first content for the **Databricks Certified Data Engineer Associate** concept, consumed at runtime by the [`graphl-movie`](../graphl-movie) app. Content only — notebooks, narration (`.tts` → `.wav`), authored slides (`.slide`), and the wiring `manifest.json`. Nothing to build or run here. For the authoring contract and folder layout, see [`CLAUDE.md`](./CLAUDE.md).
+Video-first content for the **Databricks Certified Data Engineer Associate** concept, consumed at runtime by the [`graphl-movie`](../graphl-movie) app. Content only — notebooks, narration (`.tts` → `.wav`), authored one-screen slides (`.slide`: a `# Title`, `## ` sub-labels, short prose, fenced code, and `- `/numbered lists with **bold** key terms), and the wiring `manifest.json`. Nothing to build or run here. For the authoring contract and folder layout, see [`CLAUDE.md`](./CLAUDE.md).
 
 This file is the **course outline** — the human-facing map of modules and sections. It is the plan we author against; the machine source of truth for structure is `manifest.json`.
 
-**Status:** repo pushed public (`github.com/schemabotview/databricks-data-engineer-ct`). **Module 01 is complete** — all 10 sections have `.ipynb` + `.tts` + `.wav` + `.slide`, and `manifest.json` wires them (scene/highlight/focus/audio) so graphl-movie records it to a 1080p video. Modules 02–09: section lists agreed below, not yet authored.
+**Status:** repo pushed public (`github.com/schemabotview/databricks-data-engineer-ct`). **Module 01 is complete** — all 10 sections have `.ipynb` + `.tts` + `.wav` + `.slide`, and `manifest.json` wires them (scene/highlight/focus/audio) so graphl-movie records it to a 1080p video. **Module 02 is authored** — 10 sections with `.ipynb` (split from the reference notebook) + `.tts` + `.slide`, manifest wired; its `.wav`s are pending Colab. Modules 03–09: section lists agreed below, not yet authored.
 
 ## Target exam
 
@@ -173,5 +173,5 @@ _Open (optional):_ a short course-outro (closing slide + narration) to end the s
 
 ## Reference material
 
-- Source curriculum: `~/Projects/databricks-data-engineer` and the graphl-ux-era `../databricks-data-engineer-content` (reference, not copied wholesale — we are refining).
+- Source curriculum: `~/Projects/databricks-data-engineer` and the graphl-ux-era `../databricks-data-engineer-content` (reference, not copied wholesale — we are refining). Each module's section notebooks are **split from that repo's per-module reference notebook** (the source of truth for the split), then trimmed to the video spine — e.g. module 02 came from its `notebooks/02-delta-lake-unity-catalog.ipynb`.
 - Official exam guide PDF: `~/Downloads/databricks-certified-data-engineer-associate-exam-guide-may-2026-000.pdf`.
