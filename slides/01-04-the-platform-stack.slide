@@ -1,7 +1,10 @@
-# The platform stack — four layers
+# The platform stack
 
-- **Cloud object storage** — S3 / ADLS / GCS: the durable base for your bytes
-- **Delta Lake** — open table format: ACID transactions, schema, time travel over those files
-- **Unity Catalog** — governance: names, secures & audits every asset through one namespace
-- **Engines on top** — Spark/Photon, Databricks SQL, Lakeflow — all sharing one copy
-- **Delta Lake + Unity Catalog** get the deep dive in module 02
+Four layers, each depending on the one below — from the base up:
+
+1. **Cloud object storage** — S3, ADLS, or GCS: the cheap, durable base where your bytes actually sit
+2. **Delta Lake** — the open table format that turns loose files into transactional tables: ACID, schema, time travel
+3. **Unity Catalog** — governance that names, secures, and audits every asset through one three-level namespace
+4. **Engines & workloads** — Spark, Photon, Databricks SQL, and Lakeflow — all reading *through* Unity Catalog to the same Delta tables
+
+Delta Lake and Unity Catalog get the deep dive in module 02. The shape: cheap open storage at the base, transactions and governance in the middle, every engine on top sharing one copy.

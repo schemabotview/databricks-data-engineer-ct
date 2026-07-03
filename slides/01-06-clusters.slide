@@ -1,7 +1,13 @@
 # Clusters — all-purpose vs. job
 
-- A **cluster** = cloud VMs running Spark: one driver + one or more workers
-- **All-purpose** — interactive, multi-user, stays up for dev in notebooks; higher rate
-- **Job cluster** — created per run, terminates when done; isolated, cheaper rate
-- **Rule** — dev & exploration → all-purpose; scheduled production → job clusters
-- **Anti-pattern** — production jobs on all-purpose: costs more, loses per-run isolation
+A **cluster** is cloud VMs running Spark together: one **driver** that coordinates and one or more **workers** that do the parallel work.
+
+## All-purpose — interactive
+
+Created by hand, notebooks attached, stays up while you explore; multiple users share it. For **dev, ad-hoc analysis, and debugging** — bills at a **higher DBU rate**.
+
+## Job — ephemeral
+
+A Lakeflow Job creates one per run and tears it down when the run finishes. Each run is **isolated**, at a **lower DBU rate**. For **scheduled production ETL**.
+
+**Rule of thumb:** dev and exploration → all-purpose; scheduled production → job. Running production on an all-purpose cluster costs more and loses per-run isolation.

@@ -1,7 +1,11 @@
-# The workspace — a data engineer's daily surfaces
+# The workspace
 
-- **Notebooks** — write PySpark / SQL, attach to compute, run
-- **Git folders** & the file tree — code under version control
-- **Catalog Explorer** — browse Unity Catalog: catalogs, schemas, tables, volumes, lineage
-- **SQL editor, Lakeflow Jobs & pipelines**, the Compute page
-- **Account > workspaces** — the UC metastore is account-level, shared across workspaces
+The browser environment where a data engineer works — everything you touch sits in the left sidebar.
+
+1. **Notebooks** — the primary surface: write PySpark or SQL, attach to compute, run
+2. **Git folders & file tree** — your code under version control
+3. **Catalog Explorer** — your window into Unity Catalog: schemas, tables, volumes, lineage, permissions
+4. **SQL editor** — ad-hoc queries against a SQL warehouse
+5. **Lakeflow Jobs & pipelines** and the **Compute** page — orchestration and cluster management
+
+One level up is the **account** — it holds many workspaces, and the Unity Catalog **metastore lives at the account level**, so governed data is shared across them all.
