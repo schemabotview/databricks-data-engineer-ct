@@ -1,22 +1,17 @@
 # The transaction log & ACID
 
-A Delta table = **Parquet data files** + a **`_delta_log`** directory beside them. The log turns loose files into a table.
+A Delta table = **Parquet data files** + a **`_delta_log`** beside them — the log turns loose files into a table.
 
 ## The log — an ordered list of commits
-
-Each `NNN.json` commit lists **actions**:
 
 - **`add`** — a file joins the table (+ min/max `stats` for file-skipping)
 - **`remove`** — a file leaves; bytes stay until **`VACUUM`**
 - **`metaData`** — schema & properties
-
-Readers **replay the log** to see the current state; a **checkpoint** every 10 commits keeps reads fast.
+- Readers **replay the log**; a **checkpoint** every 10 commits keeps reads fast
 
 ## The commit *is* the transaction
 
 - **Atomicity** — a commit lands when the next `.json` appears (one atomic write)
 - **Consistency** — validated against schema & constraints
-- **Isolation** — **optimistic concurrency**: first writer to commit wins, the other retries
+- **Isolation** — **optimistic concurrency**: first writer wins, the other retries
 - **Durability** — the object store persists log + data
-
-Nightly batch and the fraud stream write the same table safely — full success or retry, never a partial result.
