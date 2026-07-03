@@ -5,12 +5,12 @@ A Structured Streaming source (`format("cloudFiles")`) that **discovers new file
 ```python
 (spark.readStream.format("cloudFiles")
    .option("cloudFiles.format", "json")
-   .option("cloudFiles.schemaLocation", schema_path)
+   .option("cloudFiles.schemaLocation", loc)
    .load(src)
  .writeStream
    .option("checkpointLocation", ckpt)
    .trigger(availableNow=True)
-   .toTable("bronze.card_transactions_raw"))
+   .toTable("bronze.card_txns_raw"))
 ```
 
 - **`schemaLocation`** — caches the inferred schema · **`checkpointLocation`** — tracks offsets
