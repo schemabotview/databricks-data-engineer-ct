@@ -1,0 +1,17 @@
+# Common failures — startup & libraries
+
+Cluster won't start → **Event Log** tab is the source of truth.
+
+## Startup — four modes
+
+- `InstanceLimitExceeded` → **cloud quota/capacity** → new type/AZ, quota, **serverless**
+- `NotAuthorizedToAssumeRole` / 403 → **IAM** → fix role trust + policies
+- `INIT_SCRIPT_FAILURE` → read init log, fix (no init scripts on serverless)
+- Library install → **Libraries** tab → remove / pin
+
+## Library conflicts
+
+- **Notebook-scoped `%pip install`** — own env per notebook
+- **Pin versions** (`mypkg==2.4.1`) · **DBR ML runtime** · **serverless**
+
+**Tells:** `InstanceLimitExceeded` = quota (not memory) · shared-cluster collision → **notebook-scoped `%pip`**.

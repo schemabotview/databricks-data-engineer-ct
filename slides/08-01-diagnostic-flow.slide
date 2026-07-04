@@ -1,0 +1,16 @@
+# The diagnostic flow — look here first
+
+`silver_build`: 12 min → 38 min. Work **coarse → fine**.
+
+```text
+① Run history  → is THIS run slow, or all of them?  (trend)
+② Task graph   → which TASK? (upstream-caused?)      ("silver_build")
+③ Spark UI Stages → which STAGE?                     ("join: 30 min")
+④ Stage detail → Min/Median/Max shuffle, spill, GC   ("Max 5GB vs 400MB median")
+⑤ Fix          → match pattern → remedy
+```
+
+- Top-down: **job → task → stage → task-metrics → fix**
+- Never start by **bumping cluster size** — localise first
+
+**Exam loves ④:** "one task much slower, Max shuffle 10× median" = **skew** → **AQE skew-join**.

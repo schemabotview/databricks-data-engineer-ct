@@ -1,0 +1,13 @@
+# Run history — trend, not snapshot
+
+Every run: state · start · duration · **sparkline**. Value = **trend vs. baseline**.
+
+## Three shapes = three diagnoses
+
+- **Gradual ramp** — creeps up over weeks → **data growth** / progressive skew
+- **Step change** — jumps one day, stays up → **code/config change**, new source, runtime upgrade
+- **Spiky** — mostly 10 min, occasional 90 → **contention** / bad-data day
+
+- The **shape is the first diagnosis**: ramp = capacity · step = "changed on date X" · spike = contention
+
+**Exam:** "median tripled overnight, look first?" → **run history** (trend) → **task graph** (slow run).

@@ -1,0 +1,15 @@
+# Shuffling — cost & how to cut it
+
+**UI:** stage dominated by Shuffle Write/Read Time; shuffle write in 100s of GB → **network-bound**.
+
+**Diagnosis:** join/agg needs a key's rows co-located → **shuffle** across the network (most expensive op).
+
+## Remedies (priority order)
+
+- **Broadcast** (side fits in memory) → no shuffle — module 04
+- **Filter + project early** → move fewer bytes
+- **Right-size `shuffle.partitions`** — 1 TB: 200 = 5 GB (spills) · ~4000 = 250 MB ✓
+- **AQE coalesce** — `adaptive.coalescePartitions.enabled=true`
+- Avoid needless `repartition(N)` → double shuffle
+
+**Model:** avoid (broadcast) · shrink (filter) · balance (partition size + AQE).

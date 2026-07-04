@@ -757,6 +757,113 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "08-troubleshooting-optimization",
+      "title": "Troubleshooting, Monitoring & Optimization",
+      "sections": [
+        {
+          "heading": "The diagnostic flow — where to look first",
+          "notebook": "notebooks/08-01-diagnostic-flow.ipynb",
+          "slide": "slides/08-01-diagnostic-flow.slide",
+          "audio": "audio/08-01-diagnostic-flow.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "lakeflow-jobs",
+          "highlight": ["lakeflow-jobs", "job-dag", "engine"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Lakeflow Jobs run history — trend, not snapshot",
+          "notebook": "notebooks/08-02-run-history-trend.ipynb",
+          "slide": "slides/08-02-run-history-trend.slide",
+          "audio": "audio/08-02-run-history-trend.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "lakeflow-jobs",
+          "highlight": ["job-dag"],
+          "spine": true
+        },
+        {
+          "heading": "Spark UI — reading the tabs",
+          "notebook": "notebooks/08-03-spark-ui-tabs.ipynb",
+          "slide": "slides/08-03-spark-ui-tabs.slide",
+          "audio": "audio/08-03-spark-ui-tabs.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Data skew — spotting and fixing it",
+          "notebook": "notebooks/08-04-data-skew.ipynb",
+          "slide": "slides/08-04-data-skew.slide",
+          "audio": "audio/08-04-data-skew.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Shuffling — the cost and how to cut it",
+          "notebook": "notebooks/08-05-shuffling.ipynb",
+          "slide": "slides/08-05-shuffling.slide",
+          "audio": "audio/08-05-shuffling.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Disk spilling — when a stage runs out of memory",
+          "notebook": "notebooks/08-06-disk-spilling.ipynb",
+          "slide": "slides/08-06-disk-spilling.slide",
+          "audio": "audio/08-06-disk-spilling.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "AQE — what adaptive query execution fixes automatically",
+          "notebook": "notebooks/08-07-aqe.ipynb",
+          "slide": "slides/08-07-aqe.slide",
+          "audio": "audio/08-07-aqe.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine", "photon"],
+          "spine": true
+        },
+        {
+          "heading": "Automated maintenance — Liquid Clustering & Predictive Optimization",
+          "notebook": "notebooks/08-08-automated-maintenance.ipynb",
+          "slide": "slides/08-08-automated-maintenance.slide",
+          "audio": "audio/08-08-automated-maintenance.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "delta-lake",
+          "highlight": ["optimize-zorder", "delta-lake"],
+          "spine": true
+        },
+        {
+          "heading": "Common failures — cluster startup & library conflicts",
+          "notebook": "notebooks/08-09-common-failures.ipynb",
+          "slide": "slides/08-09-common-failures.slide",
+          "audio": "audio/08-09-common-failures.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "compute",
+          "highlight": ["job-cluster", "serverless"],
+          "spine": true
+        },
+        {
+          "heading": "Out-of-memory — executor vs. driver, and the fix patterns",
+          "notebook": "notebooks/08-10-out-of-memory.ipynb",
+          "slide": "slides/08-10-out-of-memory.slide",
+          "audio": "audio/08-10-out-of-memory.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine", "compute"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

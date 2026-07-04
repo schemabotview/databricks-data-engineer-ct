@@ -1,0 +1,9 @@
+Automated maintenance — Liquid Clustering and Predictive Optimization. These are two features that keep your Delta tables healthy without you hand-writing a maintenance job. We met both back in module two; here's the operational angle the exam tests.
+
+Start with Liquid Clustering — think of it as an evolvable data layout. Before Liquid, you picked a partition column up front, and if you got it wrong, fixing it meant a full rewrite of terabytes of data. Liquid Clustering changes that. You declare cluster keys, Delta re-balances the data into clusters incrementally, and — crucially — you can change those keys later without rewriting the world. So you create the table clustered by customer-i-d and transaction-at, and then months later, when your query patterns shift to merchant analysis, you just alter-table to cluster by merchant-category instead.
+
+Operationally, that buys you three things: no small-files-per-partition problem, because directories aren't the unit of organisation any more; no skew when one partition would have been a hundred times larger, because the clusters re-balance; and evolvable keys. It is the recommended default for new Delta tables.
+
+Now Predictive Optimization — this is Databricks running the maintenance for you. It runs OPTIMIZE, which is compaction plus cluster rebalancing, and VACUUM, which reclaims storage — both at the right cadence, informed by your actual access patterns, and billed at a serverless rate. You enable it with a single statement: alter-catalog, enable-predictive-optimization.
+
+Two constraints to remember. First, it's Unity Catalog managed tables only — external tables don't get it, which is one more reason to prefer managed tables. Second, it depends on specific regions and D-B-R versions, though the exam treats it as universally available. And the exam pattern is clean: "keep gold tables compact without writing a maintenance job" — the answer is, enable Predictive Optimization.

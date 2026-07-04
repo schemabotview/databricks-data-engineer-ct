@@ -1,0 +1,22 @@
+# Automated maintenance
+
+Keep Delta healthy **without a hand-written job** (from module 02, operational angle).
+
+## Liquid Clustering — evolvable layout
+
+```sql
+CREATE TABLE ... CLUSTER BY (customer_id, transaction_at);
+ALTER TABLE ... CLUSTER BY (merchant_category, transaction_at);  -- later, no rewrite
+```
+
+- No small-files-per-partition · clusters **re-balance** skew · **evolvable keys**
+- **Recommended default** for new Delta tables
+
+## Predictive Optimization — Databricks runs it
+
+```sql
+ALTER CATALOG fintech_prod ENABLE PREDICTIVE OPTIMIZATION;
+```
+
+- Runs **`OPTIMIZE`** + **`VACUUM`** on cadence · serverless-billed
+- **UC managed tables only** · **Exam:** "compact without a maintenance job" → **enable PO**

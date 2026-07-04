@@ -1,0 +1,11 @@
+A-Q-E — what adaptive query execution fixes for you, automatically.
+
+Adaptive Query Execution — A-Q-E — re-optimises the physical plan at runtime, after each shuffle, using the actual partition statistics rather than the planner's up-front estimates. That "actual, at runtime" part is the key, because the planner's estimates are often wrong once real data flows through. A-Q-E does three things for you.
+
+One: dynamic partition coalescing. It merges undersized post-shuffle partitions into fewer, larger, more balanced units — cutting down task-startup overhead. Two: dynamic join-strategy switching. It promotes a sort-merge join to a broadcast join when one side turns out, at runtime, to be smaller than estimated. Three: skew-join handling. It detects oversized partitions and splits them, so a single slow task doesn't block the whole stage.
+
+Now the fact that ties the module together: A-Q-E is on by default since Spark 3.2, which is D-B-R 11.0. So on any modern Databricks workspace, you have it for free. And that's precisely why the exam's correct answer to most performance questions is "confirm that A-Q-E, or its skew handling, or its coalesce, is enabled" — rather than reaching for manual tuning.
+
+There are four config keys worth recognising. Adaptive-enabled is the master switch. Then adaptive-coalesce-partitions-enabled, adaptive-skew-join-enabled, and adaptive-local-shuffle-reader-enabled.
+
+And here's the through-line of the whole module. Skew, shuffle-partition sizing, and join-strategy choice are the three big performance problems we've been walking through — and A-Q-E addresses all three, at runtime. So manual tuning is really the fallback for when A-Q-E has been explicitly ruled out. A-Q-E itself is the default answer.

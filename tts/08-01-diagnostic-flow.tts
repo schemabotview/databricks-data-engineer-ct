@@ -1,0 +1,17 @@
+The diagnostic flow — where to look first when a job goes wrong.
+
+Here's the running example for the whole module. The bank's silver-build task used to finish in twelve minutes. Last week it started taking thirty-eight. So what do you do? You follow a sequence, coarse to fine, and the exam asks variants of this sequence directly.
+
+Step one: the Lakeflow Jobs run history view. The question there is — is this particular run slow, or have all the recent runs been slow? The output is a trend line, something like "it started getting slow three days ago."
+
+Step two: the task graph of one slow run. Which task is slow — and is it slow only because an upstream task is slow? The output: "silver-build is the slow task."
+
+Step three: the Spark U-I, Stages tab. Which stage inside that task is slow? The output: "the join stage takes thirty minutes."
+
+Step four: the stage detail page, and its task summary metrics — the min, median, and max of shuffle read, spill, and G-C time. The output might be "max shuffle read is five gigabytes versus a median of four hundred megabytes."
+
+And step five: the fix — you match that pattern to the right remedy, which is the rest of this module.
+
+The discipline to internalise is: work top-down. Job, to task, to stage, to task-metrics, to fix. Never start by just bumping the cluster size — you can't fix what you haven't localised.
+
+And the exam absolutely loves step four. When you read "most tasks finish quickly but one takes much longer, and max shuffle read is ten times the median," that sentence is skew, and the recommended answer is A-Q-E skew-join. Learn to read that min-median-max summary — it's where the diagnosis actually lives, and where most of this module's fixes get chosen.

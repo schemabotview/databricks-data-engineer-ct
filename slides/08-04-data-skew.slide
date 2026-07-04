@@ -1,0 +1,17 @@
+# Data skew
+
+**UI symptom:** 199/200 tasks in 30s, one at 24 min; median shuffle 400 MB, **max 5 GB**.
+
+**Diagnosis:** unbalanced key — one `customer_id` has 100× the rows → all land on one task.
+
+## Three remedies (in order)
+
+1. **AQE skew-join** — splits oversized partitions at runtime, **zero code**
+   ```python
+   spark.conf.set("spark.sql.adaptive.enabled", "true")
+   spark.conf.set("spark.sql.adaptive.skewJoin.enabled", "true")
+   ```
+2. **Broadcast** the small side (kills the shuffle) — module 04
+3. **Salt** the key — random `0..N-1`, join, aggregate away — heavier surgery
+
+**Exam ~99%: option 1 (AQE skew-join).** Salt only when AQE explicitly ruled out.

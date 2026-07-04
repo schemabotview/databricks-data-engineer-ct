@@ -1,0 +1,9 @@
+Shuffling — why it's so expensive, and how to cut it down.
+
+The symptom in the U-I is distinctive. The stage duration is dominated by shuffle-write-time and shuffle-read-time, and the total shuffle write runs into hundreds of gigabytes. In other words, the network is the bottleneck — the cluster is spending its time moving data around, not computing.
+
+The diagnosis: joins and aggregations need all the rows for a given key to end up on the same executor. Getting them there forces a shuffle — a redistribution of data across the network. And a shuffle is, honestly, the single most expensive thing most jobs do.
+
+So here are the remedies, in priority order. First, broadcast, when one side fits in memory — that means no shuffle at all, and we covered it in module four. Second, filter and project early. The smallest shuffle is the one that moves the fewest bytes, so push your WHERE and your SELECT upstream, and the shuffle carries only what's actually needed. Third, right-size shuffle-partitions. For a one-terabyte shuffle, two hundred partitions means five gigabytes each — far too big, and they'll spill. About four thousand partitions gives you two hundred and fifty megabytes each, which is the sweet spot. Fourth, let A-Q-E coalesce — the adaptive coalesce-partitions setting merges tiny post-shuffle partitions into right-sized ones automatically. And fifth, avoid a needless repartition-N before a join that the optimiser would have shuffled correctly anyway — that just gives you a double shuffle, doing the expensive thing twice.
+
+The mental model to carry away is this. You can't always avoid a shuffle — but you can shrink it, by moving fewer bytes, and balance it, by right-sizing the partitions. Broadcast avoids it. Filter-early shrinks it. And partition-sizing plus A-Q-E balance it.

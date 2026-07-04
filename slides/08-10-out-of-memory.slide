@@ -1,0 +1,16 @@
+# Out-of-memory — executor vs. driver
+
+Fix depends on **which side** ran out.
+
+## Executor OOM — `Java heap space` in a task log
+
+- Partition too big → **raise `shuffle.partitions`** · skew → **AQE skew-join**
+- `collect()` into agg → write to a table · heavy UDF → `pandas_udf`
+- Caching too much → `unpersist` · *last resort:* `executor.memory`
+
+## Driver OOM — from the driver; notebook hangs
+
+- **`collect()` / `toPandas()`** on big df → don't (only a few MB)
+- Broadcast too big → cap `autoBroadcastJoinThreshold` · *last resort:* `driver.memory`
+
+**Exam:** executor OOM after shuffle → **partitions / AQE / broadcast**; memory is **last**. Driver OOM tell = `collect`/`toPandas` → **don't pull it back**.

@@ -1,0 +1,15 @@
+# Disk spilling
+
+**UI:** non-zero **Spill (Memory/Disk)** — executors writing state to disk (didn't fit RAM).
+
+**Why it hurts:** write → re-read → de-serialise → rejoin; orders of magnitude slower than in-memory.
+
+## Remedies
+
+- **Raise `shuffle.partitions`** — smaller partitions fit (first, cleanest)
+- **Increase executor memory** — trade-off: fewer executors/node
+- **Filter/aggregate earlier** · **enable AQE** (coalesce)
+
+**Exam:** "200 GB / 200 partitions, spilling" → **raise `shuffle.partitions`** → ~1000–2000 (each 100–200 MB).
+
+- Direction = **more** partitions, not fewer (fewer = bigger = spills harder).

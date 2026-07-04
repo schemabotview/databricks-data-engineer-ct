@@ -1,0 +1,18 @@
+# Spark UI — reading the tabs
+
+After localising the slow **task** — three tabs.
+
+- **Jobs** — row per action · **Stages** — row per stage (work between shuffles) → click in
+- **Stage detail** — Tasks table + **task summary metrics** (min/median/max)
+
+| Signal | Diagnosis |
+|---|---|
+| Max duration ≫ median | **skew** |
+| Huge total shuffle write | **shuffle-heavy** |
+| Spill > 0 | **memory pressure** |
+| GC = big fraction of task | memory pressure / OOM soon |
+| Many tasks < 100 ms | **over-fragmentation** |
+
+- **Executors tab** — per-executor memory/disk; dead executor → **OOM**
+
+**Read max-vs-median first:** skew (max≫median) vs. uniformly heavy — different fixes.

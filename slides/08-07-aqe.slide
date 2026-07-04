@@ -1,0 +1,18 @@
+# AQE — automatic runtime fixes
+
+**Adaptive Query Execution** re-optimises the plan **at runtime** (after each shuffle) using **actual** stats.
+
+## Three things it does
+
+- **Coalesce partitions** — merge undersized post-shuffle partitions
+- **Switch join strategy** — sort-merge → **broadcast** when a side is smaller than estimated
+- **Skew-join handling** — split oversized partitions
+
+- **On by default since Spark 3.2 / DBR 11.0** → you have it free
+
+## Config keys
+
+- `spark.sql.adaptive.enabled` (master) · `.coalescePartitions.enabled`
+- `.skewJoin.enabled` · `.localShuffleReader.enabled`
+
+**Exam default:** "confirm AQE is enabled", not manual tuning (that's the fallback).

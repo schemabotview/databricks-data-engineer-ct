@@ -1,0 +1,9 @@
+Out-of-memory — executor versus driver, and the fix patterns for each. This is the last diagnostic beat, and the single most important idea is that O-O-M comes in two flavours, and the fix depends entirely on which side ran out.
+
+Executor O-O-M shows up as java-lang-out-of-memory-error, Java heap space, in a task log — the tasks fail and the stage retries. The causes and fixes, roughly in order: a partition that's too big — raise shuffle-partitions so each one fits. Skew packing too much into one task — A-Q-E skew-join. A collect into a wide aggregation — don't collect, write to a table instead. A U-D-F with high per-row memory — batch it with a pandas-U-D-F, or use built-in functions. Caching too much — un-persist when you're done. And only as a last resort, raise executor-memory.
+
+Driver O-O-M is different. It's an out-of-memory-error reported from the driver, and the notebook hangs or the cluster restarts. The causes: a collect or a to-pandas on a big DataFrame — never do that on more than a few megabytes. Broadcasting a too-big table — cap the auto-broadcast-join-threshold. Or a massive event log from an over-complex job — simplify it. And again, only as a last resort, raise driver-memory.
+
+Here's the exam pattern. "An executor task fails with O-O-M after the shuffle." The answer is: raise shuffle partitions, A-Q-E skew-join, broadcast the small side. Bumping memory is the last lever, not the first — the exam consistently rewards fixing the data distribution over throwing R-A-M at the problem.
+
+And one clean tell to finish on: the signature of driver O-O-M is almost always a collect or a to-pandas pulling too much back to one machine. So the fix is "don't pull it back" — not "give the driver more memory." Reshape the work so it stays distributed, and the O-O-M simply goes away.
