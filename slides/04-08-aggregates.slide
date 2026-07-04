@@ -1,0 +1,18 @@
+# Aggregates the exam tests
+
+- **`count("*")`** = every row · **`count("col")`** = **skips nulls**
+- **`approx_count_distinct(col, rsd=)`** — HyperLogLog, cheap; pick when *approx OK*
+- **`mean` == `avg`** · **`sum` / `min` / `max`** — null-skipping
+- **`summary(*stats)`** — count/mean/stddev/min/max/percentiles, one call
+
+## One pass, many aggregates
+
+```python
+silver.groupBy("customer_id").agg(
+    count("*").alias("txn_count"),
+    approx_count_distinct("merchant_name").alias("distinct_merchants"),
+    _sum("amount").alias("total_spend"),
+    mean("amount").alias("avg_spend"))
+```
+
+- Exam tell: **"approximate ... 50 billion rows"** → `approx_count_distinct`, **not** `countDistinct`

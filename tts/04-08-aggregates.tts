@@ -1,0 +1,17 @@
+The aggregates the exam actually tests.
+
+There are five, and each one has a specific behaviour the exam likes to probe, so let's separate them.
+
+First, count-star versus count-of-a-column. Count-star counts every row, full stop. Count of a named column skips nulls. So "how many transactions did this customer make" is count-star; "how many transactions had a merchant category populated" is count of merchant-category. That null-skipping difference is a very common question.
+
+Second, approx-count-distinct. This is a HyperLogLog-based approximate distinct count, and it's orders of magnitude cheaper than count-distinct on a billion-row table. It takes an optional relative standard deviation. You pick it whenever approximate is good enough.
+
+Third, mean and avg — same function, two names, nothing to separate them.
+
+Fourth, sum, min, and max — all null-skipping by default.
+
+And fifth, summary — a DataFrame method that emits count, mean, standard deviation, min, max, and percentiles all in one call. That's your quick ad-hoc profiling tool.
+
+In practice you run several of these at once with the agg pattern: group by customer-i-d, then inside agg list your aggregates, each with an alias — transaction count, distinct merchants, total spend, average spend. One pass over the group, all four numbers.
+
+And here's the exam's favourite angle. It hands you a scenario — "an approximate count of distinct merchants across fifty billion rows" — and the word "approximate" is the tell. The right answer is approx-count-distinct, not count-distinct, because count-distinct would shuffle the full cardinality across the cluster and cost you dearly.

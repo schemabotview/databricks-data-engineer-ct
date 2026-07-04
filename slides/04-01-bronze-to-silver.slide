@@ -1,0 +1,21 @@
+# Bronze → silver — what changes
+
+Bronze is **raw, append-only**. Silver is **clean, conformed, deduplicated, stable**. This transformation is the module — and the exam's heaviest topic.
+
+## Six things bronze → silver does
+
+- **Drop/replace nulls** in required columns
+- **Cast types** — bronze `STRING` → silver `DECIMAL` / `TIMESTAMP` / `BOOLEAN`
+- **Normalise** values · **deduplicate** to one row per key
+- **Flatten** nested structs · **join** in conformed dimensions
+
+Silver does **not** pre-aggregate — that's gold. Silver stays at **one event per row**, just cleaner.
+
+## Reading bronze (lazy)
+
+```python
+df = spark.read.table("fintech_dev.bronze.card_transactions_raw")
+```
+
+- No bytes read until an **action** runs — Catalyst pushes pruning/pushdown into the read
+- `.option("versionAsOf", 12)` = reproducible · `spark.readStream.table(...)` = continuous

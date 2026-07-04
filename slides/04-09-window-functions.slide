@@ -1,0 +1,20 @@
+# Window functions
+
+Compute a value **per row** from surrounding rows — **without collapsing** rows (unlike `groupBy`).
+
+## Three ingredients
+
+- **`partitionBy`** (the group) · **`orderBy`** (order within) · optional **frame** (`rowsBetween`)
+
+## Three jobs the exam tests
+
+```python
+w = Window.partitionBy("customer_id").orderBy(col("transaction_at").desc())
+df.withColumn("rn", row_number().over(w))     # 1. dedup → keep rn=1
+df.withColumn("prev", lag("amount").over(w))  # 2. period-over-period
+# 3. running total — explicit frame:
+w_run = w.rowsBetween(Window.unboundedPreceding, Window.currentRow)
+```
+
+- **`row_number`** dedup (deterministic) · **`lag`/`lead`** deltas · **`sum`+frame** running total
+- `rank` leaves gaps after ties; **`dense_rank`** does not

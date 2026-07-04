@@ -1,0 +1,11 @@
+Joins — the seven types.
+
+Spark supports the full S-Q-L join family, plus two Spark-specific shapes, semi and anti. This is a table you should memorise, because the exam quotes it almost word for word.
+
+Inner returns rows where the key matches on both sides. Left — also called left-outer — keeps all the left rows and fills nulls on the right where there's no match. Right is the mirror: all the right rows, nulls on the left. Full — full-outer, or just outer — keeps everything from both sides and nulls the missing side.
+
+Then the two Spark-specific ones. Left-semi returns the left rows that have a match on the right — but, and this is the key detail, it brings back no columns from the right side at all. Left-anti is the opposite: the left rows that do not match anything on the right. And cross is the full Cartesian product, which is rarely the answer you actually want.
+
+Now, the join condition itself has three API shapes. If the key column has the same name on both sides, you pass a plain string — on equals "customer-i-d". If the names differ, you pass a column expression comparing the two. And for a multi-key join, you pass a list of column names.
+
+The exam favourite here is left-semi. Picture the question "give me the customers who have at least one transaction." A plain select would scan every matching row; left-semi short-circuits at the first match per key and returns only the left columns. And its mirror, left-anti, answers "which customers have no transactions" — that's your standard anti-join for finding orphan records.

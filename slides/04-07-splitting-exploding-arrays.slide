@@ -1,0 +1,24 @@
+# Splitting & exploding arrays
+
+Semi-structured JSON in bronze → one-value-per-row in silver.
+
+## Three primitives
+
+- **`split(col, pattern)`** — string → array (`'a,b'` → `['a','b']`)
+- **`explode(arr)`** — one row **per element** (line-items / events)
+- **`posexplode(arr)`** — same, plus a `pos` index
+
+```python
+df.withColumn("tags", split("merchant_tags", ",")) \
+  .withColumn("tag", explode("tags")).drop("tags")
+```
+
+## Don't explode just to filter
+
+```sql
+WHERE array_contains(tags, 'travel')   -- membership in place
+```
+
+## Inverse — re-nest in a `groupBy`
+
+- **`collect_list`** keeps dupes (order undefined) · **`collect_set`** dedups

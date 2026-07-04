@@ -1,0 +1,16 @@
+# Performance tuning — the four knobs
+
+| Config | Controls | Default |
+|---|---|---|
+| **`spark.sql.shuffle.partitions`** | partitions after shuffle | **200** |
+| `spark.default.parallelism` | RDD default partitions | # cores |
+| `spark.executor.memory` / `.driver.memory` | heap per executor / driver | cluster |
+| **`spark.sql.autoBroadcastJoinThreshold`** | auto-broadcast max | 10 MB |
+
+## The exam question
+
+> "200 GB shuffling across 200 partitions, tasks **spilling to disk** — what changes?"
+
+- Raise **`shuffle.partitions`** → each partition **100–200 MB**
+- Too few → spill/OOM · too many → tiny empty tasks
+- **AQE** (module 08) coalesces shuffle partitions **automatically**

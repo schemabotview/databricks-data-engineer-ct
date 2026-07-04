@@ -1,0 +1,9 @@
+Bronze to silver — what actually changes between the layers.
+
+Bronze is raw and append-only. Silver is clean, conformed, deduplicated, and stable. The transformation between those two layers is what this whole module is about — and it's the single heaviest topic on the exam, so it's worth getting the mental model right up front.
+
+There are six things that almost every bronze-to-silver step does. One: drop or replace nulls in required columns — a row with a null customer-i-d should never reach silver. Two: cast types — bronze usually lands everything as a string, and silver pins the real types, decimal, timestamp, boolean. Three: normalise values — uppercase categories, trim whitespace, standardise country codes. Four: deduplicate — the same transaction can arrive twice when upstream retries, so you keep one row per natural key. Five: flatten nested structs that bronze landed verbatim from JSON. And six: join in conformed dimensions, so the silver row carries the customer's city directly, not just a foreign key.
+
+Now, the thing silver does not do is pre-aggregate. Sums-by-day, customer-360 rollups — those belong in gold. Silver stays at the grain of one event per row, just cleaner.
+
+And reading bronze is the starting point. There are two equivalent shapes, and the exam may show you either side. In Python you say spark-dot-read-dot-table; in S-Q-L you select from the same three-level name. Both return a lazy DataFrame — reading a Delta table touches no bytes until an action runs, and the Catalyst optimiser pushes column pruning, predicate pushdown, and partition pruning right into the read. If you want reproducible silver, pin a version with version-as-of. If you want silver to update continuously, read with read-stream instead.

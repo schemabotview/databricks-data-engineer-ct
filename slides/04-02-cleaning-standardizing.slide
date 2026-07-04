@@ -1,0 +1,24 @@
+# Cleaning & standardizing
+
+Two jobs, run together on every silver build: **drop bad nulls**, then **pin real types**.
+
+## Cleaning nulls
+
+```python
+df.dropna(subset=["transaction_id", "customer_id", "amount"])
+  .fillna({"merchant_category": "unknown", "is_flagged": False})
+```
+
+- `dropna(how="any")` (default) — drop if **any** column null
+- `dropna(how="all")` — drop only if **every** column null · scope with `subset=`
+
+## Standardising types
+
+```python
+df.withColumn("amount", col("amount").cast("decimal(18,2)"))
+  .withColumn("transaction_at", to_timestamp("transaction_at"))
+```
+
+- Bronze is `STRING` **on purpose** (schema-on-read loses nothing); silver pins types
+- **Casting pitfall:** a bad parse → `NULL` **silently, not an error**
+- Defend: **quarantine** table + alert, or Spark SQL **`try_cast`**

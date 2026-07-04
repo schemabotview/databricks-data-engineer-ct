@@ -1,0 +1,11 @@
+Writing to silver — save modes, partitioning, and idempotency.
+
+This is the last step of every transformation: taking your cleaned, conformed result and landing it in a governed silver table. There are two write patterns the exam tests, and one idea that runs through both.
+
+The first is full overwrite. Here the silver build is idempotent by design — re-running it rebuilds the table from bronze, so if a job fails halfway and you retry, you're safe. You write with mode "overwrite", and you add overwrite-schema true only when the schema has actually changed. And while we're here, know the save modes: append adds rows, overwrite replaces the table, error — which is the default, also called error-if-exists — fails if the table already exists, and ignore quietly does nothing if it exists.
+
+The second pattern is upsert with merge-into. Instead of a full rebuild, silver tracks incremental updates coming from bronze change-data-capture. You merge on the natural key — transaction-i-d — and when a row matches you update it, when it doesn't you insert it.
+
+Then there are layout decisions. For new tables, reach for Liquid Clustering on your natural query keys — cluster-by customer-i-d and transaction-at — which we covered in module two. It replaces both partition-by and Z-ORDER. Legacy tables may still use partition-by on a date column, but don't reach for that on anything new. And enable Predictive Optimization at the catalog level so silver stays compact without you scheduling a manual optimise job — that's module eight.
+
+And the throughline is idempotency. A full-overwrite rebuild is safe to retry. A merge keyed on the natural key is safe to re-apply. Either way, re-running the job converges to exactly the same silver — and that safety is what makes a pipeline trustworthy.

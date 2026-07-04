@@ -1,0 +1,22 @@
+# Joins — the seven types
+
+| Type | Returns |
+|---|---|
+| `inner` | Key matches **both** sides |
+| `left` / `left_outer` | All left; nulls right on no-match |
+| `right` / `right_outer` | All right; nulls left on no-match |
+| `full` / `outer` | All rows both sides; nulls missing side |
+| `left_semi` | Left rows **with** a match — **no right columns** |
+| `left_anti` | Left rows with **no** match (orphans) |
+| `cross` | Cartesian product — rarely right |
+
+## Three condition shapes
+
+```python
+df.join(customers, on="customer_id", how="inner")        # same name
+df.join(customers, df.cust_id == customers.customer_id)   # expr
+df.join(other, on=["customer_id", "account_id"])          # multi-key
+```
+
+- **`left_semi`** = "customers with ≥1 transaction" (short-circuits, left cols only)
+- **`left_anti`** = "customers with **no** transactions"

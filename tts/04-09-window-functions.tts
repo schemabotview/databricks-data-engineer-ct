@@ -1,0 +1,15 @@
+Window functions — the pattern that silver and gold both lean on.
+
+A window function computes a value per row, using a window of other rows around it — but, unlike group-by, it does not collapse your rows. You keep every row and get an extra computed column alongside it. That distinction is the whole point.
+
+There are three ingredients. Partition-by defines the group — say, per customer. Order-by defines the order within that group — say, by transaction time. And optionally you add a frame, using rows-between or range-between, to say how many rows around the current one to include.
+
+Let's tie that to the three jobs the exam actually tests, because it's remarkably consistent about them.
+
+Job one, deduplication. Partition by customer, order by transaction time descending, apply row-number, and keep row-number equals one. That gives you the latest row per key — the S-C-D-latest pattern — and it's deterministic, which drop-duplicates is not.
+
+Job two, period-over-period. Using the same window, lag pulls the previous row's value — the previous transaction's amount — so you can compute the change since last time. Lead does the same looking forward.
+
+Job three, running totals. Here you add an explicit frame — rows-between unbounded-preceding and current-row — and sum over it, giving a per-customer running total that grows down the ordered rows.
+
+So remember the trio: row-number for dedup, lag and lead for period-over-period, and sum with a frame for running totals. And rounding out the ranking family, rank leaves gaps after ties while dense-rank does not — a small detail the exam sometimes slips in.

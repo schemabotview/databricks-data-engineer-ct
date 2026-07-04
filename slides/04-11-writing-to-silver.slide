@@ -1,0 +1,27 @@
+# Writing to silver
+
+Land the result in a governed silver table. Two patterns; one throughline.
+
+## Full overwrite (idempotent rebuild)
+
+```python
+silver.write.mode("overwrite") \
+      .option("overwriteSchema", "true") \
+      .saveAsTable("fintech_dev.silver.card_transactions")
+```
+
+- Modes: **`append`** · **`overwrite`** · **`error`** (default) · **`ignore`**
+
+## Upsert with `MERGE INTO` (from bronze CDC)
+
+```sql
+MERGE INTO silver.card_transactions t USING bronze_updates s
+  ON t.transaction_id = s.transaction_id
+WHEN MATCHED THEN UPDATE SET * WHEN NOT MATCHED THEN INSERT *
+```
+
+## Layout
+
+- New tables → **Liquid Clustering** `.clusterBy(...)` (replaces `partitionBy`+`ZORDER`)
+- **Predictive Optimization** keeps silver compact — no manual `OPTIMIZE`
+- **Idempotency:** overwrite retry-safe · MERGE re-apply-safe → same silver

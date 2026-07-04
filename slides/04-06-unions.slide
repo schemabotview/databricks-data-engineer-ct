@@ -1,0 +1,20 @@
+# Unions & combining
+
+Three lookalikes with different behaviour.
+
+## The three ops
+
+- **`union`** — concat, match by **position**; same col count/order; **no dedup**
+- **`unionAll`** — deprecated **alias** for `union` (identical)
+- **`unionByName(..., allowMissingColumns=)`** — match by **name**; `True` → fill missing with `NULL`
+
+```python
+jan.union(feb)                                   # positional
+jan.unionByName(feb, allowMissingColumns=True)   # prefer this
+```
+
+## The exam trap
+
+- Spark `union` == SQL **`UNION ALL`** — it **keeps** duplicates
+- To dedup: `jan.union(feb).distinct()`
+- Prefer **`unionByName`** — positional match silently corrupts on a column reorder

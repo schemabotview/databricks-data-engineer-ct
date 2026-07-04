@@ -329,6 +329,123 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "04-data-transformations",
+      "title": "Data Transformations with PySpark & Spark SQL",
+      "sections": [
+        {
+          "heading": "Bronze → silver — what changes between layers",
+          "notebook": "notebooks/04-01-bronze-to-silver.ipynb",
+          "slide": "slides/04-01-bronze-to-silver.slide",
+          "audio": "audio/04-01-bronze-to-silver.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "medallion",
+          "highlight": ["bronze", "silver"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Cleaning & standardizing — nulls, types, casting",
+          "notebook": "notebooks/04-02-cleaning-standardizing.ipynb",
+          "slide": "slides/04-02-cleaning-standardizing.slide",
+          "audio": "audio/04-02-cleaning-standardizing.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine", "silver"],
+          "spine": true
+        },
+        {
+          "heading": "Column & row operations — select, withColumn, filter, dedup",
+          "notebook": "notebooks/04-03-column-row-operations.ipynb",
+          "slide": "slides/04-03-column-row-operations.slide",
+          "audio": "audio/04-03-column-row-operations.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Joins — the seven types",
+          "notebook": "notebooks/04-04-joins-seven-types.ipynb",
+          "slide": "slides/04-04-joins-seven-types.slide",
+          "audio": "audio/04-04-joins-seven-types.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Broadcast joins & join performance",
+          "notebook": "notebooks/04-05-broadcast-joins.ipynb",
+          "slide": "slides/04-05-broadcast-joins.slide",
+          "audio": "audio/04-05-broadcast-joins.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine", "photon"],
+          "spine": true
+        },
+        {
+          "heading": "Unions & combining — union, unionAll, unionByName",
+          "notebook": "notebooks/04-06-unions.ipynb",
+          "slide": "slides/04-06-unions.slide",
+          "audio": "audio/04-06-unions.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Splitting & exploding arrays — semi-structured → rows",
+          "notebook": "notebooks/04-07-splitting-exploding-arrays.ipynb",
+          "slide": "slides/04-07-splitting-exploding-arrays.slide",
+          "audio": "audio/04-07-splitting-exploding-arrays.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Aggregates the exam tests",
+          "notebook": "notebooks/04-08-aggregates.ipynb",
+          "slide": "slides/04-08-aggregates.slide",
+          "audio": "audio/04-08-aggregates.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Window functions — the pattern silver & gold lean on",
+          "notebook": "notebooks/04-09-window-functions.ipynb",
+          "slide": "slides/04-09-window-functions.slide",
+          "audio": "audio/04-09-window-functions.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine"],
+          "spine": true
+        },
+        {
+          "heading": "Performance tuning knobs — the four the exam asks about",
+          "notebook": "notebooks/04-10-performance-tuning-knobs.ipynb",
+          "slide": "slides/04-10-performance-tuning-knobs.slide",
+          "audio": "audio/04-10-performance-tuning-knobs.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "engine",
+          "highlight": ["spark-engine", "photon", "dbr-runtime"],
+          "spine": true
+        },
+        {
+          "heading": "Writing to silver — save modes, partitioning, idempotency",
+          "notebook": "notebooks/04-11-writing-to-silver.ipynb",
+          "slide": "slides/04-11-writing-to-silver.slide",
+          "audio": "audio/04-11-writing-to-silver.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "silver",
+          "highlight": ["silver", "delta-lake", "optimize-zorder"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

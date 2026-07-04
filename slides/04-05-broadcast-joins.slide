@@ -1,0 +1,21 @@
+# Broadcast joins & join performance
+
+**Normal join** shuffles **both** sides by key — expensive at scale. **Broadcast join** ships the *small* side to every executor → big side never moves, **no shuffle**.
+
+## Auto vs. forced
+
+- Auto-broadcasts when a side < **`spark.sql.autoBroadcastJoinThreshold`** (default **10 MB**)
+- 50 B transactions ⋈ 5 MB lookup → auto-broadcast
+
+```python
+df.join(broadcast(small_df), on="merchant_category", how="left")
+```
+```sql
+SELECT /*+ BROADCAST(c) */ ... FROM txns t LEFT JOIN cats c ON ...
+```
+
+## Watch out
+
+- Broadcasting a side **> driver memory** blows the driver — cap the threshold
+- **AQE** (module 08) can promote sort-merge → broadcast **at runtime** on real stats
+- Two levers: **shrink the shuffle** + **let AQE re-plan**

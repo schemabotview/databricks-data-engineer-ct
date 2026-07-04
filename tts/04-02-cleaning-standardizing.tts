@@ -1,0 +1,11 @@
+Cleaning and standardising — nulls, types, and casting.
+
+These are really two jobs that run together on almost every silver build: first get rid of the bad nulls, then pin the real types.
+
+Start with nulls. Three operations cover about ninety percent of what you'll do. Drop-n-a with a subset drops rows that are null in your required columns — transaction-i-d, customer-i-d, amount. Fill-n-a with a dictionary replaces nulls with a default — merchant category becomes "unknown", is-flagged becomes false. And for anything conditional, you reach for when and otherwise inside a with-column.
+
+There's one drop-n-a detail the exam likes to test. The default, how equals "any", drops a row if any column is null. How equals "all" only drops a row when every single column is null. And you scope either one with the subset argument so you're only looking at the columns you care about.
+
+Now standardising types. Bronze lands everything as a string on purpose — that way the schema-on-read step never loses data. Silver is where you pin the real types: cast amount to decimal eighteen-two, cast is-flagged to boolean, and run transaction-at through to-timestamp.
+
+And here's the pitfall the exam absolutely loves. When a cast fails — a string that just won't parse — Spark does not raise an error. It silently produces a null. So you have to defend against it. Either land the bad rows in a quarantine table and alert when the row count climbs, or use try-cast in Spark S-Q-L, which does exactly the same thing as cast but makes that null-on-failure behaviour explicit and intentional.
