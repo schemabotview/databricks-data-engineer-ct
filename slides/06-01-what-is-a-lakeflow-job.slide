@@ -1,0 +1,17 @@
+# What is a Lakeflow Job?
+
+Three nested concepts — get the vocabulary right.
+
+- **Job** — unit of orchestration; *what to run and when* (version-controlled)
+- **Task** — one step: notebook · SQL · pipeline · dashboard
+- **Run** — one execution; state = pending / running / **succeeded** / **failed** / cancelled / skipped
+
+## Rename watch
+
+- **Lakeflow Jobs** = current · **Databricks Workflows** / **Databricks Jobs** = legacy (same thing)
+
+## Single vs. multi-task
+
+- Exam tests **multi-task DAGs** — real ETL: ingest ∥ → silver → gold → dashboard → notify
+
+**Worked example:** `fintech_nightly_ingest` — ingest drops, build silver, refresh `customer_360`, fire dashboard, email on failure.

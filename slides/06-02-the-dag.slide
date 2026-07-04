@@ -1,0 +1,20 @@
+# The DAG — tasks & dependencies
+
+Tasks declare upstreams → Lakeflow builds a **directed acyclic graph**, runs in topological order, **parallelises** where it can.
+
+```text
+      ┌ ingest_cards ──┐
+start ┼ ingest_accounts ┼► silver_build ► gold_customer_360 ► dashboard ► notify
+      └ ingest_loans ──┘
+```
+
+- Three `ingest_*` run **in parallel** · `silver_build` waits for all three
+
+## Three settings the exam tests
+
+- **`depends_on`** — upstream task keys (empty = **root** task)
+- **Run if** — `ALL_SUCCESS` (default) · `AT_LEAST_ONE_SUCCESS` · `NONE_FAILED` · **`ALL_DONE`** · …
+  - **`ALL_DONE`** = a final notify task that **always fires**
+- **`max_retries`** — re-attempts on failure, exponential backoff
+
+Declare **dependencies, not order** → self-parallelising.

@@ -1,0 +1,11 @@
+Parameters, task values, and task references — the three ways tasks share state.
+
+Tasks in a job often need to hand information to each other, and there are three mechanisms. The trick is knowing which one fits which question.
+
+First, job parameters. These are defined at the job level and are visible to every task. The bank's nightly job declares a processing-date parameter, and every notebook reads it — inside the notebook, that's dbutils-dot-widgets-dot-get. Use a job parameter for something the whole job shares.
+
+Second, task values. Here one task sets a key-value pair, and a downstream task reads it. In the upstream notebook you call dbutils-dot-jobs-dot-task-values-dot-set, with a key like new-file-count and a value like forty-two. Then downstream you call dot-get, naming the task key and the value key, to pull it back. Use a task value for something one task computes and the next consumes.
+
+Third, built-in references — template tokens you can drop into any task parameter. Double-curly job-dot-id, job-dot-name, job-dot-run-id. Job-dot-start-time-dot-iso-date gives you the run's start date. Tasks-dot-task-key-dot-values-dot-key pulls a task value from upstream. And job-dot-parameters-dot-param gives you a job-level parameter.
+
+Now the exam's angle, which is really one question dressed up several ways: how do you pass a date, or a row count, from one task to the next, without writing to a side table? If it's a date the whole job shares, that's a job parameter. If it's a value one task computes and the next one consumes — like that new-file-count — that's a task value, set and get. And the tell for the wrong answer: reaching for a temporary table just to shuttle a single number between two tasks. You don't need it; task values exist precisely so you don't.

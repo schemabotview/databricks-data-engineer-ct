@@ -1,0 +1,15 @@
+# Notifications & operational hooks
+
+Four ways a job talks to humans/systems.
+
+- **Email** — start / success / failure / duration warning / backlog (job-level)
+- **Webhooks / system destinations** — Slack · Teams · PagerDuty · HTTP → **paging on-call**
+- **Run-as identity** — user or **service principal**; governs UC perms
+- **Always-run task** — `run_if = ALL_DONE` fires on success **or** failure
+
+## Two exam tells
+
+- "page on-call on failure" → **webhook / system destination**, not email
+- "prod job ≠ one engineer's creds" → **run as a service principal**
+
+**Guarantee a failure alert:** job-level `on_failure`, or an `ALL_DONE` task (which can also *do work*).

@@ -1,0 +1,21 @@
+# Parameters, task values & references
+
+Three ways tasks share state.
+
+## Job parameters — job-level, seen by **every** task
+
+- `processing_date` read via `dbutils.widgets.get`
+
+## Task values — one task sets, downstream reads
+
+```python
+dbutils.jobs.taskValues.set(key="new_file_count", value=42)      # upstream
+dbutils.jobs.taskValues.get(taskKey="ingest_cards", key="new_file_count")  # down
+```
+
+## Built-in references (templates)
+
+- `{{job.run_id}}` · `{{job.start_time.iso_date}}`
+- `{{tasks.<key>.values.<k>}}` · `{{job.parameters.<p>}}`
+
+**Exam:** pass a date/count between tasks **without a side table** → shared date = **job param**, computed value = **task value** (not a temp table).

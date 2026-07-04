@@ -1,0 +1,19 @@
+# Control flow — `if/else`, `for_each`, retries
+
+## `if/else` condition task — route the DAG
+
+```text
+is_friday ─► if/else ─┬ true ─► run_fraud_rebuild
+                      └ false ► skip_to_dashboard
+```
+
+## `for_each` — child task once per item
+
+- `["cards","accounts","loans","payments"]` → notebook runs **4×, in parallel**
+- child gets one item as a param (`{{input}}`)
+
+## Retries — task-level
+
+- **`max_retries`** · `min_retry_interval_millis` · `retry_on_timeout` · `timeout_seconds`
+
+**Exam:** flaky API ~1% → **`max_retries = 3`** (not `for_each`, not continuous trigger).

@@ -1,0 +1,15 @@
+# Triggers — time-based vs. data-driven
+
+*What fires a run.* Five options; first three matter.
+
+- **Scheduled (cron)** — `0 0 2 * * ?` = daily 02:00; predictable cadence
+- **File arrival** — fires when new files land; **irregular** landing
+- **Table update** — fires on a Delta commit; dependency is **table state**
+- **Continuous** — forever (pipeline only) · **Manual** — human/API, backfills
+
+## The decision
+
+- **Time-based** — predictable landing, stable SLA window, "fresh as of midnight" OK
+- **Data-driven** — variable landing, **minimise latency**, empty runs wasteful
+
+**Classic:** partner file at an unpredictable time, no empty hourly job → **File arrival** (cron = distractor).

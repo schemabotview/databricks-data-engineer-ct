@@ -1,0 +1,13 @@
+# Monitoring, repair & rerun
+
+The Jobs UI — the exam's monitoring go-to.
+
+- **Run history** — every run + **duration sparkline** → spot **trends** (2× slower than before)
+- **Task graph** — single run's DAG by state: 🔴 failed · ⚪ skipped · 🟢 ok → find **upstream blocker**
+- **Repair run** — rerun **only failed tasks**, same params/DAG → cheaper, safer
+- **Run dashboard / metrics** — success rate, p95 duration (capacity, SLA)
+
+## Exam patterns
+
+- "median duration tripled — look first?" → **run history** (trend) → **task graph** (offending task)
+- Late-stage failure → **repair run** (reuse the 5 good tasks, not rerun all 6h)

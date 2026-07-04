@@ -553,6 +553,113 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "06-lakeflow-jobs",
+      "title": "Lakeflow Jobs: Orchestration, Triggers, Control Flow",
+      "sections": [
+        {
+          "heading": "What is a Lakeflow Job?",
+          "notebook": "notebooks/06-01-what-is-a-lakeflow-job.ipynb",
+          "slide": "slides/06-01-what-is-a-lakeflow-job.slide",
+          "audio": "audio/06-01-what-is-a-lakeflow-job.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "lakeflow-jobs",
+          "highlight": ["lakeflow-jobs", "job-dag", "job-triggers"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The DAG — tasks & dependencies",
+          "notebook": "notebooks/06-02-the-dag.ipynb",
+          "slide": "slides/06-02-the-dag.slide",
+          "audio": "audio/06-02-the-dag.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "job-dag",
+          "highlight": ["job-dag"],
+          "spine": true
+        },
+        {
+          "heading": "Task types — the four the exam tests by name",
+          "notebook": "notebooks/06-03-task-types.ipynb",
+          "slide": "slides/06-03-task-types.slide",
+          "audio": "audio/06-03-task-types.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "job-dag",
+          "highlight": ["task-notebook", "task-sql", "task-pipeline", "task-dashboard"],
+          "spine": true
+        },
+        {
+          "heading": "Control flow — if/else, for_each, retries",
+          "notebook": "notebooks/06-04-control-flow.ipynb",
+          "slide": "slides/06-04-control-flow.slide",
+          "audio": "audio/06-04-control-flow.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "job-dag",
+          "highlight": ["job-control"],
+          "spine": true
+        },
+        {
+          "heading": "Triggers — time-based vs. data-driven",
+          "notebook": "notebooks/06-05-triggers.ipynb",
+          "slide": "slides/06-05-triggers.slide",
+          "audio": "audio/06-05-triggers.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "job-triggers",
+          "highlight": ["trigger-cron", "trigger-file", "trigger-table"],
+          "spine": true
+        },
+        {
+          "heading": "Compute for jobs — per-task choice",
+          "notebook": "notebooks/06-06-compute-for-jobs.ipynb",
+          "slide": "slides/06-06-compute-for-jobs.slide",
+          "audio": "audio/06-06-compute-for-jobs.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "compute",
+          "highlight": ["job-cluster", "serverless", "all-purpose-cluster"],
+          "spine": true
+        },
+        {
+          "heading": "Parameters, task values & task references",
+          "notebook": "notebooks/06-07-parameters-task-values.ipynb",
+          "slide": "slides/06-07-parameters-task-values.slide",
+          "audio": "audio/06-07-parameters-task-values.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "job-dag",
+          "highlight": ["job-dag"],
+          "spine": true
+        },
+        {
+          "heading": "Notifications & operational hooks",
+          "notebook": "notebooks/06-08-notifications.ipynb",
+          "slide": "slides/06-08-notifications.slide",
+          "audio": "audio/06-08-notifications.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "lakeflow-jobs",
+          "highlight": ["job-dag", "run-as-sp"],
+          "spine": true
+        },
+        {
+          "heading": "Monitoring, repair & rerun",
+          "notebook": "notebooks/06-09-monitoring-repair-rerun.ipynb",
+          "slide": "slides/06-09-monitoring-repair-rerun.slide",
+          "audio": "audio/06-09-monitoring-repair-rerun.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "lakeflow-jobs",
+          "highlight": ["job-dag"],
+          "spine": true
+        },
+        {
+          "heading": "Defining a job — UI, REST API & YAML",
+          "notebook": "notebooks/06-10-defining-a-job.ipynb",
+          "slide": "slides/06-10-defining-a-job.slide",
+          "audio": "audio/06-10-defining-a-job.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "lakeflow-jobs",
+          "highlight": ["lakeflow-jobs", "databricks-cli"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

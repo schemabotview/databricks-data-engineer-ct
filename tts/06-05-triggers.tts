@@ -1,0 +1,15 @@
+Triggers — and the time-based versus data-driven decision the exam loves.
+
+A trigger is simply what fires a job run. There are five options, but the first three matter most.
+
+Scheduled, or cron — the time-based trigger — runs at a specific quartz-cron time. Zero-zero-two-star-star-question-mark means every day at two a-m U-T-C. It's best when your source lands on a predictable cadence.
+
+File arrival runs when new files land in a path. Lakeflow Jobs polls that path, and fires the job when it sees new files. Best when the landing time is irregular.
+
+Table update runs when a Delta table gets a new commit. Best when your dependency is table state — for instance, rebuild gold whenever silver changes.
+
+Then two more: continuous, which runs forever and is only for a declarative pipeline in continuous mode; and manual, which has no trigger at all — a human or an A-P-I call starts it, which is handy for ad-hoc backfills.
+
+Now, the exam frames almost every trigger question as one tradeoff: time-based versus data-driven. Choose time-based, cron, when the data lands predictably, when you want a stable execution window for S-L-As and cost forecasting, and when "fresh as of midnight" is good enough. Choose data-driven — file arrival or table update — when landing time is variable, when you want to minimise latency and run as soon as data is available, and when empty polled runs would be wasteful.
+
+And here's the classic scenario. A partner drops a file at an unpredictable time each night, and the team wants to ingest as soon as it lands, without running an empty job every hour. The answer is the file-arrival trigger. Cron is the deliberate distractor — it either misses the file or wastes compute polling for it.

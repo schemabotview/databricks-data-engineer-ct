@@ -1,0 +1,17 @@
+# Task types — the four the exam names
+
+| Task | Runs | Compute |
+|---|---|---|
+| **Notebook** | `.ipynb` (Workspace / Git Folder) | cluster (job/all-purpose/serverless) |
+| **SQL** | query · alert · file · dashboard | **SQL warehouse** |
+| **Pipeline** | declarative pipeline (ex-DLT) | pipeline-managed |
+| **Dashboard** | refresh AI/BI dashboard | **SQL warehouse** |
+
+- **SQL task** has 4 sub-variants (query most common)
+
+## Secondary — recognise these
+
+- **JAR / Python script / wheel** (bundles, module 07) · **dbt** · **Run job** (nested)
+- **`for_each`** (loop) · **`if/else`** (branch)
+
+**Match artifact → task type:** dashboard → **Dashboard task**; pipeline → **Pipeline task** (self-managed compute).

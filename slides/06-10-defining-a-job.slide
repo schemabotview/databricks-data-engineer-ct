@@ -1,0 +1,24 @@
+# Defining a job — UI · REST · YAML
+
+Exam wants the **YAML shape** (bundles deploy jobs — module 07), not syntax.
+
+- **UI** — point-and-click; one-offs
+- **REST API** — `POST /api/2.1/jobs/create` (same JSON bundles emit)
+- **YAML in a bundle** — **production**; version-controlled, dev → prod
+
+```yaml
+resources:
+  jobs:
+    fintech_nightly_ingest:
+      schedule: { quartz_cron_expression: "0 0 2 * * ?", timezone_id: "UTC" }
+      tasks:
+        - task_key: ingest_cards
+          notebook_task: { notebook_path: ../notebooks/ingest_cards.ipynb }
+          job_cluster_key: shared_etl_cluster
+          max_retries: 3
+        - task_key: notify
+          depends_on: [{ task_key: ingest_cards }]
+          run_if: ALL_DONE
+```
+
+**Read the structure:** DAG=`depends_on` · trigger=`schedule` · retries=`max_retries` · always-fire=`ALL_DONE`. → module 07.

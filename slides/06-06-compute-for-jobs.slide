@@ -1,0 +1,17 @@
+# Compute for jobs — per-task choice
+
+Tasks in one job can use **different** compute.
+
+- **Job cluster** — start→teardown per task; **cheapest DBU; default for prod ETL**
+- **Serverless (jobs)** — second-scale start, no management; **short tasks**
+- **All-purpose** — long-lived, shared; **avoid for scheduled jobs** (pricier, interference)
+- **SQL warehouse** — **required** for SQL & Dashboard tasks (serverless default)
+
+## Bank's nightly mix
+
+- `ingest_cards` → job cluster · `silver_build` → **same cluster reused**
+- `refresh_dashboard` → serverless SQL warehouse · `notify` → serverless jobs
+
+- **Cluster reuse** — share one cluster across tasks, pay startup **once**
+
+**Exam:** scheduled ETL → **job cluster / serverless**, never all-purpose.
