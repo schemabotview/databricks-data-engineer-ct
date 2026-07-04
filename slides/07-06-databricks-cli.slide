@@ -1,0 +1,16 @@
+# Databricks CLI — the bundle verbs
+
+- **`bundle validate -t <target>`** — resolve vars, check refs, emit **JSON**; **dry-run / lint**, run on every PR
+- **`bundle deploy -t <target>`** — upload files + create/update resources → workspace **matches manifest**; **idempotent**
+- **`bundle run <key> -t <target>`** — one-off run of a job/pipeline (CLI "Run now")
+- **`bundle destroy -t <target>`** — remove bundle-owned resources (tear down test envs)
+
+```bash
+databricks bundle validate -t dev
+databricks bundle deploy   -t dev
+databricks bundle run      fintech_nightly_ingest -t dev
+```
+
+- **Auth:** OAuth user login (local) · OAuth M2M service principal (CI) · PAT (legacy)
+
+**Exam:** "parse manifest, resolve vars, emit JSON" → **`validate`**.

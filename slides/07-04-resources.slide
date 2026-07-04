@@ -1,0 +1,24 @@
+# Resources — jobs, pipelines & more
+
+Each resource schema **mirrors the REST API** — the module-06 YAML you *read*, you now *author*.
+
+```yaml
+resources:
+  jobs:
+    fintech_nightly_ingest:
+      schedule: { quartz_cron_expression: "0 0 2 * * ?" }
+      tasks:
+        - task_key: ingest_cards
+          notebook_task:
+            notebook_path: ../notebooks/ingest_cards.ipynb
+            base_parameters: { catalog: ${var.catalog} }
+          job_cluster_key: shared_etl_cluster
+  pipelines:
+    card_etl:
+      name: card_etl_${bundle.target}
+      target: ${var.catalog}.gold
+```
+
+- `${var.catalog}` / `${bundle.target}` flow from manifest → every resource
+- Bundle can define: **jobs · pipelines · ML models · dashboards · volumes · schemas**
+- Split into **`resources/*.yml`** (via `include`) as the project grows

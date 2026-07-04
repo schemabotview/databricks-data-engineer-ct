@@ -1,0 +1,24 @@
+# Asset Bundles — the `databricks.yml`
+
+Package every resource **as code**. Names: **DABs** = Automation Bundles = Declarative Automation Bundles.
+
+```yaml
+bundle: { name: fintech-platform }
+variables:
+  catalog: { default: fintech_dev }
+include: [ resources/*.yml ]
+targets:
+  dev:
+    mode: development
+    workspace: { host: https://dev... }
+  prod:
+    mode: production
+    run_as: { service_principal_name: fintech-platform-sp }
+    variables: { catalog: fintech_prod }
+```
+
+- **Variables** — one decl, per-target values → `${var.catalog}`
+- **Targets** — named deployments (workspace + identity + overrides)
+- **Mode** — `development` (alive, prefixed) vs `production` (terminate, exact + SP)
+
+**Entry point = `databricks.yml`** (not `bundle.json` / `pyproject.toml`).

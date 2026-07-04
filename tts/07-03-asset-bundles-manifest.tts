@@ -1,0 +1,9 @@
+Databricks Asset Bundles — and the databricks-dot-y-m-l manifest at their heart.
+
+First, the names, because there are several. Automation Bundles were originally called Databricks Asset Bundles, or D-A-Bs, and you'll also see Declarative Automation Bundles. All the same thing: a way to package every Databricks resource in your project as code. A bundle has a root databricks-dot-y-m-l manifest, resource definitions like jobs and pipelines, source files like notebooks and Python, named targets — dev, test, prod — and variables that you parametrise per target.
+
+Now the manifest itself. It has three key top-level sections: bundle, resources — usually pulled in through an include of your resources folder — and targets. In the example, the bundle is named fintech-platform. There's a variables block declaring catalog and node-type-id with defaults. And there's a targets block: dev runs in development mode against the dev workspace with catalog fintech-dev; prod runs in production mode against the prod workspace, runs as a service principal, and overrides catalog to fintech-prod and the node type to a bigger one.
+
+Three concepts to recognise from that. Variables — a single declaration with target-specific values, which you pass into resources using dollar-brace-var-dot-catalog. Targets — named deployments, each with its own workspace, identity, and variable overrides. And mode — development means the cluster stays alive and resource names get a username prefix, while production means the cluster terminates and names are exact. Prod targets should always be mode production, and run as a service principal.
+
+And there's one file question the exam likes to ask flatly: the entry point of a bundle is databricks-dot-y-m-l. Not bundle-dot-json, not pyproject-dot-toml. Databricks-dot-y-m-l.

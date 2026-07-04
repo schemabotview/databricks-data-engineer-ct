@@ -660,6 +660,103 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "07-cicd-bundles",
+      "title": "CI/CD: Git Folders, Automation Bundles, Databricks CLI",
+      "sections": [
+        {
+          "heading": "The problem CI/CD solves on Databricks",
+          "notebook": "notebooks/07-01-problem-cicd-solves.ipynb",
+          "slide": "slides/07-01-problem-cicd-solves.slide",
+          "audio": "audio/07-01-problem-cicd-solves.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["cicd", "repos", "databricks-cli"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Databricks Git Folders — what the exam wants you to know",
+          "notebook": "notebooks/07-02-git-folders.ipynb",
+          "slide": "slides/07-02-git-folders.slide",
+          "audio": "audio/07-02-git-folders.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["repos"],
+          "spine": true
+        },
+        {
+          "heading": "Databricks Asset Bundles — the databricks.yml manifest",
+          "notebook": "notebooks/07-03-asset-bundles-manifest.ipynb",
+          "slide": "slides/07-03-asset-bundles-manifest.slide",
+          "audio": "audio/07-03-asset-bundles-manifest.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["databricks-yml"],
+          "spine": true
+        },
+        {
+          "heading": "Resources — jobs, pipelines & other bundle-managed objects",
+          "notebook": "notebooks/07-04-resources.ipynb",
+          "slide": "slides/07-04-resources.slide",
+          "audio": "audio/07-04-resources.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["databricks-yml", "lakeflow-jobs", "declarative-pipelines"],
+          "spine": true
+        },
+        {
+          "heading": "Variables & environment overrides — one codebase, three behaviours",
+          "notebook": "notebooks/07-05-variables-overrides.ipynb",
+          "slide": "slides/07-05-variables-overrides.slide",
+          "audio": "audio/07-05-variables-overrides.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["databricks-yml"],
+          "spine": true
+        },
+        {
+          "heading": "The Databricks CLI — bundle validate / deploy / run / destroy",
+          "notebook": "notebooks/07-06-databricks-cli.ipynb",
+          "slide": "slides/07-06-databricks-cli.slide",
+          "audio": "audio/07-06-databricks-cli.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["databricks-cli"],
+          "spine": true
+        },
+        {
+          "heading": "CI workflow — promotion dev → test → prod",
+          "notebook": "notebooks/07-07-ci-workflow.ipynb",
+          "slide": "slides/07-07-ci-workflow.slide",
+          "audio": "audio/07-07-ci-workflow.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["gh-actions", "databricks-cli"],
+          "spine": true
+        },
+        {
+          "heading": "Run-as identity — service principals in non-dev",
+          "notebook": "notebooks/07-08-run-as-identity.ipynb",
+          "slide": "slides/07-08-run-as-identity.slide",
+          "audio": "audio/07-08-run-as-identity.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["run-as-sp"],
+          "spine": true
+        },
+        {
+          "heading": "What belongs in a bundle, what doesn't",
+          "notebook": "notebooks/07-09-what-belongs-in-a-bundle.ipynb",
+          "slide": "slides/07-09-what-belongs-in-a-bundle.slide",
+          "audio": "audio/07-09-what-belongs-in-a-bundle.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "cicd",
+          "highlight": ["cicd", "databricks-yml"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

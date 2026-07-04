@@ -1,0 +1,9 @@
+What belongs in a bundle, and what doesn't. The one-line rule: a bundle is for workspace-shaped code, not for data and not for infrastructure. Let's make that concrete.
+
+What goes in? Lakeflow Jobs. Declarative pipelines. The notebooks those invoke. Python source files and wheels. M-L experiments and models. Volumes and schemas that the bundle itself creates. And A-I-slash-B-I dashboards. All of that is workspace-shaped code — it belongs in the bundle.
+
+What stays out? Raw data files — a bundle is not a data deployment tool. Unity Catalog catalogs themselves — those are created out of band and then referenced. Service principals and I-A-M roles — managed by your cloud or identity provider, not by a bundle. And secret values — only secret scope references go in a bundle, never the actual secrets.
+
+So the rule again: if the asset is workspace-shaped code, put it in the bundle. If it's infrastructure — catalogs, principals, network — or if it's data, keep it in Terraform, or cloud infrastructure-as-code, or your data pipelines.
+
+And it's worth understanding why that boundary matters, because it's not arbitrary. Bundles and infrastructure-as-code have very different lifecycles and blast radii. You redeploy a bundle many times a day. But you create a catalog, or a service principal, once — carefully, with a separate approval path. If you mixed them, a routine bundle-deploy could suddenly churn a catalog or rotate an identity, which is exactly what you don't want happening on an ordinary code change. So keep code in the bundle, keep infrastructure in Terraform, and let the bundle simply reference that infrastructure by name. That separation is what keeps your deployments both fast and safe.

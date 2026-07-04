@@ -1,0 +1,16 @@
+# What belongs in a bundle
+
+For **workspace-shaped code** — not data, not infra.
+
+| Asset | In a bundle? |
+|---|---|
+| Jobs · pipelines · notebooks | ✅ |
+| Python files / wheels · ML models | ✅ |
+| Volumes + schemas it creates · dashboards | ✅ |
+| Raw data files | ❌ not a data tool |
+| UC **catalogs** themselves | ❌ out of band, referenced |
+| Service principals / IAM roles | ❌ cloud / IdP managed |
+| Secret **values** | ❌ only scope **references** |
+
+- **Rule:** code → bundle; infra (catalogs, principals) + data → Terraform / IaC / pipelines
+- **Why:** different lifecycles — deploy a bundle daily; create a catalog **once**. Bundle **references** infra by name.

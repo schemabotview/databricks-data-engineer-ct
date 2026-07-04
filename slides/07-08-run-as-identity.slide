@@ -1,0 +1,20 @@
+# Run-as identity — SPs in non-dev
+
+Two questions:
+
+- **Who deploys?** the principal running `bundle deploy` — in CI, a **service principal** (OAuth M2M)
+- **Who runs resources?** `run_as` per target
+
+## Best practice
+
+- **dev** → `run_as: user` (developer)
+- **test / prod** → `run_as: { service_principal_name: … }`
+
+- **Why:** a human-run job breaks when they leave / rotate tokens; an **SP is stable, platform-owned**
+
+## SP permission boundary
+
+- `USE CATALOG` + `USE SCHEMA` · `SELECT`/`MODIFY` on tables
+- `CAN_MANAGE_RUN` on jobs/pipelines · workspace folder perms
+
+**Exam:** "prod job ≠ one engineer's creds" → **service principal** (grants → module 09).

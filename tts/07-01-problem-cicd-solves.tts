@@ -1,0 +1,13 @@
+The problem C-I-C-D solves on Databricks.
+
+To see why bundles exist, look at what promoting a pipeline from dev to prod used to mean. You really had two options, and both were bad.
+
+Option A was point-and-click. Engineers cloned notebooks across workspaces by hand, copy-pasted job J-S-O-N, and updated paths manually. Drift was inevitable — prod ended up running a job spec slightly different from dev, and over months the two quietly diverged.
+
+Option B was R-E-S-T A-P-I scripts. Teams wrote bash that called the Jobs A-P-I and the Workspace A-P-I to upload notebooks and create jobs. That's workable, but every team reinvented the same plumbing in a slightly different way. There was just no canonical way to say "this pipeline, plus this job, plus these notebooks, deployed together as one unit."
+
+Automation Bundles solve exactly that. You get a single declarative file — databricks-dot-y-m-l — that describes every resource in your project, and a C-L-I that validates, deploys, and runs that bundle against any target workspace. The same source tree promotes from dev, to test, to prod, by changing one C-L-I flag. That's the whole idea.
+
+Our worked example for the module is the bank's fintech-platform Git repo. It holds the ingestion, silver, and gold notebooks, the declarative pipeline from module five, the nightly job from module six, and one databricks-dot-y-m-l that promotes the whole bundle across three workspaces.
+
+And here's the exam's framing to recognise. When a question says "a team needs a modular, version-controlled way to deploy and orchestrate E-T-L, with C-I-C-D and repeatability," the answer is Automation Bundles in Git, deployed with bundle-deploy. It is never hand-cloning notebooks, and never snapshotting the U-I.

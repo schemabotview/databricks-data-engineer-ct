@@ -1,0 +1,17 @@
+# Databricks Git Folders
+
+Workspace folder backed by a Git remote (GitHub/GitLab/ADO/Bitbucket) — Git **in the workspace UI**.
+
+## From the UI
+
+- **Clone** · **switch/create branch** · **commit** + **push** · **pull**
+- **Open a PR** (UI links out to the remote)
+
+## Two facts the exam tests
+
+- "commit notebook changes **from inside** Databricks" → **Git Folders** (not export-and-add)
+- Files **outside** a Git Folder are **not** source-controlled
+
+- **Naming:** Git Folders (current) = Repos (legacy)
+
+**vs. bundles:** Git Folders = humans **edit/commit**; bundles = **deploy** that code.

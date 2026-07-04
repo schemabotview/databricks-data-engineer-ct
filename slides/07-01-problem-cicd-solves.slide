@@ -1,0 +1,16 @@
+# The problem CI/CD solves
+
+Before bundles, dev → prod meant two bad options.
+
+- **Point & click** — clone notebooks by hand, copy-paste job JSON → **drift**
+- **REST API scripts** — every team reinvents the plumbing differently
+
+## Automation Bundles fix it
+
+- One declarative **`databricks.yml`** describes every resource
+- A **CLI** validates / deploys / runs it against any workspace
+- Same source tree → **dev → test → prod** by one CLI flag
+
+**Worked example:** `fintech-platform` repo = notebooks + pipeline (05) + nightly job (06) + one `databricks.yml`.
+
+**Exam:** "modular, version-controlled ETL deploy w/ CI-CD" → **bundles in Git + `bundle deploy`** (not hand-cloning, not UI snapshots).

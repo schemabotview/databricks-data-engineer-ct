@@ -1,0 +1,16 @@
+# Variables & environment overrides
+
+Same `databricks.yml` → three behaviours, via **variable resolution per target**.
+
+| Variable | dev | test | prod |
+|---|---|---|---|
+| `catalog` | `fintech_dev` | `fintech_test` | `fintech_prod` |
+| `node_type_id` | `i3.xlarge` | `i3.xlarge` | **`i3.2xlarge`** |
+| `mode` | development | development | **production** |
+| `run_as` | developer | developer | **service principal** |
+| `schedule` | 4-hourly | 4-hourly | nightly 02:00 |
+
+- Targets can override **any resource field**, not just variables
+- **Structure written once**; only differing **values** vary per target
+
+**Exam:** "same codebase → dev/test/prod, diff catalogs & sizes" → **variables + targets** (never fork the code).

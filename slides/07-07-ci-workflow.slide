@@ -1,0 +1,22 @@
+# CI workflow — dev → test → prod
+
+```text
+commit ─► push ─► PR ─► GH Actions: validate -t dev/test/prod
+                          │
+             review + merge to main
+                          ▼
+        GH Actions: deploy -t test ─► smoke job ─► deploy -t prod
+```
+
+```yaml
+on: { push: { branches: [main] } }
+steps:
+  - uses: databricks/setup-cli@main
+  - run: databricks bundle deploy -t test
+  - run: databricks bundle run smoke_test_job -t test
+  - run: databricks bundle deploy -t prod
+```
+
+- **`validate`** on **every PR** · **`deploy`** on **merge to main**, per target
+- Prod gated behind a **smoke test**
+- Same commands **any cloud/workspace** — the manifest changes, the CLI doesn't
