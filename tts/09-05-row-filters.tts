@@ -1,0 +1,9 @@
+Row filters. Where a column mask controls which columns' values you see, a row filter controls which rows you see at all. It's a function that returns a boolean per row, and Unity Catalog adds an implicit WHERE clause on every read, keeping only the rows where that function returns true for the querying principal.
+
+Look at the example. Region-filter takes a country and returns a boolean. If you're in the compliance-i-n group, it returns true only where country equals I-N. If you're in compliance-u-s, only where country equals U-S. If you're in the broad compliance group, it returns true for everything. And otherwise, it returns false. Then you attach it with alter-table, set-row-filter, on the country column.
+
+From then on, every select from silver-dot-customers is implicitly WHERE region-filter of country equals true. Each principal sees only their own slice of rows. And note the default: a member of none of those groups hits the else-false branch and sees nothing at all — zero rows. That's a safe default.
+
+To remove it, you alter-table drop-row-filter.
+
+Now, the powerful part is combining the two. Column mask plus row filter equals the bank's full P-I-I regime. A compliance analyst in India sees full P-I-I — but only for Indian customers' rows. A plain analyst sees only the Indian rows and gets REDACTED in the P-A-N column. So masks decide which columns' values you see; row filters decide which rows you see. Put them together on one base table, and you have true column-and-row-level security — enforced everywhere, for every reader, without a secure view in sight.

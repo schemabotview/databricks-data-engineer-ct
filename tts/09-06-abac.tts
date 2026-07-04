@@ -1,0 +1,9 @@
+Unity Catalog A-B-A-C — attribute-based access control. The per-table row filters and column masks we just covered work well — but they don't scale. Imagine attaching a mask to the same P-I-I column on hundreds of tables, and remembering to do it every time someone adds a new table. That's where A-B-A-C comes in: it lets you define a policy once, and apply it everywhere a table or column carries a specific tag.
+
+There are three building blocks. Tags are labels you attach to catalogs, schemas, tables, or columns — things like p-i-i-class equals high, or data-domain equals cards. Policies are central rules, like "mask any column tagged p-i-i-class high for everyone outside the compliance group." And evaluation happens at query time: Unity Catalog reads the queried object's tags, finds the matching policies, and applies them on top of the principal's grants.
+
+In the example, you first tag the email column with p-i-i-class high. Then you create one policy — mask-high-p-i-i — that says: on any column matching the tag p-i-i-class high, apply the mask-email function, when the caller is not a member of compliance. One policy, defined once.
+
+And here's the payoff. Add a brand-new P-I-I column, on a brand-new table, tag it p-i-i-class high — and the existing policy already covers it. There's no per-table mask to remember, no risk of forgetting. Governance scales automatically as your data grows.
+
+The exam tell is clear. When a question describes "centralised row-level filtering and column masking for sensitive data across many objects," the answer is Unity Catalog A-B-A-C. Per-table masks and filters are the manual answer; A-B-A-C plus tags is the scale answer. The words that give it away are usually "across hundreds of tables," or "centralised."

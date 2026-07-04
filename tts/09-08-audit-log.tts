@@ -1,0 +1,9 @@
+The audit log — who did what, and when. Every Unity Catalog permission grant, every table access, every cross-account read is recorded in the Unity Catalog audit log. It is your forensic source of truth. A question like "did anyone query silver-dot-customers-dot-email outside of compliance hours?" is, fundamentally, an audit-log question.
+
+And the important thing for the exam: this isn't just a U-I. The system-dot-access schema, inside the system catalog, exposes the audit data as queryable tables. So you can write ordinary S-Q-L against it. In the example, we select event-time, the user's email, the action name, and the object's full name from system-dot-access-dot-audit, filtered to the last day and to objects under fintech-prod-dot-silver-dot-customers, ordered newest first. That's a real forensic query you could run right now.
+
+Two tables matter. System-dot-access-dot-audit records every action — who, what, when, and from where. And system-dot-access-dot-table-lineage records which jobs and notebooks read which tables and wrote which tables, right down to column-level lineage. That lineage table is exactly what powers the Lineage tab you see in the Unity Catalog U-I.
+
+So, two exam tells. When a question says "forensic audit — who read this table last Tuesday," the answer is system-dot-access-dot-audit. And when it says "track column-level read and write lineage," the answer is system-dot-access-dot-table-lineage, along with the U-C Lineage tab.
+
+And the takeaway to hold onto: because the audit log is queryable S-Q-L, not merely a U-I, you can build alerts and dashboards on your access patterns — monitoring who's touching sensitive data the very same way you'd monitor any other table.

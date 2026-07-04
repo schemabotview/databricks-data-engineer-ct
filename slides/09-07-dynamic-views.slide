@@ -1,0 +1,18 @@
+# Dynamic views — the older alternative
+
+A view whose `SELECT` uses `CASE WHEN is_account_group_member(...)` to mask + filter in one object.
+
+```sql
+CREATE VIEW gold.customers_secure AS
+SELECT customer_id,
+  CASE WHEN is_account_group_member('compliance') THEN email ELSE 'REDACTED' END AS email,
+  city, country
+FROM silver.customers
+WHERE CASE WHEN is_account_group_member('compliance_in') THEN country='IN'
+           WHEN is_account_group_member('compliance')    THEN TRUE ELSE FALSE END;
+```
+
+- **Still use for:** very simple cases · non-UC clients
+- **Masks/filters/ABAC win:** apply to **base table** (no forgot-the-view hole), compose w/ grants, scale via tags
+
+**Exam:** dynamic view = **legacy** · masks + filters + ABAC = **modern**.

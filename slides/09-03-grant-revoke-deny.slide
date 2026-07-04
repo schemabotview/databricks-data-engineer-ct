@@ -1,0 +1,23 @@
+# `GRANT` / `REVOKE` / `DENY`
+
+## GRANT — add (walk top-down)
+
+```sql
+GRANT USE CATALOG ON CATALOG fintech_dev      TO `analysts`;
+GRANT USE SCHEMA  ON SCHEMA  fintech_dev.gold TO `analysts`;
+GRANT SELECT ON TABLE fintech_dev.gold.customer_360 TO `analysts`;
+```
+
+## REVOKE — remove a grant · DENY — block
+
+```sql
+REVOKE SELECT ON TABLE ... FROM `analysts`;
+DENY   SELECT ON TABLE fintech_dev.silver.customers TO `analysts`;
+```
+
+- **`DENY` beats `GRANT`** — catalog-wide SELECT + table DENY → all **except** that table
+
+## Principals
+
+- users · **groups** (preferred) · service principals (jobs/CI)
+- **Grant to groups, never individuals** — survives joiners/leavers

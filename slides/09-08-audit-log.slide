@@ -1,0 +1,18 @@
+# Audit log — who did what, when
+
+Every grant / access / cross-account read → **UC audit log** = forensic source of truth.
+
+## `system.access` schema — queryable SQL
+
+```sql
+SELECT event_time, user_identity.email, action_name,
+       request_params.full_name_arg AS object
+FROM system.access.audit
+WHERE event_time > current_timestamp() - INTERVAL 1 DAY
+  AND request_params.full_name_arg LIKE 'fintech_prod.silver.customers%';
+```
+
+- **`system.access.audit`** — who / what / when / from where
+- **`system.access.table_lineage`** — job↔table, **column-level**; powers the **Lineage** tab
+
+**Tells:** "who read it last Tuesday?" → `audit` · "column-level lineage" → `table_lineage`. It's **SQL** → build alerts/dashboards.

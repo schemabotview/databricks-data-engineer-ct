@@ -864,6 +864,103 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "09-governance-security",
+      "title": "Governance & Security: ACLs, Masking, Row Filters, ABAC",
+      "sections": [
+        {
+          "heading": "The security hierarchy — how Unity Catalog governs access",
+          "notebook": "notebooks/09-01-security-hierarchy.ipynb",
+          "slide": "slides/09-01-security-hierarchy.slide",
+          "audio": "audio/09-01-security-hierarchy.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["unity-catalog", "uc-metastore", "uc-namespace"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "Privileges — what each one buys you",
+          "notebook": "notebooks/09-02-privileges.ipynb",
+          "slide": "slides/09-02-privileges.slide",
+          "audio": "audio/09-02-privileges.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-grant"],
+          "spine": true
+        },
+        {
+          "heading": "GRANT / REVOKE / DENY — on principals",
+          "notebook": "notebooks/09-03-grant-revoke-deny.ipynb",
+          "slide": "slides/09-03-grant-revoke-deny.slide",
+          "audio": "audio/09-03-grant-revoke-deny.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-grant"],
+          "spine": true
+        },
+        {
+          "heading": "Column masking",
+          "notebook": "notebooks/09-04-column-masking.ipynb",
+          "slide": "slides/09-04-column-masking.slide",
+          "audio": "audio/09-04-column-masking.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-namespace"],
+          "spine": true
+        },
+        {
+          "heading": "Row filters",
+          "notebook": "notebooks/09-05-row-filters.ipynb",
+          "slide": "slides/09-05-row-filters.slide",
+          "audio": "audio/09-05-row-filters.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-namespace"],
+          "spine": true
+        },
+        {
+          "heading": "Unity Catalog ABAC — attribute-based access control",
+          "notebook": "notebooks/09-06-abac.ipynb",
+          "slide": "slides/09-06-abac.slide",
+          "audio": "audio/09-06-abac.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-grant", "uc-namespace"],
+          "spine": true
+        },
+        {
+          "heading": "Dynamic views — the older fine-grained alternative",
+          "notebook": "notebooks/09-07-dynamic-views.ipynb",
+          "slide": "slides/09-07-dynamic-views.slide",
+          "audio": "audio/09-07-dynamic-views.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-namespace"],
+          "spine": true
+        },
+        {
+          "heading": "Audit log — who did what, and when",
+          "notebook": "notebooks/09-08-audit-log.ipynb",
+          "slide": "slides/09-08-audit-log.slide",
+          "audio": "audio/09-08-audit-log.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-lineage"],
+          "spine": true
+        },
+        {
+          "heading": "The decision sheet — picking the right access control",
+          "notebook": "notebooks/09-09-decision-sheet.ipynb",
+          "slide": "slides/09-09-decision-sheet.slide",
+          "audio": "audio/09-09-decision-sheet.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "unity-catalog",
+          "highlight": ["uc-grant", "uc-namespace", "uc-lineage"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

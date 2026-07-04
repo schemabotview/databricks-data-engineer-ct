@@ -1,0 +1,16 @@
+# Privileges — what each buys
+
+| Privilege | Lets you… |
+|---|---|
+| `USE CATALOG` / `USE SCHEMA` | see schemas / objects |
+| **`SELECT`** | read rows |
+| **`MODIFY`** | INSERT/UPDATE/DELETE/MERGE + ALTER |
+| `CREATE` / `CREATE TABLE` | create objects inside |
+| `EXECUTE` | call a function |
+| `READ/WRITE VOLUME` | read/write files |
+| `BROWSE` | see metadata, **not** data |
+| `APPLY TAG` | tag for governance (ABAC) |
+| `ALL PRIVILEGES` | everything (sparingly) |
+
+- **Ownership ≠ privileges** — owner can do anything incl. change grants; **one owner**; `ALTER ... OWNER TO <group>`
+- Exam: `SELECT`(read) vs `MODIFY`(write) · `BROWSE`(exists) vs `SELECT`(rows)

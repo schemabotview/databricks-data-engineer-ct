@@ -1,0 +1,18 @@
+# UC ABAC — attribute-based access
+
+Per-table masks/filters don't scale. **ABAC:** define a policy **once**, apply by **tag**.
+
+## Three building blocks
+
+- **Tags** — on catalog/schema/table/column (`pii_class = high`)
+- **Policies** — "mask any `pii_class = high` column outside `compliance`"
+- **Evaluation** — UC reads tags → matches policies → **on top of** GRANTs
+
+```sql
+ALTER TABLE silver.customers ALTER COLUMN email SET TAGS ('pii_class'='high');
+CREATE POLICY security.mask_high_pii ON COLUMN MATCH TAGS ('pii_class'='high')
+  USING security.mask_email(value) WHEN NOT is_account_group_member('compliance');
+```
+
+- New tagged column → **existing policy covers it** (nothing per-table)
+- **Exam:** "centralised … across hundreds of tables" → **ABAC** (vs. per-table = manual)

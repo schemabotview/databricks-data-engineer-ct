@@ -1,0 +1,22 @@
+# Column masking
+
+A **function** run at query time on a column → real or masked value, by user/group.
+
+## 1. Declare the mask (UC function)
+
+```sql
+CREATE FUNCTION security.mask_pan(pan STRING) RETURNS STRING
+RETURN CASE
+  WHEN is_account_group_member('fraud_analysts') THEN concat('XXXX-XXXX-XXXX-', right(pan,4))
+  WHEN is_account_group_member('compliance')     THEN pan
+  ELSE 'REDACTED' END;
+```
+
+## 2. Attach to the column
+
+```sql
+ALTER TABLE silver.card_accounts ALTER COLUMN pan SET MASK security.mask_pan;
+```
+
+- Every read goes through it — **any query path / BI tool** · remove: `DROP MASK`
+- **Exam:** "hide PAN, show last-4 to fraud" → **column mask** on the **base table** (no secure-view escape hatch)

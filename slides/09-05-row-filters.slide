@@ -1,0 +1,18 @@
+# Row filters
+
+A **boolean function per row** → UC adds an implicit `WHERE` keeping `TRUE` rows.
+
+```sql
+CREATE FUNCTION security.region_filter(country STRING) RETURNS BOOLEAN
+RETURN CASE
+  WHEN is_account_group_member('compliance_in') THEN country = 'IN'
+  WHEN is_account_group_member('compliance')    THEN TRUE
+  ELSE FALSE END;
+
+ALTER TABLE silver.customers SET ROW FILTER security.region_filter ON (country);
+```
+
+- Every read → `WHERE region_filter(country)=TRUE`; member of none → **sees nothing**
+- Remove: `DROP ROW FILTER`
+
+**Mask + row filter = full PII regime:** mask = **which columns' values**, filter = **which rows** — combined on one base table.

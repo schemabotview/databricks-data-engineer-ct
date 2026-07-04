@@ -1,0 +1,20 @@
+# Decision sheet — access control
+
+| Scenario | Pick |
+|---|---|
+| Analysts read gold | `USE CATALOG`+`USE SCHEMA`+`SELECT` |
+| Block one table despite catalog grant | **`DENY`** |
+| Hide PAN, show last-4 to fraud | **Column mask** |
+| Compliance → their region's rows | **Row filter** |
+| Mask/filter across 100s of tagged tables | **UC ABAC** |
+| Non-UC client / very simple | **Dynamic view** (legacy) |
+| Who read it last Tuesday? | **`system.access.audit`** |
+| Column-level lineage | **`system.access.table_lineage`** |
+| Production grants | to a **group** |
+
+## Three tells
+
+- "read access" → `USE CATALOG`+`USE SCHEMA`+`SELECT` (omission trap)
+- columns→**mask** · rows→**filter** · many tables→**ABAC** · who/when→**`system.access`**
+
+**Winning instinct:** managed / declarative / base-table / recommended.

@@ -1,0 +1,20 @@
+# The security hierarchy
+
+UC permissions are a **strict tree** — grants **inherit downward**.
+
+```text
+metastore
+ └── catalog     ← GRANT inherits to ALL schemas/tables
+      └── schema  ← GRANT inherits to ALL tables/views
+           └── table / view / volume / function / model
+```
+
+## Two gating privileges (every level above an object)
+
+- **`USE CATALOG`** — else you can't see schemas
+- **`USE SCHEMA`** — else you can't see tables
+
+- `SELECT` alone is **useless** without both → **#1 exam trap**
+- Shortcut: `GRANT SELECT ON SCHEMA …` covers existing **+ future** tables (foot-gun)
+
+**Bank's 3 groups, all start at zero:** `analysts` · `fraud_analysts` · `compliance`.
