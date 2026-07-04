@@ -1,0 +1,9 @@
+Apply-changes-into — declarative change-data-capture and slowly-changing dimensions.
+
+You can hand-write merge-into for C-D-C — we did that back in module two — and it works. But it's verbose, and it's genuinely race-prone, especially for type-2 history. Apply-changes-into is the declarative-pipeline equivalent, with S-C-D type one or type two baked right in.
+
+The shape is: first create-or-refresh a streaming table as the target. Then apply-changes-into that target, from a stream of the C-D-C source, and you supply a handful of clauses.
+
+Five clauses are worth memorising. Keys names the natural key for the upsert — customer-i-d. Sequence-by names the ordering column that decides "latest wins" when changes arrive late or out of order — here, commit-version. Apply-as-delete-when propagates hard deletes from the source, so a delete upstream becomes a delete in your table. Stored-as-S-C-D-type-1 overwrites in place and keeps no history. And stored-as-S-C-D-type-2 keeps full history for you — start and end timestamps, plus an is-current flag — all maintained automatically.
+
+And here's why the exam loves this. A hand-rolled S-C-D type-2 merge is a multi-statement affair — you're closing out the old row, inserting the new version, setting flags and timestamps, and racing other writers the whole time. Apply-changes-into, stored-as-S-C-D-type-2, is a single declarative block that does all of that correctly. So whenever a question asks for declarative C-D-C that keeps full history, the answer is apply-changes-into with S-C-D type two — not a hand-written merge.

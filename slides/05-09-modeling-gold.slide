@@ -1,0 +1,21 @@
+# Modeling gold — what BI & ML want
+
+Choose by **consumer**.
+
+## Star schema — fact + conformed dimensions
+
+- `fact_card_transactions` + `dim_customer` / `dim_merchant` / `dim_date`
+- Dims slowly-change → **SCD type 2** (`APPLY CHANGES ... SCD TYPE 2`)
+- Wanted by **Power BI / Tableau**
+
+## Wide rollup / OBT — one row per entity
+
+- `customer_360` — id + 30+ metrics inline; no joins, pricier refresh
+- Wanted by **ad-hoc analytics / ML features**
+
+## The bank's gold layout
+
+- `customer_360` → **MV, hourly** · `daily_card_volume` → **streaming table**
+- `dim_customer` → **SCD 2** · `fact_card_transactions` → **SCD 1**
+
+**Match** consumer→shape **and** object→refresh pattern.

@@ -1,0 +1,24 @@
+# Expectations (+ `CHECK` on plain Delta)
+
+Predicates attached to a pipeline dataset.
+
+| Keyword | On violation |
+|---|---|
+| **`expect`** | row **kept**, violation **logged** |
+| **`expect or drop`** | row **dropped**, logged |
+| **`expect or fail`** | pipeline **fails** on first |
+
+```python
+@dlt.expect_all({"valid_customer": "customer_id IS NOT NULL"})
+@dlt.expect_or_drop("reasonable_amount", "amount < 1000000")
+@dlt.expect_or_fail("valid_currency", "currency IN ('INR','USD','EUR')")
+```
+
+## `CHECK` constraint — quality without a pipeline
+
+```sql
+ALTER TABLE silver.card_transactions ADD CONSTRAINT positive_amount CHECK (amount > 0);
+```
+
+- `CHECK` **fails the write** (no drop option), table-level, every writer
+- **write-time reject, plain Delta → `CHECK`** · **track/drop/fail in a pipeline → expectations**

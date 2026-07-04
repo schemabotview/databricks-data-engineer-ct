@@ -1,0 +1,13 @@
+Expectations — declarative data quality — plus check constraints on plain Delta.
+
+Expectations are predicates you attach to a dataset inside a pipeline. When a row violates the predicate, the pipeline reacts — and exactly how it reacts depends on which of three keywords you chose.
+
+Plain expect keeps the row, but logs the violation to the event log — so you're tracking, not blocking. Expect-or-drop drops the offending row and logs it, but the pipeline keeps running. And expect-or-fail stops the whole pipeline on the very first violation.
+
+In Python you stack these as decorators. Expect-all takes a dictionary of named rules — like valid-customer, customer-i-d is not null. Expect-or-drop takes a rule like reasonable-amount, amount under a million. Expect-or-fail takes a critical rule like valid-currency. And there's an equivalent S-Q-L form using constraint and on-violation clauses.
+
+The way to remember it is to map severity to keyword. Track but don't block — that's plain expect. Drop the bad rows but keep the pipeline running — expect-or-drop. A violation is critical, stop and page a human — expect-or-fail.
+
+Now, not every table needs a pipeline. Plain Delta tables support check constraints, which enforce a predicate on every write — for example, alter-table add-constraint positive-amount check amount greater than zero.
+
+And here's the contrast the exam draws. A check constraint fails the write — there is no drop-and-log option — and it's table-level, so it applies to every writer, no matter who they are. So if the question says "reject bad rows at write time on a plain Delta table," the answer is a check constraint. If it says "track, or drop, or fail based on severity inside a pipeline," the answer is expectations.

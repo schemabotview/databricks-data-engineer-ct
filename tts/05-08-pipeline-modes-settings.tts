@@ -1,0 +1,13 @@
+Pipeline modes, settings, and the development workflow.
+
+A declarative pipeline is something you configure once and re-run many times. There are four knobs the exam tests, and the single most common mistake is confusing two of them, so let's keep them separate.
+
+The first axis is triggered versus continuous — and this is about how the pipeline runs, its data cadence. Triggered runs once against all available data, then stops; that's your scheduled batch, and it's lower cost. Continuous runs forever, processing new data as it arrives; that's real-time, and it's higher cost because the compute never stops.
+
+The second axis is development versus production — and this is about how the cluster behaves. In development mode the cluster stays alive between runs, so you iterate fast, and errors don't tear the cluster down. In production mode the cluster terminates between runs, which is cheaper, and errors fail the run.
+
+The third knob is the channel — which runtime you're on. Current is the latest generally-available runtime; preview gives you early-access features.
+
+And the fourth is the target catalog and schema. Every pipeline lands its datasets into a Unity Catalog catalog and schema that you choose. Without a target set, those datasets are visible only to the pipeline itself — a classic "why can't I query my table" gotcha.
+
+Now here's the exam's angle, and it's the whole point of this section: do not confuse the two axes. Triggered versus continuous is about data cadence. Development versus production is about cluster lifecycle and error handling. They're independent — a pipeline can be triggered-and-production, like a scheduled nightly batch, or continuous-and-development, like iterating on a streaming pipeline. Keep those two dials separate in your head.

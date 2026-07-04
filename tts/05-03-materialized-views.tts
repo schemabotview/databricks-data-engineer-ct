@@ -1,0 +1,9 @@
+Materialized views — precomputed, auto-refreshed, and queried just like a table.
+
+A materialized view — an M-V — is a query result that Databricks computes once, stores as Delta, and then refreshes on a cadence you declare, or whenever you explicitly call refresh-materialized-view.
+
+Look at the shape. You write create-or-replace-materialized-view, give it a name like gold-dot-customer-360, add a schedule — say, every one hour — and then an ordinary select underneath. Here that select rolls up each customer's transaction count, total spend, and distinct merchants over the last thirty days. The key thing is that the schedule lives right there, attached to the object.
+
+So what does an M-V actually buy you? Four things. Incremental refresh — when the base tables change, only the affected rows recompute, where the query supports it, rather than rebuilding everything. Consistent reads — you read it like a table, and you're never exposed to a base table that's halfway through a write. Cheap for B-I — analysts hit a precomputed result instead of re-running a fifty-billion-row aggregation. And a declarative schedule — the cadence lives with the object, not off in a separate Lakeflow Jobs definition you have to keep in sync.
+
+And here's the exam pattern to lock in: the M-V is the right answer whenever a question describes a heavy aggregation that B-I reads frequently, refreshed on a cadence. Contrast it with the two neighbours. A plain view recomputes on every read, so it loses on repeated heavy reads. And a streaming table is continuous append, not periodic aggregation — so it's the answer for continuously arriving records, not for a scheduled rollup.

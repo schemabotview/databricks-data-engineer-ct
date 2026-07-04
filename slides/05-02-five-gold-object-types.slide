@@ -1,0 +1,20 @@
+# The five gold object types
+
+| Object | Stored? | Right when… |
+|---|---|---|
+| **Table** | ✅ | full control over how/when written |
+| **View** | ❌ | wrap / security barrier / hide PII |
+| **Materialized View** | ✅ | heavy agg BI reads often (`customer_360`) |
+| **Streaming Table** | ✅ | records arrive continuously |
+| **MV/ST in a pipeline** | ✅ | want quality + lineage built in |
+
+## Plain view = security barrier (no data stored)
+
+```sql
+CREATE VIEW gold.customers_public AS
+SELECT customer_id, city, country, created_at
+FROM   silver.customers;   -- email/phone/DOB never exposed
+```
+
+- Temp views: `createOrReplaceTempView` (session) · `...GlobalTempView` (cross-session)
+- **Trade-off:** a view **recomputes every read** → heavy agg = **MV**, not view

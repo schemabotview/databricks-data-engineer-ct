@@ -1,0 +1,22 @@
+# `APPLY CHANGES INTO` — CDC & SCD
+
+Declarative CDC — SCD type 1 or 2 baked in. Replaces verbose, race-prone `MERGE`.
+
+```sql
+CREATE OR REFRESH STREAMING TABLE silver_customers;
+
+APPLY CHANGES INTO live.silver_customers
+FROM   STREAM(live.bronze_customers_cdc)
+KEYS   (customer_id)
+APPLY AS DELETE WHEN _change_type = 'delete'
+SEQUENCE BY _commit_version
+STORED AS SCD TYPE 1;   -- or TYPE 2 for history
+```
+
+## Five clauses
+
+- **`KEYS`** — upsert natural key · **`SEQUENCE BY`** — "latest wins" order
+- **`APPLY AS DELETE WHEN`** — propagate source deletes
+- **`SCD TYPE 1`** — overwrite, no history · **`SCD TYPE 2`** — start/end + is-current, maintained
+
+**Exam:** "declarative CDC, full history" → `APPLY CHANGES ... SCD TYPE 2`, not `MERGE`.

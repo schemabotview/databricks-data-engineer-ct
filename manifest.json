@@ -446,6 +446,113 @@
           "spine": true
         }
       ]
+    },
+    {
+      "id": "05-modeling-declarative-pipelines",
+      "title": "Modeling: Medallion, MVs, Streaming Tables, Declarative Pipelines",
+      "sections": [
+        {
+          "heading": "Medallion architecture — what belongs in each layer",
+          "notebook": "notebooks/05-01-medallion-architecture.ipynb",
+          "slide": "slides/05-01-medallion-architecture.slide",
+          "audio": "audio/05-01-medallion-architecture.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "medallion",
+          "highlight": ["bronze", "silver", "gold"],
+          "spine": true,
+          "role": "hook"
+        },
+        {
+          "heading": "The five gold object types",
+          "notebook": "notebooks/05-02-five-gold-object-types.ipynb",
+          "slide": "slides/05-02-five-gold-object-types.slide",
+          "audio": "audio/05-02-five-gold-object-types.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "gold",
+          "highlight": ["gold", "dlt-table", "streaming-table"],
+          "spine": true
+        },
+        {
+          "heading": "Materialized views — precomputed, auto-refreshed, queried like a table",
+          "notebook": "notebooks/05-03-materialized-views.ipynb",
+          "slide": "slides/05-03-materialized-views.slide",
+          "audio": "audio/05-03-materialized-views.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "gold",
+          "highlight": ["gold", "dbsql"],
+          "spine": true
+        },
+        {
+          "heading": "Streaming tables — append-only, continuous, declarative",
+          "notebook": "notebooks/05-04-streaming-tables.ipynb",
+          "slide": "slides/05-04-streaming-tables.slide",
+          "audio": "audio/05-04-streaming-tables.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "declarative-pipelines",
+          "highlight": ["streaming-table"],
+          "spine": true
+        },
+        {
+          "heading": "Declarative pipelines — defining datasets in Python & SQL",
+          "notebook": "notebooks/05-05-declarative-pipelines.ipynb",
+          "slide": "slides/05-05-declarative-pipelines.slide",
+          "audio": "audio/05-05-declarative-pipelines.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "declarative-pipelines",
+          "highlight": ["declarative-pipelines", "dlt-table", "dlt-live"],
+          "spine": true
+        },
+        {
+          "heading": "Expectations — declarative data quality",
+          "notebook": "notebooks/05-06-expectations.ipynb",
+          "slide": "slides/05-06-expectations.slide",
+          "audio": "audio/05-06-expectations.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "declarative-pipelines",
+          "highlight": ["dlt-expectations"],
+          "spine": true
+        },
+        {
+          "heading": "APPLY CHANGES INTO — declarative CDC & SCD",
+          "notebook": "notebooks/05-07-apply-changes-into.ipynb",
+          "slide": "slides/05-07-apply-changes-into.slide",
+          "audio": "audio/05-07-apply-changes-into.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "declarative-pipelines",
+          "highlight": ["apply-changes", "silver"],
+          "spine": true
+        },
+        {
+          "heading": "Pipeline modes, settings & the development workflow",
+          "notebook": "notebooks/05-08-pipeline-modes-settings.ipynb",
+          "slide": "slides/05-08-pipeline-modes-settings.slide",
+          "audio": "audio/05-08-pipeline-modes-settings.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "declarative-pipelines",
+          "highlight": ["declarative-pipelines"],
+          "spine": true
+        },
+        {
+          "heading": "Modeling gold — the patterns BI and ML want",
+          "notebook": "notebooks/05-09-modeling-gold.ipynb",
+          "slide": "slides/05-09-modeling-gold.slide",
+          "audio": "audio/05-09-modeling-gold.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "gold",
+          "highlight": ["gold", "dbsql", "mosaic-ai"],
+          "spine": true
+        },
+        {
+          "heading": "The decision sheet — picking the right gold object",
+          "notebook": "notebooks/05-10-decision-sheet.ipynb",
+          "slide": "slides/05-10-decision-sheet.slide",
+          "audio": "audio/05-10-decision-sheet.wav",
+          "scene": "databricks-data-engineer",
+          "focus": "medallion",
+          "highlight": ["gold", "dlt-table", "streaming-table", "apply-changes"],
+          "spine": true
+        }
+      ]
     }
   ]
 }

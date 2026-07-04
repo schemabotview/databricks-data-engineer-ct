@@ -1,0 +1,18 @@
+# Decision sheet — the right gold object
+
+| Scenario | Pick |
+|---|---|
+| Heavy agg, BI refreshes hourly | **Materialized view** |
+| Continuous fact ingestion | **Streaming table** |
+| Wrapper / hide PII / common filter | **View** |
+| Pipeline w/ quality, lineage, CDC | **Declarative Pipeline** |
+| SCD 2 history from CDC | **`APPLY CHANGES ... SCD TYPE 2`** |
+| Drop bad rows, keep running | **`expect or drop`** |
+| Stop on critical violation | **`expect or fail`** |
+| Reject at write, plain Delta | **`CHECK` constraint** |
+| Custom batch you control | **Delta table + Jobs task** |
+
+## Three tells
+
+- "reads a lot, on a schedule" → **MV** · "arrives continuously" → **streaming table**
+- "keep full history" → **`APPLY CHANGES ... SCD TYPE 2`**

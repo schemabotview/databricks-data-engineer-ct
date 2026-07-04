@@ -1,0 +1,19 @@
+# Streaming tables
+
+**Append-only** Delta fed by a streaming query — a first-class **UC object**, not imperative `readStream`/`writeStream`.
+
+```sql
+CREATE OR REFRESH STREAMING TABLE bronze.card_transactions_raw AS
+SELECT * FROM STREAM read_files(
+  '/Volumes/fintech_dev/bronze/landing_zone/cards/',
+  format => 'json', schemaEvolutionMode => 'addNewColumns');
+```
+
+- `read_files(... STREAM ...)` = **SQL surface of Auto Loader** (same checkpoint / exactly-once)
+
+## Two pipeline modes
+
+- **Triggered** — run to completion, then stop — **lower cost**
+- **Continuous** — run forever, process on arrival — **lower latency, higher cost**
+
+**Right when:** records arrive continuously → streaming table (vs. MV = scheduled aggregation).

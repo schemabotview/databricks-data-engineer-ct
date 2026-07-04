@@ -4,7 +4,7 @@ Video-first content for the **Databricks Certified Data Engineer Associate** con
 
 This file is the **course outline** — the human-facing map of modules and sections. It is the plan we author against; the machine source of truth for structure is `manifest.json`.
 
-**Status:** repo pushed public (`github.com/schemabotview/databricks-data-engineer-ct`). **Modules 01–03 are complete end-to-end** — every section has `.ipynb` + `.tts` + `.wav` + `.slide`, and `manifest.json` wires them (scene/highlight/focus/audio) so graphl-movie records them to 1080p video. **Module 04 is authored** — 11 sections with `.ipynb` (split from the reference `04-transformations.ipynb`) + `.tts` + `.slide`, manifest wired; its `.wav`s are pending Colab. Modules 05–09: section lists agreed below, not yet authored.
+**Status:** repo pushed public (`github.com/schemabotview/databricks-data-engineer-ct`). **Modules 01–03 are complete end-to-end** — every section has `.ipynb` + `.tts` + `.wav` + `.slide`, and `manifest.json` wires them (scene/highlight/focus/audio) so graphl-movie records them to 1080p video. **Modules 04 & 05 are authored** — 11 + 10 sections with `.ipynb` (split from the reference `04-transformations.ipynb` / `05-modeling-pipelines.ipynb`) + `.tts` + `.slide`, manifest wired; their `.wav`s are pending Colab. Modules 06–09: section lists agreed below, not yet authored.
 
 ## Target exam
 

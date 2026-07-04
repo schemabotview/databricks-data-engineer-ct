@@ -1,0 +1,20 @@
+# Medallion — what's in each layer
+
+The exam tests: read a description → name the layer.
+
+## Bronze — raw, append-only, replayable
+
+- One table per source; schema mirrors source (nested OK)
+- Strings + nulls allowed; quality **NOT** enforced — the **audit copy**
+
+## Silver — cleaned, conformed, deduplicated
+
+- **Same grain** as bronze (one row per event); types pinned, nulls dropped
+- Conformed FKs; quality **enforced** (expectations / `CHECK`)
+
+## Gold — business-ready, aggregated, served
+
+- Star schema or wide rollup; pre-aggregated; one row per **entity**
+- Permissions tightest — analysts / ML join here
+
+**Rule:** many narrow gold tables from the **same** silver — not one giant table.

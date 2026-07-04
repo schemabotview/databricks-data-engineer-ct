@@ -1,0 +1,21 @@
+# Declarative pipelines — Python & SQL
+
+**Lakeflow Spark Declarative Pipelines** (formerly **DLT**) wrap datasets in a framework: declarative defs, **expectations**, **lineage**, CDC via `APPLY CHANGES`, managed compute + retry.
+
+- **Rename watch:** DLT = legacy name; decorators still `@dlt.table`, SQL still `STREAMING TABLE` / `MATERIALIZED VIEW`
+
+## Python — return a DataFrame
+
+```python
+@dlt.table(comment="Cleaned card transactions")
+def silver_card_transactions():
+    return dlt.read_stream("bronze_card_transactions") \
+        .where(col("customer_id").isNotNull())
+```
+
+## Two readers to memorise
+
+- **`dlt.read("name")`** — same-pipeline dataset as **batch**
+- **`dlt.read_stream("name")`** — same-pipeline dataset as **stream**
+
+Framework builds the **DAG from your reads** — you never set task order.

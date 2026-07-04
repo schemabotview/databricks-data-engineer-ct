@@ -1,0 +1,22 @@
+# Materialized views
+
+Query result **computed once, stored as Delta, auto-refreshed** on a cadence.
+
+```sql
+CREATE OR REPLACE MATERIALIZED VIEW gold.customer_360
+SCHEDULE EVERY 1 HOUR AS
+SELECT c.customer_id, c.city,
+       COUNT(t.transaction_id) AS txn_count_30d,
+       SUM(t.amount)           AS total_spend_30d
+FROM silver.customers c
+LEFT JOIN silver.card_transactions t ON c.customer_id = t.customer_id
+GROUP BY c.customer_id, c.city;
+```
+
+## What it buys
+
+- **Incremental refresh** — only affected rows recompute
+- **Consistent reads** · **cheap for BI** (precomputed, not 50 B-row aggregation)
+- **Schedule lives with the object** (not a separate Jobs def)
+
+**Right when:** heavy aggregation BI reads often, on a cadence — vs. view (recomputes) / streaming table (continuous).

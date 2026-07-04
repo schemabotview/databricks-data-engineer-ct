@@ -1,0 +1,11 @@
+Declarative pipelines — defining datasets in Python and S-Q-L.
+
+Plain tables, views, materialized views, and streaming tables are all useful on their own. But Lakeflow Spark Declarative Pipelines — formerly known as Delta Live Tables, or D-L-T — wrap them in a framework that adds real power: declarative dataset definitions, where you describe what each dataset is and the framework works out the D-A-G and the execution order; expectations for data quality; automatic lineage captured in Unity Catalog; C-D-C and S-C-D through apply-changes-into; and managed compute with per-dataset retries.
+
+A quick rename watch, because the exam plays with this. D-L-T is the legacy name; Lakeflow Spark Declarative Pipelines is the current one, and a question may use either. Helpfully, the decorators are still at-dlt-dot-table and at-dlt-dot-view, and the S-Q-L keywords are still streaming-table and materialized-view — so the code didn't change under the rename.
+
+In Python, it's decorator-based. You write at-dlt-dot-table above a function, and that function simply returns a DataFrame. So a bronze function returns a read-stream from cloud-files; a silver function returns dlt-dot-read-stream of the bronze dataset, filtered. Notice you never write out to a table — the decorator handles materialisation.
+
+In S-Q-L, the same D-A-G is expressed with create-or-refresh-streaming-table as select from stream.
+
+And there are two reader functions you must memorise. Dlt-dot-read reads another dataset in the same pipeline as a batch snapshot. Dlt-dot-read-stream reads it as a stream. The framework builds the entire dependency graph from those reads — which means you never specify task order yourself. You declare the datasets; the framework figures out what runs when.

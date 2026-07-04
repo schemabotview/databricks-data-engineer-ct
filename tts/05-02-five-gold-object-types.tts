@@ -1,0 +1,17 @@
+The five object types you can build in gold.
+
+The exam expects you to pick the right one for each scenario, so memorise both the shape and the "right when".
+
+First, a plain table — Delta you write with batch jobs. It's stored, and it's right when you need full control over how and when it's written.
+
+Second, a view — a logical query evaluated on read. It stores no data. It's right for light wrapping, security barriers, and hiding P-I-I.
+
+Third, a materialized view, or M-V — a precomputed result that's stored and auto-refreshed. It's right when a heavy aggregation is read often by B-I, like customer-360.
+
+Fourth, a streaming table — append-only, fed by a Structured Streaming query, stored. It's right when records arrive continuously, like daily-card-volume.
+
+And fifth, those last two shapes defined declaratively inside a pipeline, which layers on expectations and lineage — right when you want the framework's quality and lineage built in.
+
+Let me draw out the view, because it's the security-barrier tool. A view stores no data — it's a saved select, evaluated on every read. So you hide P-I-I simply by selecting only the safe columns — customer-i-d, city, country — leaving out email, phone, and date-of-birth. Then you grant select on the view, and analysts literally cannot see what the view doesn't expose. There are also temporary views, which are session-scoped, and global temp views, which cross sessions under the global-temp schema.
+
+But here's the trade-off the exam tests. A view recomputes on every single read. So for a heavy aggregation hit by a thousand dashboard refreshes a day, a materialized view wins easily — it serves a precomputed result, whereas a plain view would re-run that aggregation every time someone loads the dashboard.

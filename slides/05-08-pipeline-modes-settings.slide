@@ -1,0 +1,20 @@
+# Pipeline modes & settings
+
+Two **independent** axes — the exam's favourite confusion.
+
+## Triggered vs. Continuous — *data cadence*
+
+- **Triggered** — run once, then stop; scheduled batch; **lower cost**
+- **Continuous** — run forever, process on arrival; real-time; **higher cost**
+
+## Development vs. Production — *cluster lifecycle*
+
+- **Development** — cluster stays alive, fast iteration, errors don't tear it down
+- **Production** — cluster terminates between runs (cheaper), errors fail the run
+
+## Two more
+
+- **Channel** — `Current` (latest GA) vs `Preview` (early access)
+- **Target catalog + schema** — required, else datasets visible only to the pipeline
+
+**Don't mix:** cadence (triggered/continuous) ≠ lifecycle (dev/prod).
