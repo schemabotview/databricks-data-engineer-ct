@@ -1,11 +1,11 @@
 # Performance tuning — the four knobs
 
-| Config | Controls | Default |
-|---|---|---|
-| **`spark.sql.shuffle.partitions`** | partitions after shuffle | **200** |
-| `spark.default.parallelism` | RDD default partitions | # cores |
-| `spark.executor.memory` / `.driver.memory` | heap per executor / driver | cluster |
-| **`spark.sql.autoBroadcastJoinThreshold`** | auto-broadcast max | 10 MB |
+## Four knobs
+
+- **`spark.sql.shuffle.partitions`** — partitions after shuffle · default **200**
+- **`spark.default.parallelism`** — RDD default partitions · **# cores**
+- **`spark.executor.memory`** / **`.driver.memory`** — heap per executor / driver
+- **`spark.sql.autoBroadcastJoinThreshold`** — auto-broadcast max · **10 MB**
 
 ## The exam question
 
