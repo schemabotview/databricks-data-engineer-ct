@@ -11,8 +11,3 @@
 | Stop on critical violation | **`expect or fail`** |
 | Reject at write, plain Delta | **`CHECK` constraint** |
 | Custom batch you control | **Delta table + Jobs task** |
-
-## Three tells
-
-- "reads a lot, on a schedule" → **MV** · "arrives continuously" → **streaming table**
-- "keep full history" → **`APPLY CHANGES ... SCD TYPE 2`**
