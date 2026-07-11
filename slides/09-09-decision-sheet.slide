@@ -11,8 +11,3 @@
 | Who read it last Tuesday? | **`system.access.audit`** |
 | Column-level lineage | **`system.access.table_lineage`** |
 | Production grants | to a **group** |
-
-## Three tells
-
-- "read access" → `USE CATALOG`+`USE SCHEMA`+`SELECT` (omission trap)
-- columns→**mask** · rows→**filter** · many tables→**ABAC** · who/when→**`system.access`**
