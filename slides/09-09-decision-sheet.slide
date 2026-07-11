@@ -16,5 +16,3 @@
 
 - "read access" → `USE CATALOG`+`USE SCHEMA`+`SELECT` (omission trap)
 - columns→**mask** · rows→**filter** · many tables→**ABAC** · who/when→**`system.access`**
-
-**Winning instinct:** managed / declarative / base-table / recommended.
