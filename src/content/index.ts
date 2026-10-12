@@ -2,6 +2,7 @@ import { foundations } from './foundations'
 import { governance } from './governance'
 import { deltaTables } from './delta-tables'
 import { ingestion } from './ingestion'
+import { transformations } from './transformations'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order. A course is registered here only once it is authored.
@@ -10,6 +11,7 @@ export const COURSES: Record<string, Course> = {
   [governance.id]: governance,
   [deltaTables.id]: deltaTables,
   [ingestion.id]: ingestion,
+  [transformations.id]: transformations,
 }
 
 export type { Course, Section }

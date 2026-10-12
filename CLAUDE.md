@@ -37,7 +37,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 2 | `governance` | Governed Data and Unity Catalog | 7 | authored (all documented, not run), awaiting owner review |
 | 3 | `delta-tables` | Delta Tables and Reliable Data Changes | 8 | authored (local run, `scripts/verify/ch03_delta_tables.py`), awaiting owner review |
 | 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | authored (Spark file stream locally; Auto Loader etc. documented, not run), awaiting owner review |
-| 5 | `transformations` | Transformations and Business Data Products | 8 | not started |
+| 5 | `transformations` | Transformations and Business Data Products | 8 | authored (local run, `scripts/verify/ch05_transformations.py`), awaiting owner review |
 | 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | not started |
 | 7 | `pipelines` | Declarative Data Pipelines | 8 | not started |
 | 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | not started |
@@ -99,6 +99,16 @@ re-reads everything (**16**). 8 rows, **7** distinct `order_id`. Drift demo: JSO
 `2.json` (amount `"12,50"`, new field `channel`); a fixed schema drops `channel` and parses `"12,50"` as
 **1250.00** with no flag. Local analogue only: Spark's file stream source, not Auto Loader.
 
+## Chapter 5 frozen facts (local run; slides quote them)
+
+`bronze_events`, 11 text rows (columns `order_id, store_id, amount, status, event_ts, source_file`): the three
+landing files of Chapter 4 plus file d (`o6` COMPLETED 09:41, `o8` amount -5.00, `o9` unknown store 15).
+Reference `stores` = 7 Leeds, 9 York, 12 Hull (`stores_dup` repeats York). Quality rules: amount readable
+(fails o7), amount positive (o8), store known (o9). **11 = 6 silver + 1 identical resend + 1 superseded o6 +
+3 quarantined.** `silver_orders` (6): o1 7 40.00 · o2 7 25.00 · o3 9 60.00 CANCELLED · o4 9 15.00 · o5 12 80.00
+· o6 7 10.00 (all COMPLETED unless noted). `gold_sales`: Leeds 3 / 75.00, York 1 / 15.00, Hull 1 / 80.00 —
+total **170.00** (Chapter 1's 160.00 had o6 still PENDING). Join inflation: 5 rows / 170.00 vs 6 rows / 185.00.
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -153,6 +163,14 @@ Each course adds its rows here as it is authored.
 | `connector-matrix` | your-code vs connector responsibility table → before-choosing `list` | `ingestion-managed-connectors-lakeflow-connect` |
 | `message-bus` | resume-position table → Kafka read card → assumptions `list` | `ingestion-message-bus-streaming-sources` |
 | `bronze-walkthrough` | source-to-bronze counts table above the bronze design card | `ingestion-backfills-replay-bronze-walkthrough` |
+| `spark-plan-model` | lazy-code card → trimmed explain() card → status-counts table | `transformations-spark-model-for-transformations` |
+| `sql-df-equivalence` | SQL and PySpark cards (left) beside result table and plan note (right) | `transformations-sql-and-dataframe-equivalence` |
+| `types-nulls-time` | try_cast / NULL table above the silent-shifts table | `transformations-parsing-types-null-time` |
+| `join-cardinality` | clean vs duplicated reference table → stores_dup → key-guard query | `transformations-joins-keys-cardinality` |
+| `window-dedupe` | row_number code → ranked rows → tie-breaker `list` | `transformations-windows-ranking-dedupe` |
+| `quality-quarantine` | rules table above the 11 = 6 + 1 + 1 + 3 reconciliation | `transformations-quality-rules-quarantine` |
+| `gold-contract` | gold DDL with comments and CHECK above the three-store result | `transformations-dimensional-outputs-contracts` |
+| `silver-gold-flow` | bronze → silver → gold chain above silver build code and detail = summary table | `transformations-worked-silver-gold-flow` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

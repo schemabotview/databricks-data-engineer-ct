@@ -17,3 +17,4 @@ spark-warehouse/
 .venv/
 .verify-warehouse-ch03/
 .verify-warehouse-ch04/
+.verify-warehouse-ch05/

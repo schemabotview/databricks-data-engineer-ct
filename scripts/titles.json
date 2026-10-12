@@ -3,5 +3,6 @@
   "foundations": "Databricks Data Engineering Foundations: Lakehouse, Workspaces, Compute and Your First Query",
   "governance": "Databricks Unity Catalog Explained: Catalogs, Schemas, Grants, Volumes and Lineage",
   "delta-tables": "Delta Lake Tables Explained: Transaction Log, MERGE, Time Travel, VACUUM and Change Data Feed",
-  "ingestion": "Databricks Data Ingestion Explained: Auto Loader, COPY INTO, Checkpoints and Schema Drift"
+  "ingestion": "Databricks Data Ingestion Explained: Auto Loader, COPY INTO, Checkpoints and Schema Drift",
+  "transformations": "Databricks Data Transformations: Joins, Window Deduplication, Quality Rules and Gold Tables"
 }
