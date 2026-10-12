@@ -39,7 +39,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | authored (Spark file stream locally; Auto Loader etc. documented, not run), awaiting owner review |
 | 5 | `transformations` | Transformations and Business Data Products | 8 | authored (local run, `scripts/verify/ch05_transformations.py`), awaiting owner review |
 | 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | authored (local run, `scripts/verify/ch06_streaming_cdc.py`; CONFIGURED change feed only), awaiting owner review |
-| 7 | `pipelines` | Declarative Data Pipelines | 8 | not started |
+| 7 | `pipelines` | Declarative Data Pipelines | 8 | authored (DOCUMENTED, NOT RUN; local policy arithmetic + Delta source rule only), awaiting owner review |
 | 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | not started |
 | 9 | `performance` | Performance, Layout, and Cost | 8 | not started |
 | 10 | `operations` | Development, Deployment, and Operations | 10 | not started |
@@ -120,6 +120,17 @@ counted twice: no dedupe), 09:20 = 10.00; o12 dropped, o10 counted. Payments p1�
 CDC feed: 8 records in 3 arrival batches over o1/o2/o3 (see `cdc-feed`). The change feed is **configured**
 (`delta.enableChangeDataFeed = true`); automatic feeds on eligible tables are NOT tested — never claim them.
 
+## Chapter 7 status (DOCUMENTED, NOT RUN)
+
+No Databricks workspace and `docs.databricks.com` unreachable: names were checked through search summaries
+of the docs. Used: `from pyspark import pipelines as dp` (the module was `dlt`); `CREATE OR REFRESH STREAMING
+TABLE`, `CREATE OR REFRESH MATERIALIZED VIEW`, `CREATE TEMPORARY VIEW`; `CREATE FLOW ... AS AUTO CDC INTO ...
+KEYS (...) SEQUENCE BY ... STORED AS SCD TYPE 1|2` (older: `APPLY CHANGES INTO`); expectations warn / drop /
+fail (metrics only for warn and drop); SCD 2 adds `__START_AT` / `__END_AT`. **Unverified, re-check before
+publishing:** `SEQUENCE BY STRUCT(...)` for tie-breaking, the event-log schema, `pipelines.reset.allowed`,
+selective/full refresh wording, sinks. Illustrative tables are labelled as such. Local and real: the policy
+arithmetic (11 kept under warn, 8 under drop) and the Delta streaming source refusing an UPDATE.
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -192,6 +203,14 @@ Each course adds its rows here as it is authored.
 | `scd-types` | SCD1 table above SCD2 history table | `streaming-cdc-scd-type-1-vs-2` |
 | `cdf-vs-cdc` | source records vs table feed rows table → different-questions `list` | `streaming-cdc-cdf-vs-source-cdc` |
 | `recovery-guards` | sequence-guarded MERGE card → tested problem/guard/result table | `streaming-cdc-worked-recovery` |
+| `imperative-vs-declarative` | application vs pipeline definition cards above who-handles-what table | `pipelines-imperative-vs-declarative` |
+| `dataset-kinds` | three-dataset table → kinds code card → one-line `list` | `pipelines-streaming-tables-views` |
+| `pipeline-graph` | five-dataset dependency chain beside reads card and flows/sinks `list` | `pipelines-dependencies-flows-sinks` |
+| `expectation-policies` | CONSTRAINT SQL card above policy-outcome and pass/fail tables | `pipelines-expectations-quality-quarantine` |
+| `incremental-semantics` | four-update read table → real DELTA_SOURCE_TABLE_IGNORE_CHANGES card | `pipelines-incremental-recompute-semantics` |
+| `auto-cdc-sequence` | AUTO CDC code → illustrative SCD2 rows → what-you-declare `list` | `pipelines-auto-cdc-scd` |
+| `refresh-modes` | kinds-of-update table → expired-file arithmetic → reset guard `list` | `pipelines-updates-refresh-replay` |
+| `pipeline-walkthrough` | full retail pipeline SQL above illustrative event log and failure-reading `list` | `pipelines-event-logs-walkthrough` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

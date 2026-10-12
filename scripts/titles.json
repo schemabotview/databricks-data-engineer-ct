@@ -5,5 +5,6 @@
   "delta-tables": "Delta Lake Tables Explained: Transaction Log, MERGE, Time Travel, VACUUM and Change Data Feed",
   "ingestion": "Databricks Data Ingestion Explained: Auto Loader, COPY INTO, Checkpoints and Schema Drift",
   "transformations": "Databricks Data Transformations: Joins, Window Deduplication, Quality Rules and Gold Tables",
-  "streaming-cdc": "Spark Structured Streaming Explained: Watermarks, State, CDC, SCD Type 2 and Replay"
+  "streaming-cdc": "Spark Structured Streaming Explained: Watermarks, State, CDC, SCD Type 2 and Replay",
+  "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations and AUTO CDC"
 }

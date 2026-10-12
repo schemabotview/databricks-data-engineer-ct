@@ -53,4 +53,5 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 4 Ingestion and Incremental Arrival | `ingestion` | 9 | yes (local file stream; Databricks sources documented) | pending |
 | 5 Transformations and Business Data Products | `transformations` | 8 | yes (local run) | pending |
 | 6 Streaming, CDC, and Changing State | `streaming-cdc` | 10 | yes (local run) | pending |
-| 7–11 | `pipelines` … `integration` | 38 | no | — |
+| 7 Declarative Data Pipelines | `pipelines` | 8 | yes (documented, not run) | pending |
+| 8–11 | `orchestration` … `integration` | 30 | no | — |
