@@ -57,4 +57,31 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 8 Orchestration and Workload Dependencies | `orchestration` | 7 | yes (documented; local model) | pending |
 | 9 Performance, Layout, and Cost | `performance` | 8 | yes (local counts; platform features documented) | pending |
 | 10 Development, Deployment, and Operations | `operations` | 10 | yes (real example project; bundles documented) | pending |
-| 11 | `integration` | 5 | no | — |
+| 11 Integrated Engineering Decisions | `integration` | 5 | yes (local run; platform features documented) | pending |
+
+**Status: all 11 chapters (86 sections) are authored and await owner review.** `npm run check` reports 86 of 86 planned
+sections with their plan titles verbatim; the whole course renders at 1920×1080 with no page errors or clipping (83 routes
+inside the density targets, 3 slightly sparse scenes that were reviewed and accepted).
+
+## Verification scripts
+
+Every number the course quotes comes from one of these, run on local PySpark 4.0.1 + Delta Lake 4.0.0 (not a Databricks
+Runtime). Set up once with `python3 -m venv .venv && .venv/bin/pip install "pyspark==4.0.1" "delta-spark==4.0.0" "pandas<3" pytest`
+(Java 17/21 and PyPI/Maven Central access needed), then run `.venv/bin/python scripts/verify/<script>` from the repo root.
+
+| Script | Chapter | What it proves | Tier |
+| --- | --- | --- | --- |
+| `ch01_foundations.py` | 1 | first query, bronze/silver/gold counts, on-disk Delta log | run locally |
+| `ch02_governance_model.py` | 2 | the permission matrix follows from the grants | a model of the documented rules |
+| `ch03_delta_tables.py` | 3 | versions, MERGE, constraints, a forced write conflict, RESTORE, VACUUM, change feed, protocol | run locally |
+| `ch04_ingestion.py` | 4 | file-stream checkpoints, replay, PERMISSIVE parsing, schema drift (incl. `"12,50"` → 1250.00) | run locally (Spark file source, not Auto Loader) |
+| `ch05_transformations.py` | 5 | plans, SQL/DataFrame equivalence, join inflation, deterministic dedupe, quality rules, gold contract | run locally |
+| `ch06_streaming_cdc.py` | 6 | watermarks, state size, joins, restarts, replayed batches, sequence-guarded CDC, SCD1/2, change feed | run locally |
+| `ch07_pipelines_local.py` | 7 | expectation-policy arithmetic; a Delta stream refusing a source UPDATE | local pieces only; pipelines documented |
+| `ch08_orchestration_model.py` | 8 | repair vs full rerun vs retry, with real Delta effects | a model of the documented Jobs semantics |
+| `ch09_performance.py` | 9 | files opened by layout, join plans, skew, task counts (counts only, no timings) | run locally |
+| `ch10_operations.py` | 10 | the example project's tests, a bug diff, a built wheel, deletion obligations | run locally |
+| `ch11_integration.py` | 11 | a correction, a new source and micro-batches against the full design | run locally |
+
+`examples/retail_etl/` is a real package with its own tests (`PYTHONPATH=src pytest` from that folder). Its
+`databricks.yml` and `resources/` are **documented, not validated**.

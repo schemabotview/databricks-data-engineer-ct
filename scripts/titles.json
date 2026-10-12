@@ -9,5 +9,6 @@
   "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations and AUTO CDC",
   "orchestration": "Databricks Jobs Explained: Task DAGs, Parameters, Retries, Repair Runs and Run-As Identities",
   "performance": "Databricks and Spark Performance: Skew, Joins, Small Files, Z-Order, Liquid Clustering and Cost",
-  "operations": "Databricks Deployment and Operations: Bundles, CI/CD, Testing, Secrets, Monitoring and Recovery"
+  "operations": "Databricks Deployment and Operations: Bundles, CI/CD, Testing, Secrets, Monitoring and Recovery",
+  "integration": "Designing a Databricks Data Product: Architecture, Changing Requirements, Failures and Decision Records"
 }

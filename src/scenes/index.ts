@@ -9,11 +9,12 @@ import { pipelinesScenes } from './pipelines'
 import { orchestrationScenes } from './orchestration'
 import { performanceScenes } from './performance'
 import { operationsScenes } from './operations'
+import { integrationScenes } from './integration'
 
 // Scene registry. Sections reference scenes by id; scenes are grouped by course (one folder each,
 // mirroring src/content). Ids are globally unique across courses, so the flat lookup below is
 // unambiguous. Course scene bundles are spread in here as each course is authored.
-const ALL: Scene[] = [...foundationsScenes, ...governanceScenes, ...deltaTablesScenes, ...ingestionScenes, ...transformationsScenes, ...streamingCdcScenes, ...pipelinesScenes, ...orchestrationScenes, ...performanceScenes, ...operationsScenes]
+const ALL: Scene[] = [...foundationsScenes, ...governanceScenes, ...deltaTablesScenes, ...ingestionScenes, ...transformationsScenes, ...streamingCdcScenes, ...pipelinesScenes, ...orchestrationScenes, ...performanceScenes, ...operationsScenes, ...integrationScenes]
 
 export const SCENES: Record<string, Scene> = Object.fromEntries(ALL.map((s) => [s.id, s]))
 

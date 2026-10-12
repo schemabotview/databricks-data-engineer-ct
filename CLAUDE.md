@@ -43,7 +43,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | authored (Jobs DOCUMENTED, NOT RUN; a LOCAL MODEL of the semantics with real Delta effects), awaiting owner review |
 | 9 | `performance` | Performance, Layout, and Cost | 8 | authored (local COUNTS only, no timings; Photon/serverless/predictive optimization documented, not run), awaiting owner review |
 | 10 | `operations` | Development, Deployment, and Operations | 10 | authored (REAL local example project + tests; bundles/deploy/secrets DOCUMENTED, NOT RUN), awaiting owner review |
-| 11 | `integration` | Integrated Engineering Decisions | 5 | not started |
+| 11 | `integration` | Integrated Engineering Decisions | 5 | authored (LOCAL run reusing `examples/retail_etl`; platform features DOCUMENTED, NOT RUN), awaiting owner review |
 
 Source layout per course: `src/content/<course>/NN-<section-id>.ts` plus `index.ts` (`NN` = the plan's
 section number; `title` = the plan's section title **verbatim**); `src/scenes/<course>/` plus
@@ -173,6 +173,16 @@ Asset Bundles). Confirmed via search summaries: targets, `mode: development|prod
 `system.billing.usage` with `custom_tags` / `usage_metadata.job_id`. **Unverified:** audit and lineage system-table
 names, secret redaction wording, the expired-credential error shape, the CI sketch.
 
+## Chapter 11 frozen facts (local run reusing `examples/retail_etl`)
+
+Base: 11 events → silver 6 → gold 170.00. **Correction** (`orders-e.csv`, o4 → 18.00 at 2026-10-02 08:00): York 18.00,
+total **173.00**, silver still 6, o4 history = 15.00 [09:14, next day 08:00) then 18.00 open. **New source**
+(`partner-1.csv`, store CODES LDS/YRK/HUL, p3 has the unknown code XXX): silver **8**, gold Leeds 4 / 105.00, York 2 /
+30.00, Hull 1 / 80.00, total **215.00**, p3 quarantined (`unknown store`). Reconciliation **15 = 8 silver + 3 older
+valid versions + 4 quarantined**. **Latency:** three micro-batches applying a MERGE guarded by `struct(event_ts,
+source_file)` equal the full recompute. The critique and decision record cite earlier chapters' local results and
+models; they claim nothing about Databricks. The final narration ends with the plan's bridge and claims no competence.
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -278,6 +288,11 @@ Each course adds its rows here as it is authored.
 | `deletion-recovery` | where-does-deleted-data-live table → deletion checklist `list` | `operations-recovery-backfills-deletion` |
 | `secrets-identities` | three-identity table → secrets call card → illustrative expired-credential card | `operations-secrets-identities-least-privilege` |
 | `ops-ownership` | responsibility matrix above the hypothetical incident timeline | `operations-ownership-incident-walkthrough` |
+| `architecture-guarantees` | source-to-consumer chain beside the which-component-guarantees-what table | `integration-end-to-end-retail-pipeline` |
+| `changed-requirements` | three-changes table → gold after all three → o4 SCD2 history | `integration-changed-requirements` |
+| `design-options` | jobs / pipelines / managed ingestion table → what-each-leaves-to-you table → choice `list` | `integration-notebooks-pipelines-ingestion` |
+| `failure-critique` | failure / guard / evidence table → first-signs `list` → still-unguarded `list` | `integration-failure-recovery-critique` |
+| `decision-record` | decisions / alternatives / guarantees table → unresolved-risks `list` | `integration-decision-record` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

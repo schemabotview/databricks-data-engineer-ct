@@ -28,3 +28,4 @@ examples/**/__pycache__/
 examples/retail_etl/build/
 examples/retail_etl/dist/
 .pytest_cache/
+.verify-warehouse-ch11/
