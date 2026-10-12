@@ -58,4 +58,9 @@ EXPECTED = {  # exactly what the board shows: yes / no per column above
 for who, want in EXPECTED.items():
     got = [can(who, a, t) for a, t in COLUMNS]
     assert got == want, (who, got, want)
+# Chapter 8 reuses this model: a job that publishes to gold, run as the etl_runner service principal, is refused.
+assert not can("etl_runner", "write", "retail.gold.sales")
+GRANTS.extend([("etl_runner", "USE SCHEMA", "retail.gold"), ("etl_runner", "MODIFY", "retail.gold")])
+assert can("etl_runner", "write", "retail.gold.sales")  # the least-privilege fix: two grants on gold, nothing broader
+del GRANTS[-2:]
 print("OK: matrix follows from the grants under the modelled rules (a model, not Unity Catalog)")

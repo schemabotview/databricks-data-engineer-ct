@@ -54,4 +54,5 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 5 Transformations and Business Data Products | `transformations` | 8 | yes (local run) | pending |
 | 6 Streaming, CDC, and Changing State | `streaming-cdc` | 10 | yes (local run) | pending |
 | 7 Declarative Data Pipelines | `pipelines` | 8 | yes (documented, not run) | pending |
-| 8–11 | `orchestration` … `integration` | 30 | no | — |
+| 8 Orchestration and Workload Dependencies | `orchestration` | 7 | yes (documented; local model) | pending |
+| 9–11 | `performance` … `integration` | 23 | no | — |

@@ -40,7 +40,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 5 | `transformations` | Transformations and Business Data Products | 8 | authored (local run, `scripts/verify/ch05_transformations.py`), awaiting owner review |
 | 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | authored (local run, `scripts/verify/ch06_streaming_cdc.py`; CONFIGURED change feed only), awaiting owner review |
 | 7 | `pipelines` | Declarative Data Pipelines | 8 | authored (DOCUMENTED, NOT RUN; local policy arithmetic + Delta source rule only), awaiting owner review |
-| 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | not started |
+| 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | authored (Jobs DOCUMENTED, NOT RUN; a LOCAL MODEL of the semantics with real Delta effects), awaiting owner review |
 | 9 | `performance` | Performance, Layout, and Cost | 8 | not started |
 | 10 | `operations` | Development, Deployment, and Operations | 10 | not started |
 | 11 | `integration` | Integrated Engineering Decisions | 5 | not started |
@@ -131,6 +131,18 @@ publishing:** `SEQUENCE BY STRUCT(...)` for tie-breaking, the event-log schema, 
 selective/full refresh wording, sinks. Illustrative tables are labelled as such. Local and real: the policy
 arithmetic (11 kept under warn, 8 under drop) and the Delta streaming source refusing an UPDATE.
 
+## Chapter 8 status (Jobs DOCUMENTED, NOT RUN; local model)
+
+`scripts/verify/ch08_orchestration_model.py` is a **model** of the documented Jobs semantics (task states,
+run-if, condition tasks, retry, repair vs full rerun) with **real Delta effects** — it proves nothing about the
+platform. Frozen results: transform fails once → validate/publish SKIPPED, alert (run if at least one failed)
+SUCCEEDED; repair keeps ingest (bronze 8, published 1 row of 160.00); a full rerun with an append ingest gives
+bronze 16 (hidden downstream by DISTINCT), with a merge ingest 8; a publish that wrote then timed out and was
+retried leaves 2 rows (append) or 1 (merge). Docs-confirmed through search summaries: repair re-runs
+unsuccessful tasks, Jobs does not make tasks idempotent, run-if option list, `{{job.parameters.name}}`,
+if/else and for-each tasks, trigger kinds. **Unverified:** task-values spelling, run-as wording, YAML field
+names. Run-as refusal derives from the Chapter 2 permission model.
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -211,6 +223,13 @@ Each course adds its rows here as it is authored.
 | `auto-cdc-sequence` | AUTO CDC code → illustrative SCD2 rows → what-you-declare `list` | `pipelines-auto-cdc-scd` |
 | `refresh-modes` | kinds-of-update table → expired-file arithmetic → reset guard `list` | `pipelines-updates-refresh-replay` |
 | `pipeline-walkthrough` | full retail pipeline SQL above illustrative event log and failure-reading `list` | `pipelines-event-logs-walkthrough` |
+| `job-dag` | four-task chain above job YAML and task-roles table | `orchestration-jobs-and-task-dags` |
+| `parameters-values` | reference-syntax card → two-runs-through-the-condition table | `orchestration-parameters-task-values` |
+| `triggers-freshness` | four triggers table → runs-per-day arithmetic table | `orchestration-schedules-triggers-cost` |
+| `failure-paths` | five-task status trace → dependency-conditions `list` | `orchestration-conditions-failure-paths` |
+| `repair-idempotency` | rows-after-each-recovery table → what-to-take `list` | `orchestration-retries-repair-idempotency` |
+| `run-as-permissions` | run-as table → denial and fix card → identity `list` | `orchestration-run-as-identities` |
+| `orchestration-walkthrough` | task-design table above the run-history table | `orchestration-worked-orchestration` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack
