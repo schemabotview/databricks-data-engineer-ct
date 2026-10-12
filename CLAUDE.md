@@ -28,13 +28,13 @@ The render engine is `@graphlearning/flow`; the app shell is `@graphlearning/she
 
 ## Course arc and status
 
-Chapters are authored one at a time, each reviewed by the owner on its rendered routes before the next
-begins. A course is registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
+Chapters are authored one at a time. The owner asked (2026-10-12) for authoring to continue chapter by
+chapter without waiting, so review of rendered routes is **batched** and pending for every authored chapter. A course is registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 
 | # | Course id | Chapter | Sections | Status |
 | --- | --- | --- | --- | --- |
 | 1 | `foundations` | Platform Foundations and a First Data Flow | 6 | authored, awaiting owner review (no narration audio yet) |
-| 2 | `governance` | Governed Data and Unity Catalog | 7 | not started |
+| 2 | `governance` | Governed Data and Unity Catalog | 7 | authored (all documented, not run), awaiting owner review |
 | 3 | `delta-tables` | Delta Tables and Reliable Data Changes | 8 | not started |
 | 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | not started |
 | 5 | `transformations` | Transformations and Business Data Products | 8 | not started |
@@ -112,6 +112,13 @@ Each course adds its rows here as it is authored.
 | `compute-choice` | compute-families table → provisional-choices `list` | `foundations-compute-choices` |
 | `first-query` | SQL and PySpark cards stacked → result table beside an execution-steps `list` | `foundations-first-query` |
 | `layered-products` | bronze → silver → gold chain beside silver SQL card, reconciliation table, caveat `list` | `foundations-layered-data-products` |
+| `uc-hierarchy` | metastore → catalog → three schemas tree above a qualified-names code card | `governance-metastores-catalogs-schemas` |
+| `tables-vs-volumes` | securables table above two access code cards (SQL name, /Volumes path) | `governance-tables-views-volumes` |
+| `managed-vs-external` | ownership table above the two CREATE statements | `governance-managed-vs-external` |
+| `least-privilege` | GRANT excerpt → who-can-do-what matrix → denied-access trace | `governance-principals-and-privileges` |
+| `storage-boundaries` | three-controls table → IAM role → credential → location chain → CREATE EXTERNAL LOCATION | `governance-storage-credentials-and-locations` |
+| `lineage-audit` | four-object lineage chain beside lineage query, evidence list and illustrative result | `governance-discovery-lineage-audit` |
+| `share-vs-federate` | ingest / sharing / federation table → choose-by `list` | `governance-sharing-vs-federation` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

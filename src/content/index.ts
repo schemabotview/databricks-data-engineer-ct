@@ -1,9 +1,11 @@
 import { foundations } from './foundations'
+import { governance } from './governance'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order. A course is registered here only once it is authored.
 export const COURSES: Record<string, Course> = {
   [foundations.id]: foundations,
+  [governance.id]: governance,
 }
 
 export type { Course, Section }

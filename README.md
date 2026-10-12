@@ -48,4 +48,5 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | Chapter | Course id | Sections | Authored | Owner review |
 | --- | --- | --- | --- | --- |
 | 1 Platform Foundations and a First Data Flow | `foundations` | 6 | yes | pending |
-| 2–11 | `governance` … `integration` | 80 | no | — |
+| 2 Governed Data and Unity Catalog | `governance` | 7 | yes (documented, not run) | pending |
+| 3–11 | `delta-tables` … `integration` | 73 | no | — |
