@@ -35,7 +35,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | --- | --- | --- | --- | --- |
 | 1 | `foundations` | Platform Foundations and a First Data Flow | 6 | authored, awaiting owner review (no narration audio yet) |
 | 2 | `governance` | Governed Data and Unity Catalog | 7 | authored (all documented, not run), awaiting owner review |
-| 3 | `delta-tables` | Delta Tables and Reliable Data Changes | 8 | not started |
+| 3 | `delta-tables` | Delta Tables and Reliable Data Changes | 8 | authored (local run, `scripts/verify/ch03_delta_tables.py`), awaiting owner review |
 | 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | not started |
 | 5 | `transformations` | Transformations and Business Data Products | 8 | not started |
 | 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | not started |
@@ -82,6 +82,15 @@ sales per store, `7 → 2 orders 65.00 · 9 → 1 15.00 · 12 → 1 80.00`, tota
 **4** distinct valid completed orders. Same six-order core as `apache-spark-ct`. Extend it in later
 chapters (customer updates, reference data); do not change these numbers.
 
+## Chapter 3 frozen facts (local run; slides quote them)
+
+Table `orders` (the silver table; typed): v0 CREATE, v1 six rows (o1..o6; o3 CANCELLED, o6 PENDING),
+v2 INSERT o8 (12, 20.00, PENDING), v3 UPDATE o6 → COMPLETED, v4 DELETE o3, v5 MERGE (o8 → COMPLETED,
+o9 (9, 45.00) inserted), v6 RESTORE to v4. Row counts per version `0, 6, 7, 7, 6, 7`; restore leaves 6.
+Side tables: `orders_c` (contract), `orders_race` (conflict: o1 ends 41.00 COMPLETED), `ret` (VACUUM),
+`feed` (change feed), `late`. File counts depend on partitioning — never quote them. NOT NULL had to
+be declared at CREATE (the local Delta refused `ALTER ... SET NOT NULL`).
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -119,6 +128,14 @@ Each course adds its rows here as it is authored.
 | `storage-boundaries` | three-controls table → IAM role → credential → location chain → CREATE EXTERNAL LOCATION | `governance-storage-credentials-and-locations` |
 | `lineage-audit` | four-object lineage chain beside lineage query, evidence list and illustrative result | `governance-discovery-lineage-audit` |
 | `share-vs-federate` | ingest / sharing / federation table → choose-by `list` | `governance-sharing-vs-federation` |
+| `delta-versions` | version/operation/rows table above `_delta_log` actions per commit | `delta-tables-files-logs-snapshots` |
+| `write-conflict` | writer A/B timeline table → trimmed exception card → guarantee-scope `list` | `delta-tables-acid-concurrent-writes` |
+| `schema-contract` | CREATE + CHECK code card above five-writes outcome table | `delta-tables-schema-enforcement-evolution` |
+| `dml-semantics` | MERGE code + source + before/after (left) beside measured-effect table + match rules (right) | `delta-tables-dml-and-merge` |
+| `history-restore` | history/restore code → history table → read-vs-write command table | `delta-tables-history-time-travel-restore` |
+| `retention-timeline` | readability table before/after VACUUM → VACUUM code → defaults `list` | `delta-tables-retention-and-vacuum` |
+| `change-feed` | readChangeFeed code → five change rows → not-an-archive `list` | `delta-tables-change-data-feed` |
+| `table-features` | protocol-by-table table → compatibility questions `list` | `delta-tables-table-features-compatibility` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

@@ -15,3 +15,4 @@ metastore_db/
 derby.log
 spark-warehouse/
 .venv/
+.verify-warehouse-ch03/
