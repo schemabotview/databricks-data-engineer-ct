@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-snapshot
+out
+.tmp
+segments
+images
+*.local
+.claude
+.DS_Store
+
+# Local verification output
+.verify-warehouse/
+metastore_db/
+derby.log
+spark-warehouse/
+.venv/

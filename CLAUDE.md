@@ -1,0 +1,201 @@
+# CLAUDE.md — databricks-data-engineer-ct
+
+> The workspace-level `CLAUDE.md` (one level up, in `graphl-workspace`) holds the invariants that
+> span every repo. This file is only what is true *here*.
+
+## What this repo is
+
+A GraphL concept app for **Databricks Data Engineering — From Platform Foundations to Advanced
+Application**: one concept, 11 courses (one per chapter), 86 sections. A **section** is
+`(scene, slide, narration)` and is one segment of the course video. One section = one slide.
+
+`docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md` is the source of truth for scope, audience, teaching
+method, section titles, worked illustrations, outcomes and bridges. Author from it; do not drift from
+its section lists. `scripts/check-plan.mjs` (part of `npm run check`) fails on any title drift.
+
+The render engine is `@graphlearning/flow`; the app shell is `@graphlearning/shell`. Both are
+**published packages pinned by version** (`flow@^1.2.0`, `shell@^0.10.1`). This repo's own surface is
+`src/content/`, `src/scenes/`, `src/main.tsx` and `src/theme.css` — nothing else.
+
+## Route contract
+
+- Slug **`databricks-data-engineer-ct`** — the vite `base`, the path under `graphl.in`, and the GitHub
+  repo name. All three must be the same string. (If the repo is renamed, change all three.)
+- `#/` is the catalog. A section is `#/<courseId>-<sectionId>`, e.g. `#/foundations-first-query`.
+- Audio: `public/audio/<courseId>/<sectionId>.wav`. Section ids are unique within a course; scene ids
+  are unique across the whole repo.
+- Brand `--brand: #FF3621` (Databricks red-orange); `--accent-2: #5eead4` (slide `###` subheadings).
+
+## Course arc and status
+
+Chapters are authored one at a time, each reviewed by the owner on its rendered routes before the next
+begins. A course is registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
+
+| # | Course id | Chapter | Sections | Status |
+| --- | --- | --- | --- | --- |
+| 1 | `foundations` | Platform Foundations and a First Data Flow | 6 | authored, awaiting owner review (no narration audio yet) |
+| 2 | `governance` | Governed Data and Unity Catalog | 7 | not started |
+| 3 | `delta-tables` | Delta Tables and Reliable Data Changes | 8 | not started |
+| 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | not started |
+| 5 | `transformations` | Transformations and Business Data Products | 8 | not started |
+| 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | not started |
+| 7 | `pipelines` | Declarative Data Pipelines | 8 | not started |
+| 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | not started |
+| 9 | `performance` | Performance, Layout, and Cost | 8 | not started |
+| 10 | `operations` | Development, Deployment, and Operations | 10 | not started |
+| 11 | `integration` | Integrated Engineering Decisions | 5 | not started |
+
+Source layout per course: `src/content/<course>/NN-<section-id>.ts` plus `index.ts` (`NN` = the plan's
+section number; `title` = the plan's section title **verbatim**); `src/scenes/<course>/` plus
+`index.ts` exporting `<course>Scenes`; `public/audio/<course>/`. The chapter's objective, outcome,
+worked illustrations and bridge go in a comment in the course's `index.ts`; the **bridge is also the
+last words of the chapter's final narration**.
+
+## Verification notes (read before trusting a number or a claim)
+
+There is **no Databricks workspace** in the authoring environment, and `docs.databricks.com` was not
+reachable from it (the proxy returns 403). So claims fall in three tiers — say which tier a slide is in:
+
+1. **Run locally.** Spark SQL / PySpark and Delta behaviour that does not need the platform: Delta DML,
+   MERGE, schema enforcement, history / time travel / restore, VACUUM, change data feed, windows,
+   joins, streaming watermarks. These are run on **PySpark 4.0.1 + Delta Lake 4.0.0, `local[2]`** — not
+   on a Databricks Runtime — and every output on a slide is what that run printed. File counts and
+   task counts depend on partitioning and may differ on Databricks. Chapter-by-chapter scripts live in
+   `scripts/verify/` and assert what the slides quote (`scripts/verify/ch01_foundations.py`).
+2. **Documented, not executed.** Unity Catalog grants, Auto Loader, `AUTO CDC`, expectations, jobs, bundles,
+   Photon, serverless. Checked against the Databricks on AWS docs where reachable; label them
+   "documented, not run", and record the runtime / compute / feature requirement each one needs. Do not
+   assume cloud parity or feature availability. No preview feature in baseline examples.
+3. **Illustrative.** Event logs, Spark UI / profile excerpts, requirements, cost examples. Label them
+   as illustrative; never quote prices.
+
+Nothing here claims verified individual mastery, and nothing equates finishing a chapter with competence.
+
+## The recurring example — frozen, slides quote its numbers
+
+Retail orders. **Chapter 1 sample** (`bronze_orders`, 8 raw rows, all columns text):
+`o1 7 40.00 COMPLETED · o2 7 25.00 COMPLETED · o3 9 60.00 CANCELLED · o4 9 15.00 COMPLETED ·
+o5 12 80.00 COMPLETED · o6 7 10.00 PENDING · o4 resent (identical) · o7 9 "n/a" COMPLETED`.
+Silver (`silver_orders`) = 6 typed unique rows (o4 merged, o7 rejected); gold (`gold_sales`) = completed
+sales per store, `7 → 2 orders 65.00 · 9 → 1 15.00 · 12 → 1 80.00`, total **160.00**; reconciliation
+**8 = 6 + 1 resend + 1 rejected**; first query returns CANCELLED 1 / COMPLETED 6 / PENDING 1, but only
+**4** distinct valid completed orders. Same six-order core as `apache-spark-ct`. Extend it in later
+chapters (customer updates, reference data); do not change these numbers.
+
+## Authoring conventions
+
+- Teaching method per section: objective → mental model → annotated code / configuration and expected
+  results → failure or alternative contrast → explanation summary → bridge. Explain a term before
+  relying on it; governance begins before data access; transaction semantics precede CDC; direct
+  transformations precede declarative automation.
+- **Slides** carry the objective/model, the worked numbers or example, and the misconception as visible
+  blocks — never a transcript of the narration. Target **850–1000** modelled px (`npm run check`
+  fails above 1000; the rendered 80–95 % band is the real target). Every fact on a slide gets its
+  sentence in the narration.
+- Use **current API names**; label older DLT terminology only for recognition. Scope per the plan:
+  no ML/AI, no comprehensive BI authoring, no cloud account/network administration, no certification
+  prep, no exam weights or practice questions.
+- Reference the SQL, Python and Spark courses (`sql`, `python-ct`, `apache-spark-ct`) for foundations
+  rather than repeating them.
+- Long identifiers do not wrap in leaf cards (`gold_store_sales` was 16 > 14): shorten the name or put
+  it in a code card.
+
+## Scene inventory
+
+Each course adds its rows here as it is authored.
+
+| Scene id | Shape | Used by |
+| --- | --- | --- |
+| `requirements-matrix` | consumers table (freshness / correctness / cost lever) → design-questions `list` | `foundations-data-engineering-requirements` |
+| `lakehouse-stack` | 2×2 who-does-what group → on-disk container: directory + `_delta_log` code card, DESCRIBE table | `foundations-lakehouse-concepts` |
+| `platform-boundaries` | account (two workspaces) → compute (serverless / classic) → object storage | `foundations-accounts-workspaces-boundaries` |
+| `compute-choice` | compute-families table → provisional-choices `list` | `foundations-compute-choices` |
+| `first-query` | SQL and PySpark cards stacked → result table beside an execution-steps `list` | `foundations-first-query` |
+| `layered-products` | bronze → silver → gold chain beside silver SQL card, reconciliation table, caveat `list` | `foundations-layered-data-products` |
+
+Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
+square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack
+code cards with `cols: 1` and use `flow: 'TB'`, then put two peers side by side with `cols: 2` to balance
+width against height. Putting a code card and a table in one `cols: 1` container beside a tall chain
+sets the board's scale; check both axes. Leaf-card text is capped (label tokens ≤ 14 characters).
+
+## Invariants — do not break
+
+- **Never write `x` or `y`.** Scenes are declarative: nodes, edges, nesting. `computeLayout` is not
+  exported, so there is no way around this, and that is the point — reproducible frames.
+- **Do not reimplement the shell.** `SectionView`, `CourseIndex`, `SlidePanel` and the hooks are
+  withheld on purpose. The route contract (`#/<courseId>-<sectionId>`, `?capture=1`,
+  `window.__scene.plan()`) is what every recorder drives, and it holds only if every repo composes
+  the pieces identically.
+- **`SiteHeader` goes on the catalog page only** — never on a section. A section is a video frame.
+- **Three stylesheets, in cascade order**, imported in `main.tsx`. The order is load-bearing:
+  1. `@graphlearning/flow/styles.css` — react-flow plus the IBM Plex faces the engine is
+     *calibrated* to. `codeMetrics` sizes code nodes from a measured 9.02px glyph advance, so a
+     different monospace face mis-sizes every code card. Carries the `.tok-*` colours.
+  2. `@graphlearning/shell/styles.css` — the shell paints the canvas (`--bg: #1a1d23`; SceneView
+     draws its dots at `#2a2f38` assuming a dark surface).
+  3. `./theme.css` — this repo's three brand tokens. **Last, or the brand loses to the defaults.**
+- **`file:../ui-flow` / `file:../ui-shell` must never be committed.** Local engine work only; CI has
+  no sibling checkout.
+- **Narration is never hand-produced.** `.tts` → `.wav` via Colab + Chatterbox only.
+
+## Layout rules the frames actually care about
+
+`npm run check` (`scripts/check-content.mjs`) models four silent failures — each builds green and
+breaks only on screen. Its comments carry the measured constants; the short version:
+
+- **Leaf cards are a fixed 210×96** with a ~134px text column. Only containers grow to fit. Keep the
+  `label` to 2 wrapped lines; 2 label lines + 2 sub lines fits. Watch unbreakable tokens — `_`, `.`
+  and `/` are **not** break opportunities in CSS, so `snake_case` and paths overflow sideways in a
+  way the height model cannot see.
+- **Slides do not scale to fit.** Type size is fixed by the frame (`zoom = paneWidth / 806`,
+  width-proportional only), so an over-long slide **clips at the bottom** with no error.
+  `check` fails over 1000 modelled design px; the band below gives the floor too. Bullets cost far
+  more than prose of the same length.
+- **A `focus:` that names no node in its scene is a silent no-op** — nothing lights up.
+- **`icon:` names are NOT guarded.** The engine's lucide registry is `Record<string, LucideIcon>`
+  and does not enumerate its keys, so a wrong name type-checks, passes `check`, builds, and renders
+  a card with no glyph. There are ~75 valid keys; copy one off an existing scene rather than
+  guessing a lucide name (`volume`, `move`, `maximize` and `git` are all absent, for instance).
+- **A section with no wav narrates silence** and records a silent segment. Audio resolves purely by
+  convention: `public/audio/<course>/<section-id>.wav`.
+
+What `check` does *not* model: an edge label landing on top of a card, or whether the frame is too
+empty. Look at the route.
+
+### Density targets — the frame must use the space it has
+
+The guarded failure is a slide that overflows. The unguarded one is its opposite: a frame that
+builds green, reads correctly, and leaves half its pane empty. Against the ~1080 design px pane:
+
+| | target | why |
+| --- | --- | --- |
+| slide height | **80–95 %** of the pane (≈ 865–1025px; `SLIDE_H_MAX` caps the top at 1000) | below 80 % the right half looks empty; above ~95 % it risks clipping |
+| scene, binding axis | ≥ 0.85 of the pane | the board should reach the edge it is limited by |
+| scene, area | ≥ 0.55 of the pane (w × h) | a wide board that fills the width but a third of the height wastes the pane |
+| eyebrow | no node under the top-left eyebrow label | boards that bind on height run up to y≈30 |
+
+Levers: **add real content, not padding**; **restack** a board toward the pane's ~1:1 aspect; lower
+scene `padding` to 0.04 for boards that float, **raise** it (0.12–0.17) for tall boards that touch
+the eyebrow.
+
+These are read off the rendered route by eye — `check` models no density at all. The two ratios come
+from one repo's ~80 frames of diagram-and-code-card boards, so a deliberately sparse board can sit
+under them. Targets, not thresholds.
+
+## Guards before handing over
+
+```sh
+npm run build && npx tsc --noEmit && npm run check
+```
+
+All three are a **floor, not proof** — they pass on frames that are visually wrong. The rendered
+route is the real bar, and the owner reviews it.
+
+## Working agreement
+
+- **Author the whole unit, then hand over the route.** Scenes, slides and narration together.
+- **No ASCII sketches of scenes.** A sketch cannot show what the layout engine will do, which is the
+  only thing worth looking at.
+- **No silent scaffolding**, no work outside the ask. Say plainly what was built, what was verified,
+  and what was left out.
