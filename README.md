@@ -50,4 +50,5 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 1 Platform Foundations and a First Data Flow | `foundations` | 6 | yes | pending |
 | 2 Governed Data and Unity Catalog | `governance` | 7 | yes (documented, not run) | pending |
 | 3 Delta Tables and Reliable Data Changes | `delta-tables` | 8 | yes (local run) | pending |
-| 4–11 | `ingestion` … `integration` | 65 | no | — |
+| 4 Ingestion and Incremental Arrival | `ingestion` | 9 | yes (local file stream; Databricks sources documented) | pending |
+| 5–11 | `transformations` … `integration` | 56 | no | — |

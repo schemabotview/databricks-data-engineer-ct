@@ -36,7 +36,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 1 | `foundations` | Platform Foundations and a First Data Flow | 6 | authored, awaiting owner review (no narration audio yet) |
 | 2 | `governance` | Governed Data and Unity Catalog | 7 | authored (all documented, not run), awaiting owner review |
 | 3 | `delta-tables` | Delta Tables and Reliable Data Changes | 8 | authored (local run, `scripts/verify/ch03_delta_tables.py`), awaiting owner review |
-| 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | not started |
+| 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | authored (Spark file stream locally; Auto Loader etc. documented, not run), awaiting owner review |
 | 5 | `transformations` | Transformations and Business Data Products | 8 | not started |
 | 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | not started |
 | 7 | `pipelines` | Declarative Data Pipelines | 8 | not started |
@@ -91,6 +91,14 @@ Side tables: `orders_c` (contract), `orders_race` (conflict: o1 ends 41.00 COMPL
 `feed` (change feed), `late`. File counts depend on partitioning — never quote them. NOT NULL had to
 be declared at CREATE (the local Delta refused `ALTER ... SET NOT NULL`).
 
+## Chapter 4 frozen facts (local run; slides quote them)
+
+Three landing CSVs (header `order_id,store_id,amount,status`): a = o1, o2, o3; b = o4, o5, o6; c = o4
+(resent), o7 (amount `n/a`). Arrival timeline with one checkpoint: **3, 6, 6, 8**; a deleted checkpoint
+re-reads everything (**16**). 8 rows, **7** distinct `order_id`. Drift demo: JSON `1.json` (normal) and
+`2.json` (amount `"12,50"`, new field `channel`); a fixed schema drops `channel` and parses `"12,50"` as
+**1250.00** with no flag. Local analogue only: Spark's file stream source, not Auto Loader.
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -136,6 +144,15 @@ Each course adds its rows here as it is authored.
 | `retention-timeline` | readability table before/after VACUUM → VACUUM code → defaults `list` | `delta-tables-retention-and-vacuum` |
 | `change-feed` | readChangeFeed code → five change rows → not-an-archive `list` | `delta-tables-change-data-feed` |
 | `table-features` | protocol-by-table table → compatibility questions `list` | `delta-tables-table-features-compatibility` |
+| `source-contract` | source-contract table → ask-before-ingesting `list` | `ingestion-source-contracts` |
+| `batch-load` | COPY INTO card → repeat-load table (8, 16) → assumptions `list` | `ingestion-batch-loads-copy-into` |
+| `auto-loader` | cloudFiles PySpark card above what-it-adds `list` | `ingestion-auto-loader-cloudfiles` |
+| `file-progress` | five-run arrival timeline above the checkpoint directory card | `ingestion-file-discovery-checkpoints` |
+| `schema-drift` | drift-reads table → the odd JSON file → Auto Loader modes `list` | `ingestion-schema-inference-evolution` |
+| `rescued-quarantine` | PERMISSIVE parse code → flagged-row table → 8 = 7 + 1 reconciliation | `ingestion-rescued-data-quarantine` |
+| `connector-matrix` | your-code vs connector responsibility table → before-choosing `list` | `ingestion-managed-connectors-lakeflow-connect` |
+| `message-bus` | resume-position table → Kafka read card → assumptions `list` | `ingestion-message-bus-streaming-sources` |
+| `bronze-walkthrough` | source-to-bronze counts table above the bronze design card | `ingestion-backfills-replay-bronze-walkthrough` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack
