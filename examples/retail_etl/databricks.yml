@@ -1,0 +1,33 @@
+# Documented, NOT validated (see resources/retail_daily.yml). Field names follow the Declarative Automation
+# Bundles docs as checked through search summaries; verify them against the live docs before use.
+bundle:
+  name: retail_etl
+
+include:
+  - resources/*.yml
+
+artifacts:
+  retail_etl_wheel:
+    type: whl
+    build: python -m build --wheel
+    path: .
+
+targets:
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dev-workspace.example.com
+  staging:
+    workspace:
+      host: https://staging-workspace.example.com
+  prod:
+    mode: production
+    workspace:
+      host: https://prod-workspace.example.com
+      root_path: /Workspace/Shared/.bundle/${bundle.name}/${bundle.target}
+    run_as:
+      service_principal_name: retail-etl-prod-sp
+    permissions:
+      - level: CAN_VIEW
+        group_name: analysts

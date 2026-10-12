@@ -15,7 +15,7 @@ its section lists. `scripts/check-plan.mjs` (part of `npm run check`) fails on a
 
 The render engine is `@graphlearning/flow`; the app shell is `@graphlearning/shell`. Both are
 **published packages pinned by version** (`flow@^1.2.0`, `shell@^0.10.1`). This repo's own surface is
-`src/content/`, `src/scenes/`, `src/main.tsx` and `src/theme.css` — nothing else.
+`src/content/`, `src/scenes/`, `src/main.tsx` and `src/theme.css` (plus `examples/` and `scripts/verify/`, which are evidence, not app code).
 
 ## Route contract
 
@@ -42,7 +42,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 7 | `pipelines` | Declarative Data Pipelines | 8 | authored (DOCUMENTED, NOT RUN; local policy arithmetic + Delta source rule only), awaiting owner review |
 | 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | authored (Jobs DOCUMENTED, NOT RUN; a LOCAL MODEL of the semantics with real Delta effects), awaiting owner review |
 | 9 | `performance` | Performance, Layout, and Cost | 8 | authored (local COUNTS only, no timings; Photon/serverless/predictive optimization documented, not run), awaiting owner review |
-| 10 | `operations` | Development, Deployment, and Operations | 10 | not started |
+| 10 | `operations` | Development, Deployment, and Operations | 10 | authored (REAL local example project + tests; bundles/deploy/secrets DOCUMENTED, NOT RUN), awaiting owner review |
 | 11 | `integration` | Integrated Engineering Decisions | 5 | not started |
 
 Source layout per course: `src/content/<course>/NN-<section-id>.ts` plus `index.ts` (`NN` = the plan's
@@ -158,6 +158,21 @@ VACUUM / ANALYZE, no Z-order, not all regions, default-on for accounts created f
 clustering replaces partitioning and Z-order, `CLUSTER BY AUTO` needs predictive optimization. **Photon
 eligibility was not confirmed — keep it generic.**
 
+## Chapter 10 status — a REAL example project, documented bundles
+
+`examples/retail_etl/` is a real package (Chapter 5 logic as pure functions) with **7 passing tests** (4 unit,
+1 integration, 2 data-quality), run on local PySpark: `PYTHONPATH=src pytest` from that folder (needs `pytest`).
+`scripts/verify/ch10_operations.py` runs them, shows a deliberately buggy variant failing with the exact diff
+(`missing ('o6','COMPLETED','orders-d.csv')` / `unexpected ('o6','PENDING','orders-b.csv')`), builds the wheel
+(`retail_etl-0.1.0-py3-none-any.whl`, no pyspark dependency), and demonstrates deletion obligations (after DELETE the
+old version, the change feed and a derived table — 100.00 stale, 35.00 after recompute — all still hold the data
+until VACUUM and a recompute). Objectives (15 min, 95%) are illustrative; measurements are real (lag 30 min at a
+fixed 10:20 clock; 8 of 11 = 72.7%). **`databricks.yml` and `resources/retail_daily.yml` are NOT validated**
+(`bundle validate` needs a workspace). Product name: **Declarative Automation Bundles** (older: Databricks
+Asset Bundles). Confirmed via search summaries: targets, `mode: development|production`, `run_as`, `permissions`,
+`system.billing.usage` with `custom_tags` / `usage_metadata.job_id`. **Unverified:** audit and lineage system-table
+names, secret redaction wording, the expired-credential error shape, the CI sketch.
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -253,6 +268,16 @@ Each course adds its rows here as it is authored.
 | `skipping-layouts` | files-opened table (two filters) → clustering-key rationale `list` | `performance-partitioning-clustering-skipping` |
 | `auto-maintenance` | by-hand vs predictive-optimization table → eligibility `list` | `performance-predictive-optimization` |
 | `cost-comparison` | assumptions table above the hypothetical units-per-day table | `performance-worked-comparison` |
+| `project-layout` | example project tree card above the where-each-activity-belongs table | `operations-modular-code-git` |
+| `wheel-environments` | built wheel contents → who-provides-what table → compatibility `list` | `operations-libraries-wheels-environments` |
+| `test-layers` | seven tests by layer → real expected-vs-actual diff → which-layer `list` | `operations-testing-reliability` |
+| `bundle-config` | abridged databricks.yml card above the bundle-commands table | `operations-declarative-automation-bundles` |
+| `promotion-rollback` | targets table → CI sketch card → rolling-back `list` | `operations-environments-cicd-promotion` |
+| `observability-sources` | evidence-source table above a system.billing.usage query | `operations-observability` |
+| `objectives-alerts` | measured objectives table → freshness query → alert-design `list` | `operations-incidents-alerting-objectives` |
+| `deletion-recovery` | where-does-deleted-data-live table → deletion checklist `list` | `operations-recovery-backfills-deletion` |
+| `secrets-identities` | three-identity table → secrets call card → illustrative expired-credential card | `operations-secrets-identities-least-privilege` |
+| `ops-ownership` | responsibility matrix above the hypothetical incident timeline | `operations-ownership-incident-walkthrough` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

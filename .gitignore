@@ -22,3 +22,9 @@ spark-warehouse/
 .verify-warehouse-ch07/
 .verify-warehouse-ch08/
 .verify-warehouse-ch09/
+.verify-warehouse-ch10/
+examples/**/__pycache__/
+*.egg-info/
+examples/retail_etl/build/
+examples/retail_etl/dist/
+.pytest_cache/

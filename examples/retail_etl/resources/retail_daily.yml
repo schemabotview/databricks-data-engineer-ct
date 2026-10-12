@@ -1,0 +1,16 @@
+# Documented, NOT validated: `databricks bundle validate` needs a workspace to authenticate against.
+resources:
+  jobs:
+    retail_daily:
+      name: retail_daily
+      parameters:
+        - name: run_date
+          default: "2026-10-01"
+      tasks:
+        - task_key: transform
+          python_wheel_task:
+            package_name: retail_etl
+            entry_point: retail-etl
+          libraries:
+            - whl: ../dist/*.whl
+          max_retries: 1

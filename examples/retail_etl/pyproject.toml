@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retail-etl"
+version = "0.1.0"
+description = "Course example: the retail order transformations from Chapter 5, packaged for a job."
+requires-python = ">=3.10"
+# No dependency on pyspark: the Databricks Runtime (or your local venv) provides it, and pinning it here
+# could fight the runtime's own version.
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest>=8"]
+
+[project.scripts]
+retail-etl = "retail_etl.transform:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

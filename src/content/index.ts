@@ -7,6 +7,7 @@ import { streamingCdc } from './streaming-cdc'
 import { pipelines } from './pipelines'
 import { orchestration } from './orchestration'
 import { performance } from './performance'
+import { operations } from './operations'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order. A course is registered here only once it is authored.
@@ -20,6 +21,7 @@ export const COURSES: Record<string, Course> = {
   [pipelines.id]: pipelines,
   [orchestration.id]: orchestration,
   [performance.id]: performance,
+  [operations.id]: operations,
 }
 
 export type { Course, Section }
