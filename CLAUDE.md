@@ -41,7 +41,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | authored (local run, `scripts/verify/ch06_streaming_cdc.py`; CONFIGURED change feed only), awaiting owner review |
 | 7 | `pipelines` | Declarative Data Pipelines | 8 | authored (DOCUMENTED, NOT RUN; local policy arithmetic + Delta source rule only), awaiting owner review |
 | 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | authored (Jobs DOCUMENTED, NOT RUN; a LOCAL MODEL of the semantics with real Delta effects), awaiting owner review |
-| 9 | `performance` | Performance, Layout, and Cost | 8 | not started |
+| 9 | `performance` | Performance, Layout, and Cost | 8 | authored (local COUNTS only, no timings; Photon/serverless/predictive optimization documented, not run), awaiting owner review |
 | 10 | `operations` | Development, Deployment, and Operations | 10 | not started |
 | 11 | `integration` | Integrated Engineering Decisions | 5 | not started |
 
@@ -143,6 +143,21 @@ unsuccessful tasks, Jobs does not make tasks idempotent, run-if option list, `{{
 if/else and for-each tasks, trigger kinds. **Unverified:** task-values spelling, run-as wording, YAML field
 names. Run-as refusal derives from the Chapter 2 permission model.
 
+## Chapter 9 frozen facts (local counts; NO timings anywhere)
+
+One million hash-generated orders (`scripts/verify/ch09_performance.py`; OPTIMIZE target size lowered to 400 KB).
+Checksum for every layout: **1,000,000 rows, sum(amount) 50,497,436.00**. Files opened by `store_id = 7`:
+unclustered 24/24, compaction only 2/2, Z-order 1/19, liquid 1/19 (a `customer_id` filter: 19/19 on both),
+date-partitioned 720/720. Partitioning an unsorted write: 720 files by date, 2,000 by customer. 128 files →
+25 after OPTIMIZE. Join: default BroadcastHashJoin (1 shuffle) vs SortMergeJoin (3). Skew (80% on store 7),
+largest of 4 partitions: 855,480 vs 319,925 even vs 299,626 salted 64 ways; REST task quantiles 36,115 /
+43,880 / 64,525 / 855,480 / 855,480. 1,000 rows: 200 → 200 tasks, 4 → 4, AQE → 1. The **cost table is
+hypothetical** (3 s per file, 2 machines, 1 unit/machine-hour, 24 runs/day → 0.96 / 0.08 / 0.04 / 28.80); only
+files-read is measured. Documented via search summaries: predictive optimization (UC managed tables, OPTIMIZE /
+VACUUM / ANALYZE, no Z-order, not all regions, default-on for accounts created from 2024-11-11), liquid
+clustering replaces partitioning and Z-order, `CLUSTER BY AUTO` needs predictive optimization. **Photon
+eligibility was not confirmed — keep it generic.**
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -230,6 +245,14 @@ Each course adds its rows here as it is authored.
 | `repair-idempotency` | rows-after-each-recovery table → what-to-take `list` | `orchestration-retries-repair-idempotency` |
 | `run-as-permissions` | run-as table → denial and fix card → identity `list` | `orchestration-run-as-identities` |
 | `orchestration-walkthrough` | task-design table above the run-history table | `orchestration-worked-orchestration` |
+| `baseline-checks` | five-layout checksum table → measurement-limits `list` | `performance-baselines-and-measurement` |
+| `stage-metrics` | REST task-quantile table → REST call card → skew-reading `list` | `performance-spark-ui-query-profiles` |
+| `parallelism-sizing` | reduce-tasks table (200 / 4 / 1) → eligibility `list` | `performance-compute-sizing-photon` |
+| `join-skew` | join-plan table above the largest-partition table | `performance-joins-skew-shuffles` |
+| `file-layout` | file-count table → trade-offs `list` | `performance-small-files-compaction` |
+| `skipping-layouts` | files-opened table (two filters) → clustering-key rationale `list` | `performance-partitioning-clustering-skipping` |
+| `auto-maintenance` | by-hand vs predictive-optimization table → eligibility `list` | `performance-predictive-optimization` |
+| `cost-comparison` | assumptions table above the hypothetical units-per-day table | `performance-worked-comparison` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

@@ -7,5 +7,6 @@
   "transformations": "Databricks Data Transformations: Joins, Window Deduplication, Quality Rules and Gold Tables",
   "streaming-cdc": "Spark Structured Streaming Explained: Watermarks, State, CDC, SCD Type 2 and Replay",
   "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations and AUTO CDC",
-  "orchestration": "Databricks Jobs Explained: Task DAGs, Parameters, Retries, Repair Runs and Run-As Identities"
+  "orchestration": "Databricks Jobs Explained: Task DAGs, Parameters, Retries, Repair Runs and Run-As Identities",
+  "performance": "Databricks and Spark Performance: Skew, Joins, Small Files, Z-Order, Liquid Clustering and Cost"
 }
