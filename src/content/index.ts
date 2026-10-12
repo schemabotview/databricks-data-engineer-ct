@@ -3,6 +3,7 @@ import { governance } from './governance'
 import { deltaTables } from './delta-tables'
 import { ingestion } from './ingestion'
 import { transformations } from './transformations'
+import { streamingCdc } from './streaming-cdc'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order. A course is registered here only once it is authored.
@@ -12,6 +13,7 @@ export const COURSES: Record<string, Course> = {
   [deltaTables.id]: deltaTables,
   [ingestion.id]: ingestion,
   [transformations.id]: transformations,
+  [streamingCdc.id]: streamingCdc,
 }
 
 export type { Course, Section }

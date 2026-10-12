@@ -38,7 +38,7 @@ chapter without waiting, so review of rendered routes is **batched** and pending
 | 3 | `delta-tables` | Delta Tables and Reliable Data Changes | 8 | authored (local run, `scripts/verify/ch03_delta_tables.py`), awaiting owner review |
 | 4 | `ingestion` | Ingestion and Incremental Arrival | 9 | authored (Spark file stream locally; Auto Loader etc. documented, not run), awaiting owner review |
 | 5 | `transformations` | Transformations and Business Data Products | 8 | authored (local run, `scripts/verify/ch05_transformations.py`), awaiting owner review |
-| 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | not started |
+| 6 | `streaming-cdc` | Streaming, CDC, and Changing State | 10 | authored (local run, `scripts/verify/ch06_streaming_cdc.py`; CONFIGURED change feed only), awaiting owner review |
 | 7 | `pipelines` | Declarative Data Pipelines | 8 | not started |
 | 8 | `orchestration` | Orchestration and Workload Dependencies | 7 | not started |
 | 9 | `performance` | Performance, Layout, and Cost | 8 | not started |
@@ -109,6 +109,17 @@ Reference `stores` = 7 Leeds, 9 York, 12 Hull (`stores_dup` repeats York). Quali
 · o6 7 10.00 (all COMPLETED unless noted). `gold_sales`: Leeds 3 / 75.00, York 1 / 15.00, Hull 1 / 80.00 —
 total **170.00** (Chapter 1's 160.00 had o6 still PENDING). Join inflation: 5 rows / 170.00 vs 6 rows / 185.00.
 
+## Chapter 6 frozen facts (local run; slides quote them)
+
+Streaming input: four JSON files, ten order events, **one file per batch**, file mtimes set explicitly (Spark
+reads oldest-first; equal times make the order arbitrary — the first attempt got batches in the wrong order).
+f1 o1 09:01 40, o2 09:04 25, o4 09:14 15 · f2 o5 09:17 80, o6 09:23 10, o4 resent · f3 o10 09:06 30 (late),
+o11 09:31 20 · f4 o12 09:02 5 (very late), o13 09:44 50. 10-minute windows, 10-minute watermark: batch
+watermarks none / 09:04 / 09:13 / 09:21 / 09:34; windows written 09:00 = 95.00, 09:10 = 110.00 (the resend is
+counted twice: no dedupe), 09:20 = 10.00; o12 dropped, o10 counted. Payments p1–p4 for the join demo.
+CDC feed: 8 records in 3 arrival batches over o1/o2/o3 (see `cdc-feed`). The change feed is **configured**
+(`delta.enableChangeDataFeed = true`); automatic feeds on eligible tables are NOT tested — never claim them.
+
 ## Authoring conventions
 
 - Teaching method per section: objective → mental model → annotated code / configuration and expected
@@ -171,6 +182,16 @@ Each course adds its rows here as it is authored.
 | `quality-quarantine` | rules table above the 11 = 6 + 1 + 1 + 3 reconciliation | `transformations-quality-rules-quarantine` |
 | `gold-contract` | gold DDL with comments and CHECK above the three-store result | `transformations-dimensional-outputs-contracts` |
 | `silver-gold-flow` | bronze → silver → gold chain above silver build code and detail = summary table | `transformations-worked-silver-gold-flow` |
+| `recompute-vs-incremental` | rows-read table (27 vs 10) → incremental-assumptions `list` | `streaming-cdc-recompute-vs-incremental` |
+| `watermark-timeline` | batch / watermark / emitted-window table → two late events `list` | `streaming-cdc-event-time-watermarks` |
+| `state-growth` | state rows per batch (sum/dedup, with/without watermark) → dedup code → bounded `list` | `streaming-cdc-stateful-aggregation-dedup` |
+| `stream-joins` | join-condition card → inner-join output per batch | `streaming-cdc-streaming-joins` |
+| `restart-changes` | restart/change results table → refusal card → checkpoint-holds `list` | `streaming-cdc-checkpoints-restarts-changes` |
+| `replay-sinks` | append vs MERGE sink counts → idempotent writer card → at-least-once `list` | `streaming-cdc-sinks-foreachbatch-idempotency` |
+| `cdc-feed` | eight-record feed table above arrival-order vs by-sequence result tables | `streaming-cdc-source-cdc-sequence-deletes` |
+| `scd-types` | SCD1 table above SCD2 history table | `streaming-cdc-scd-type-1-vs-2` |
+| `cdf-vs-cdc` | source records vs table feed rows table → different-questions `list` | `streaming-cdc-cdf-vs-source-cdc` |
+| `recovery-guards` | sequence-guarded MERGE card → tested problem/guard/result table | `streaming-cdc-worked-recovery` |
 
 Layout lessons from Chapter 1 (the rendered frame is the only judge): a scene is fitted to a roughly
 square pane, so a board that is wide and short ends up **sparse** (0.36 of the pane height) — stack

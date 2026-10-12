@@ -52,4 +52,5 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 3 Delta Tables and Reliable Data Changes | `delta-tables` | 8 | yes (local run) | pending |
 | 4 Ingestion and Incremental Arrival | `ingestion` | 9 | yes (local file stream; Databricks sources documented) | pending |
 | 5 Transformations and Business Data Products | `transformations` | 8 | yes (local run) | pending |
-| 6–11 | `streaming-cdc` … `integration` | 48 | no | — |
+| 6 Streaming, CDC, and Changing State | `streaming-cdc` | 10 | yes (local run) | pending |
+| 7–11 | `pipelines` … `integration` | 38 | no | — |
