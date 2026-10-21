@@ -1,29 +1,10 @@
-import { foundations } from './foundations'
-import { governance } from './governance'
-import { deltaTables } from './delta-tables'
-import { ingestion } from './ingestion'
-import { transformations } from './transformations'
-import { streamingCdc } from './streaming-cdc'
-import { pipelines } from './pipelines'
-import { orchestration } from './orchestration'
-import { performance } from './performance'
-import { operations } from './operations'
-import { integration } from './integration'
+import { whyDatabricks } from './why-databricks'
 import type { Course, Section } from './types'
 
-// Course registry, in syllabus order. A course is registered here only once it is authored.
+// Course registry, in syllabus order, one entry per course of docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md. A
+// course is registered here only once it is authored.
 export const COURSES: Record<string, Course> = {
-  [foundations.id]: foundations,
-  [governance.id]: governance,
-  [deltaTables.id]: deltaTables,
-  [ingestion.id]: ingestion,
-  [transformations.id]: transformations,
-  [streamingCdc.id]: streamingCdc,
-  [pipelines.id]: pipelines,
-  [orchestration.id]: orchestration,
-  [performance.id]: performance,
-  [operations.id]: operations,
-  [integration.id]: integration,
+  [whyDatabricks.id]: whyDatabricks,
 }
 
 export type { Course, Section }

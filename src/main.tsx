@@ -14,15 +14,14 @@ import { getScene } from './scenes'
 
 // The whole app. Router, section view, slide panel, catalog and narration are all
 // @graphlearning/shell; this repo supplies its two registries and its name.
-//
+
 // audioBase must be passed from here: import.meta.env.BASE_URL is replaced at THIS app's build time
 // (vite `base` = "/<repo-slug>/"), and the shell is built separately, so it cannot read it.
-//
-// SWAP: `subject`, and `eyebrow` if this repo wants one other than the shell's default.
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ConceptApp
       subject="Databricks Data Engineering"
+      eyebrow="DATABRICKS"
       courses={COURSES}
       getScene={getScene}
       audioBase={import.meta.env.BASE_URL}

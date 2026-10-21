@@ -1,20 +1,10 @@
 import type { Scene } from '@graphlearning/flow'
-import { foundationsScenes } from './foundations'
-import { governanceScenes } from './governance'
-import { deltaTablesScenes } from './delta-tables'
-import { ingestionScenes } from './ingestion'
-import { transformationsScenes } from './transformations'
-import { streamingCdcScenes } from './streaming-cdc'
-import { pipelinesScenes } from './pipelines'
-import { orchestrationScenes } from './orchestration'
-import { performanceScenes } from './performance'
-import { operationsScenes } from './operations'
-import { integrationScenes } from './integration'
+import { whyDatabricksScenes } from './why-databricks'
 
 // Scene registry. Sections reference scenes by id; scenes are grouped by course (one folder each,
 // mirroring src/content). Ids are globally unique across courses, so the flat lookup below is
-// unambiguous. Course scene bundles are spread in here as each course is authored.
-const ALL: Scene[] = [...foundationsScenes, ...governanceScenes, ...deltaTablesScenes, ...ingestionScenes, ...transformationsScenes, ...streamingCdcScenes, ...pipelinesScenes, ...orchestrationScenes, ...performanceScenes, ...operationsScenes, ...integrationScenes]
+// unambiguous. Courses are added here as each is authored.
+const ALL: Scene[] = [...whyDatabricksScenes]
 
 export const SCENES: Record<string, Scene> = Object.fromEntries(ALL.map((s) => [s.id, s]))
 

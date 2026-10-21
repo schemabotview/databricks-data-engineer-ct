@@ -1,14 +1,4 @@
 {
   "_comment": "Curated publish titles (YouTube title + thumbnail header) per course, keyed by course id. Search-first: what someone would actually type, never 'Course 4'. One entry per course in src/content/index.ts.",
-  "foundations": "Databricks Data Engineering Foundations: Lakehouse, Workspaces, Compute and Your First Query",
-  "governance": "Databricks Unity Catalog Explained: Catalogs, Schemas, Grants, Volumes and Lineage",
-  "delta-tables": "Delta Lake Tables Explained: Transaction Log, MERGE, Time Travel, VACUUM and Change Data Feed",
-  "ingestion": "Databricks Data Ingestion Explained: Auto Loader, COPY INTO, Checkpoints and Schema Drift",
-  "transformations": "Databricks Data Transformations: Joins, Window Deduplication, Quality Rules and Gold Tables",
-  "streaming-cdc": "Spark Structured Streaming Explained: Watermarks, State, CDC, SCD Type 2 and Replay",
-  "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations and AUTO CDC",
-  "orchestration": "Databricks Jobs Explained: Task DAGs, Parameters, Retries, Repair Runs and Run-As Identities",
-  "performance": "Databricks and Spark Performance: Skew, Joins, Small Files, Z-Order, Liquid Clustering and Cost",
-  "operations": "Databricks Deployment and Operations: Bundles, CI/CD, Testing, Secrets, Monitoring and Recovery",
-  "integration": "Designing a Databricks Data Product: Architecture, Changing Requirements, Failures and Decision Records"
+  "why-databricks": "Why Databricks? Spark, Delta Lake, the Lakehouse and Bronze/Silver/Gold Explained"
 }

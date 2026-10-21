@@ -1,24 +1,24 @@
 # databricks-data-engineer-ct
 
-A [GraphL](https://graphl.in) content repo for **Databricks Data Engineering — From Platform Foundations
-to Advanced Application**: 11 courses (one per chapter), 86 sections, authored from
-[`docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md`](docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md) with the
-[content-repo-template](https://github.com/schemabotview/content-repo-template) scaffold.
+A [GraphL](https://graphl.in) content repo for **Databricks Data Engineering — from platform
+foundations to a production design**: 13 courses, 97 sections, built around one project
+(`retail-lakehouse`) and authored from
+[`docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md`](docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md).
 
-A **section** is `(scene, slide, narration)`: a declarative diagram or code card on the left, a markdown
-slide on the right, and a narration script that becomes one segment of the course video. Routes are
-`#/<course>-<section>`, e.g. `#/foundations-first-query`.
+A **section** is `(scene, narration)`: one full-screen frame and a narration script that becomes one
+segment of the course video. There are no slides. Routes are `#/<course>-<section>`, e.g.
+`#/why-databricks-bronze-silver-gold`.
 
 ```sh
 npm install
 npm run dev      # http://localhost:5173
 npm run build && npx tsc --noEmit && npm run check
-npm run shot -- /tmp/shots foundations-first-query   # render at 1920×1080 (set CHROMIUM=<chrome binary>)
 ```
 
-`npm run check` enforces the layout budgets **and** conformance to the course plan (titles verbatim,
-authored/planned counts per chapter). Both pass on visually wrong frames, so the rendered route is the
-real bar. See `CLAUDE.md` for the authoring contract and the status of each chapter.
+`npm run check` is `check-content.mjs` (scene-only sections, narration, `focus`, wavs) and
+`check-render.mjs` (every section at 3840×2160 under `?capture=1`, failing on text that leaves its
+node). Both pass on visually wrong frames, so the rendered route is the real bar. See `CLAUDE.md` for
+the authoring contract and the status of each course.
 
 ## Sources and research status
 
@@ -29,47 +29,33 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 [Auto Loader](https://docs.databricks.com/aws/en/ingestion/cloud-object-storage/auto-loader/),
 [Lakeflow pipeline concepts](https://docs.databricks.com/aws/en/ldp/concepts),
 [Lakeflow Jobs](https://docs.databricks.com/aws/en/jobs/) and
-[Declarative Automation Bundles](https://docs.databricks.com/aws/en/dev-tools/bundles/). Book comparisons
-(*Delta Lake: The Definitive Guide*, 2024; *Learning Spark*, 2nd ed.) used publisher contents only.
+[Declarative Automation Bundles](https://docs.databricks.com/aws/en/dev-tools/bundles/).
 
 **Authoring-time limits, stated plainly**
 
-- No Databricks workspace was available. Examples that need the platform (Unity Catalog, Auto Loader,
-  pipelines, jobs, bundles, Photon, serverless) are *documented, not executed*.
-- `docs.databricks.com` was not directly reachable from the authoring environment, so platform
-  statements were limited to well-established concepts and cross-checked through search summaries only.
-  **Re-verify each platform claim against the live docs before publishing.**
-- Spark and Delta behaviour was run locally on PySpark 4.0.1 + Delta Lake 4.0.0 (`scripts/verify/`), not on a
-  Databricks Runtime, so file and task counts may differ on the platform.
+- No Databricks workspace is available. What needs the platform (Unity Catalog, Auto Loader,
+  pipelines, jobs, bundles, Photon, serverless) is *documented, not run*, and labelled so on screen.
+- `docs.databricks.com` is not reachable from the authoring environment, so platform statements are
+  cross-checked through search summaries only. **Re-verify each platform claim against the live docs
+  before publishing.**
+- Spark and Delta behaviour is run locally on PySpark 4.0.1 + Delta Lake 4.0.0, not on a Databricks
+  Runtime, so file and task counts may differ on the platform.
 - No narration audio exists; `.wav` files come only from the Colab + Chatterbox pass.
 
 ## Review tracking
 
-| Chapter | Course id | Sections | Authored | Owner review |
+| # | Course id | Sections | Authored | Owner review |
 | --- | --- | --- | --- | --- |
-| 1 Platform Foundations and a First Data Flow | `foundations` | 6 | yes | pending |
-| 2 Governed Data and Unity Catalog | `governance` | 7 | yes (documented, not run) | pending |
-| 3 Delta Tables and Reliable Data Changes | `delta-tables` | 8 | yes (local run) | pending |
-| 4 Ingestion and Incremental Arrival | `ingestion` | 9 | yes (local file stream; Databricks sources documented) | pending |
-| 5 Transformations and Business Data Products | `transformations` | 8 | yes (local run) | pending |
-| 6 Streaming, CDC, and Changing State | `streaming-cdc` | 10 | yes (local run) | pending |
-| 7 Declarative Data Pipelines | `pipelines` | 8 | yes (documented, not run) | pending |
-| 8 Orchestration and Workload Dependencies | `orchestration` | 7 | yes (documented; local model) | pending |
-| 9 Performance, Layout, and Cost | `performance` | 8 | yes (local counts; platform features documented) | pending |
-| 10 Development, Deployment, and Operations | `operations` | 10 | yes (real example project; bundles documented) | pending |
-| 11 Integrated Engineering Decisions | `integration` | 5 | yes (local run; platform features documented) | pending |
+| 1 | `why-databricks` | 5 | yes (concept frames; §4–§5 numbers from a local run) | pending |
+| 2–13 | see the plan | 92 | no | — |
 
-**Status: all 11 chapters (86 sections) are authored and await owner review.** `npm run check` reports 86 of 86 planned
-sections with their plan titles verbatim; the whole course renders at 1920×1080 with no page errors or clipping (83 routes
-inside the density targets, 3 slightly sparse scenes that were reviewed and accepted).
+## Evidence scripts (from the previous course)
 
-## Verification scripts
-
-Every number the course quotes comes from one of these, run on local PySpark 4.0.1 + Delta Lake 4.0.0 (not a Databricks
+The frozen numbers in `CLAUDE.md` come from one of these, and the new courses quote them until the spine (`spine/`, from Course 3) replays them. They are, run on local PySpark 4.0.1 + Delta Lake 4.0.0 (not a Databricks
 Runtime). Set up once with `python3 -m venv .venv && .venv/bin/pip install "pyspark==4.0.1" "delta-spark==4.0.0" "pandas<3" pytest`
 (Java 17/21 and PyPI/Maven Central access needed), then run `.venv/bin/python scripts/verify/<script>` from the repo root.
 
-| Script | Chapter | What it proves | Tier |
+| Script | Old chapter | What it proves | Tier |
 | --- | --- | --- | --- |
 | `ch01_foundations.py` | 1 | first query, bronze/silver/gold counts, on-disk Delta log | run locally |
 | `ch02_governance_model.py` | 2 | the permission matrix follows from the grants | a model of the documented rules |
