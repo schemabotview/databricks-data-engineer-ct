@@ -50,7 +50,8 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 1 | `why-databricks` | 5 | yes (concept frames; §4–§5 numbers from a local run) | pending |
 | 2 | `how-databricks-runs` | 6 | yes (documented concept frames; §4–§5 local runs) | pending |
 | 3 | `start` | 6 | yes (IDE frames; every pane replayed by `npm run check:spine`) | pending |
-| 4–13 | see the plan | 80 | no | — |
+| 4 | `govern` | 7 | yes (documented concept frames; §3 a local DROP run, §4 a model of the grants) | pending |
+| 5–13 | see the plan | 73 | no | — |
 
 ## Evidence scripts (from the previous course)
 

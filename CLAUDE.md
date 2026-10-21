@@ -44,7 +44,7 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 | 1 | `why-databricks` | Why a platform | 5 | authored, awaiting owner review (no narration audio yet) |
 | 2 | `how-databricks-runs` | How the platform runs your code | 6 | authored, awaiting owner review (no narration audio yet) |
 | 3 | `start` | Start the project | 6 | authored, awaiting owner review (no narration audio yet) |
-| 4 | `govern` | Govern it | 7 | planned |
+| 4 | `govern` | Govern it | 7 | authored, awaiting owner review (no narration audio yet) |
 | 5 | `tables` | Make the table reliable | 8 | planned |
 | 6 | `ingest` | Bring the data in | 9 | planned |
 | 7 | `transform` | Build silver and gold | 8 | planned |
@@ -63,6 +63,12 @@ Course 2 is documented concept frames with two local runs, both from
 `scripts/verify/c02_how_databricks_runs.py`: the stack's versions (§4) and what a local session cannot do
 (§5) — a three-part name fails with `[REQUIRES_SINGLE_PART_NAMESPACE]`, and `GRANT` is
 `[INVALID_STATEMENT_OR_CLAUSE]`. No prices, start-up times or Runtime-to-Spark version mapping are quoted.
+
+Course 4 is documented concept frames with two spine steps: `govern/03` drops a managed and an external
+Delta table locally (the managed folder goes, the external one stays and still reads 8 rows), and `govern/04`
+runs `tools/grant_matrix.py`, a MODEL of the documented grant rules that reads `governance/grants.sql` (finance
+reads gold only; engineers bronze + silver; `retail-job` reads bronze + silver, writes silver; finance reading
+silver lacks USE SCHEMA and SELECT). Course 10 reuses the model for the job's refused write to gold.
 
 ## The spine: code is executed, not pasted
 
@@ -287,6 +293,13 @@ models; they claim nothing about Databricks. The final narration ends with the p
 | `first-table` | IDE: tools/load_sample.py, the table's folder and its log's actions | `start-the-first-table` |
 | `first-query` | IDE: tools/first_query.py, SQL and PySpark agreeing (1 / 6 / 1) | `start-the-first-query` |
 | `notebook-source` | IDE: notebooks/explore.py run as a script (8 rows, 7 ids, 4 valid completed) | `start-notebook-source` |
+| `uc-names` | metastore → catalogs → schemas → objects in a row → names.sql beside the platform-to-local name table | `govern-three-part-names` |
+| `tables-views-volumes` | securables table → tabular and volume code cards → privileges table beside which-one list | `govern-tables-views-volumes` |
+| `managed-external` | IDE: tools/drop_demo.py, DROP removes the managed folder and keeps the external one (run) | `govern-managed-and-external` |
+| `grants` | IDE: governance/grants.sql (documented) with the model's matrix in the terminal | `govern-principals-and-privileges` |
+| `storage-locations` | IAM role → credential → location → table → location.sql beside three-controls table and list | `govern-storage-credentials-and-locations` |
+| `lineage-audit` | lineage chain → lineage query beside evidence-kinds table and an illustrative result | `govern-discovery-lineage-audit` |
+| `share-federate` | ingest / share / federate lists → trade table beside ask-first list | `govern-sharing-and-federation` |
 
 ## Invariants — do not break
 

@@ -1,0 +1,9 @@
+$ python tools/grant_matrix.py
+                read bronze  read silver  write silver  read gold
+finance         no           no           no            yes
+data-engineers  yes          yes          yes           no
+retail-job      yes          yes          yes           no
+
+finance reading retail.silver.orders is refused; it lacks:
+  USE SCHEMA on retail.silver
+  SELECT on retail.silver
