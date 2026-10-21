@@ -1,4 +1,5 @@
 {
   "_comment": "Curated publish titles (YouTube title + thumbnail header) per course, keyed by course id. Search-first: what someone would actually type, never 'Course 4'. One entry per course in src/content/index.ts.",
-  "why-databricks": "Why Databricks? Spark, Delta Lake, the Lakehouse and Bronze/Silver/Gold Explained"
+  "why-databricks": "Why Databricks? Spark, Delta Lake, the Lakehouse and Bronze/Silver/Gold Explained",
+  "how-databricks-runs": "How Databricks Works: Control Plane, Compute, Unity Catalog, Runtime and Notebooks Explained"
 }

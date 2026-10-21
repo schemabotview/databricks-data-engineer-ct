@@ -47,7 +47,8 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | # | Course id | Sections | Authored | Owner review |
 | --- | --- | --- | --- | --- |
 | 1 | `why-databricks` | 5 | yes (concept frames; §4–§5 numbers from a local run) | pending |
-| 2–13 | see the plan | 92 | no | — |
+| 2 | `how-databricks-runs` | 6 | yes (documented concept frames; §4–§5 local runs) | pending |
+| 3–13 | see the plan | 86 | no | — |
 
 ## Evidence scripts (from the previous course)
 
@@ -57,6 +58,7 @@ Runtime). Set up once with `python3 -m venv .venv && .venv/bin/pip install "pysp
 
 | Script | Old chapter | What it proves | Tier |
 | --- | --- | --- | --- |
+| `c02_how_databricks_runs.py` | new Course 2 | the local stack's versions; a three-part name and a GRANT failing locally | run locally |
 | `ch01_foundations.py` | 1 | first query, bronze/silver/gold counts, on-disk Delta log | run locally |
 | `ch02_governance_model.py` | 2 | the permission matrix follows from the grants | a model of the documented rules |
 | `ch03_delta_tables.py` | 3 | versions, MERGE, constraints, a forced write conflict, RESTORE, VACUUM, change feed, protocol | run locally |

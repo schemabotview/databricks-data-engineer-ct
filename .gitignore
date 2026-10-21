@@ -29,3 +29,4 @@ examples/retail_etl/build/
 examples/retail_etl/dist/
 .pytest_cache/
 .verify-warehouse-ch11/
+.verify-warehouse-c02/

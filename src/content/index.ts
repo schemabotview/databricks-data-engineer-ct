@@ -1,10 +1,12 @@
 import { whyDatabricks } from './why-databricks'
+import { howDatabricksRuns } from './how-databricks-runs'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order, one entry per course of docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md. A
 // course is registered here only once it is authored.
 export const COURSES: Record<string, Course> = {
   [whyDatabricks.id]: whyDatabricks,
+  [howDatabricksRuns.id]: howDatabricksRuns,
 }
 
 export type { Course, Section }

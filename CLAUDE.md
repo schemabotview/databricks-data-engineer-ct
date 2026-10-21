@@ -41,7 +41,7 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 | # | Course id | Course | Sections | Status |
 | --- | --- | --- | --- | --- |
 | 1 | `why-databricks` | Why a platform | 5 | authored, awaiting owner review (no narration audio yet) |
-| 2 | `how-databricks-runs` | How the platform runs your code | 6 | planned |
+| 2 | `how-databricks-runs` | How the platform runs your code | 6 | authored, awaiting owner review (no narration audio yet) |
 | 3 | `start` | Start the project | 6 | planned |
 | 4 | `govern` | Govern it | 7 | planned |
 | 5 | `tables` | Make the table reliable | 8 | planned |
@@ -57,6 +57,11 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 Course 1 is concept frames. Its §4 tables are the Chapter 1 local run
 (`scripts/verify/ch01_foundations.py`) and its §5 gold table the Chapter 5 run
 (`ch05_transformations.py`); both were re-run on 2026-10-21 and pass.
+
+Course 2 is documented concept frames with two local runs, both from
+`scripts/verify/c02_how_databricks_runs.py`: the stack's versions (§4) and what a local session cannot do
+(§5) — a three-part name fails with `[REQUIRES_SINGLE_PART_NAMESPACE]`, and `GRANT` is
+`[INVALID_STATEMENT_OR_CLAUSE]`. No prices, start-up times or Runtime-to-Spark version mapping are quoted.
 
 ## Verification notes (read before trusting a number or a claim)
 
@@ -228,6 +233,12 @@ models; they claim nothing about Databricks. The final narration ends with the p
 | `lakehouse` | lake + warehouse chain beside the lakehouse chain → what-changes table over does-not-remove list | `why-databricks-the-lakehouse` |
 | `bronze-silver-gold` | bronze (8) → silver (6) → gold (160.00) tables → reconciliation beside where-guarantees-come-from table | `why-databricks-bronze-silver-gold` |
 | `retail-lakehouse` | sources → Delta tables → consumers, over how-it-runs and around-the-project bands | `why-databricks-what-we-will-build` |
+| `platform-planes` | control plane → classic / serverless compute → your storage → who-holds-what table beside what-it-means list | `how-databricks-runs-control-and-compute-planes` |
+| `account-boundaries` | account (identities → metastore with two workspaces and two bound catalogs) beside boundaries table and easy-to-get-wrong list | `how-databricks-runs-accounts-workspaces-metastores` |
+| `compute-choices` | kinds-of-compute table → provisional retail choice table beside words list | `how-databricks-runs-compute-choices` |
+| `databricks-runtime` | Runtime release list beside the local stack's versions (run) → runs-the-same table | `how-databricks-runs-the-databricks-runtime` |
+| `query-path` | four documented UC steps in a row → local names and errors (run) beside where-each-answer-comes-from table | `how-databricks-runs-a-querys-path` |
+| `where-code-lives` | where-code-is-written table → notebook source card beside this course's choice | `how-databricks-runs-where-code-is-written` |
 
 ## Invariants — do not break
 
