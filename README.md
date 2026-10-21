@@ -13,6 +13,7 @@ segment of the course video. There are no slides. Routes are `#/<course>-<sectio
 npm install
 npm run dev      # http://localhost:5173
 npm run build && npx tsc --noEmit && npm run check
+npm run check:spine   # replay every spine step (Python 3.13 as `python`, Java 17/21)
 ```
 
 `npm run check` is `check-content.mjs` (scene-only sections, narration, `focus`, wavs) and
@@ -48,7 +49,8 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | --- | --- | --- | --- | --- |
 | 1 | `why-databricks` | 5 | yes (concept frames; §4–§5 numbers from a local run) | pending |
 | 2 | `how-databricks-runs` | 6 | yes (documented concept frames; §4–§5 local runs) | pending |
-| 3–13 | see the plan | 86 | no | — |
+| 3 | `start` | 6 | yes (IDE frames; every pane replayed by `npm run check:spine`) | pending |
+| 4–13 | see the plan | 80 | no | — |
 
 ## Evidence scripts (from the previous course)
 

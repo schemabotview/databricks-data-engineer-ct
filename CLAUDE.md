@@ -15,7 +15,8 @@ sections, the spine and the run/documented tier of every section. Author from it
 its section lists. The method is `apache-spark-ct`'s, applied to the platform.
 
 The render engine is `@graphlearning/flow`; the app shell is `@graphlearning/shell`. Both are
-**published packages pinned by version** (flow ^2.2.0, shell ^0.13.1). This repo's own surface is
+**published packages pinned by version** (flow ^2.2.0, shell ^0.14.0 — the first release that leaves
+a section frame headerless and exports `SCENE_ASPECT`). This repo's own surface is
 `src/content/`, `src/scenes/`, `src/main.tsx`, `src/theme.css` and (from Course 3) `spine/` — plus
 `scripts/verify/` and `examples/retail_etl/`, the previous course's evidence, kept until the spine
 replays the numbers they assert.
@@ -42,7 +43,7 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 | --- | --- | --- | --- | --- |
 | 1 | `why-databricks` | Why a platform | 5 | authored, awaiting owner review (no narration audio yet) |
 | 2 | `how-databricks-runs` | How the platform runs your code | 6 | authored, awaiting owner review (no narration audio yet) |
-| 3 | `start` | Start the project | 6 | planned |
+| 3 | `start` | Start the project | 6 | authored, awaiting owner review (no narration audio yet) |
 | 4 | `govern` | Govern it | 7 | planned |
 | 5 | `tables` | Make the table reliable | 8 | planned |
 | 6 | `ingest` | Bring the data in | 9 | planned |
@@ -62,6 +63,47 @@ Course 2 is documented concept frames with two local runs, both from
 `scripts/verify/c02_how_databricks_runs.py`: the stack's versions (§4) and what a local session cannot do
 (§5) — a three-part name fails with `[REQUIRES_SINGLE_PART_NAMESPACE]`, and `GRANT` is
 `[INVALID_STATEMENT_OR_CLAUSE]`. No prices, start-up times or Runtime-to-Spark version mapping are quoted.
+
+## The spine: code is executed, not pasted
+
+From Course 3 on, every code and terminal pane comes from `spine/<course>/<step>/`: `project/` is a
+snapshot of `retail-lakehouse/` at that step, `session.txt` is the terminal transcript, `step.json` says
+where it starts, whether a venv exists, which `setup` commands run silently first (the editable install,
+the sample table a step queries), and which generated files to `capture`. Scenes import these files with
+Vite's `?raw`, so a frame can only show what was replayed. `npm run check:spine` (`scripts/spine.py`,
+apache-spark-ct's replayer) replays every step in a fresh copy and fails on any difference; `--write`
+regenerates the transcripts after an edit, and a path prefix (`python3 scripts/spine.py start/04`) limits
+it. Paths are normalised to `/home/ana/retail-lakehouse`. **Run it with Python 3.13 as `python` and Java
+17 or 21 as `java` on PATH**, one replay at a time.
+
+What is Delta-specific in the replay (all of it about the machine, never the code):
+
+- **PySpark 4.0.1 and delta-spark 4.0.0 are installed once** into `.spine-cache/` (from
+  `spine/requirements.txt`) and borrowed by each step's fresh `.venv` through a `.pth` file. `start/02`
+  types its `pip install` and runs it for real.
+- **Delta's jars come through Ivy.** `configure_spark_with_delta_pip` adds them to
+  `spark.jars.packages`; a learner's first run downloads them into `~/.ivy2.5.2`, every later run finds
+  them there. The replay is a later run: `warm_ivy` resolves them once. Java takes its home from the
+  password file, not `$HOME`, so that cache is the real user's, shown as `/home/ana/.ivy2.5.2`.
+- **Ivy prints a ~27-line resolution report on every start** — Spark silences it only in its own tests
+  (`MavenUtils` sets `quiet` only when `isTest`); there is no setting. Its run id is a UUID (masked even
+  when the 84-column wrap splits it) and its timings (`182ms`, `0kB/5ms`) are masked in every step.
+  Course 3 §3 shows the report and explains it; every later frame folds the JVM notice and the report to
+  one line with `quietIvy()` (`src/scenes/start/ivy.ts`).
+- **A catalog that outlives the run**: `build_session()` calls `enableHiveSupport()`, so names live in a
+  local Derby metastore (`metastore_db/`, `derby.log`) and tables in `spark-warehouse/` — the local
+  stand-in for Unity Catalog. The project's `conf/log4j2.properties` silences `HiveExternalCatalog`'s
+  warning that the Hive metastore does not know Delta (printed on every CREATE), and
+  `spark-defaults.conf` raises `spark.sql.debug.maxToStringFields` so Delta's wide plans print without a
+  truncation warning.
+- **Code lines stay within 80 columns** — the editor is 80 wide, and a longer line widens it.
+
+IDE frames are built with `ideFrame()` in `src/scenes/ide.ts`: apache-spark-ct's template, unchanged —
+explorer (300) | editor (80 columns × 18 rows, 467) over terminal (17 lines) | side pane (520), 1632 wide
+and `1632 / SCENE_ASPECT` tall, so 16:9 and fitted edge to edge now that a section has no header. A file
+longer than 18 rows is folded with `show`; a run longer than 17 lines with `fold(session, …)`. A side
+card wider than 520 widens the column and moves every panel — `check-render.mjs` fails any IDE frame
+whose explorer, editor, terminal or side pane moves.
 
 ## Verification notes (read before trusting a number or a claim)
 
@@ -239,6 +281,12 @@ models; they claim nothing about Databricks. The final narration ends with the p
 | `databricks-runtime` | Runtime release list beside the local stack's versions (run) → runs-the-same table | `how-databricks-runs-the-databricks-runtime` |
 | `query-path` | four documented UC steps in a row → local names and errors (run) beside where-each-answer-comes-from table | `how-databricks-runs-a-querys-path` |
 | `where-code-lives` | where-code-is-written table → notebook source card beside this course's choice | `how-databricks-runs-where-code-is-written` |
+| `project-tour` | IDE: finished tree, parts-and-courses table in the editor's place, reading-every-lesson list | `start-the-finished-project` |
+| `new-project` | IDE: requirements.txt (captured), venv + pip + java session | `start-a-new-project` |
+| `delta-session` | IDE: src/retail/session.py, Ivy's report shown and explained | `start-a-session-that-speaks-delta` |
+| `first-table` | IDE: tools/load_sample.py, the table's folder and its log's actions | `start-the-first-table` |
+| `first-query` | IDE: tools/first_query.py, SQL and PySpark agreeing (1 / 6 / 1) | `start-the-first-query` |
+| `notebook-source` | IDE: notebooks/explore.py run as a script (8 rows, 7 ids, 4 valid completed) | `start-notebook-source` |
 
 ## Invariants — do not break
 
@@ -284,12 +332,12 @@ Look at the route.
 ## Guards before handing over
 
 ```sh
-npm run build && npx tsc --noEmit && npm run check
+npm run build && npx tsc --noEmit && npm run check && npm run check:spine
 ```
 
 `check-render.mjs` launches Chrome; as root (a container) it passes `--no-sandbox`, and
-`PUPPETEER_EXECUTABLE_PATH` picks the browser if puppeteer has none of its own. From Course 3,
-`npm run check:spine` joins them. All are a **floor, not proof** — they pass on frames that are
+`PUPPETEER_EXECUTABLE_PATH` picks the browser if puppeteer has none of its own. `npm run check:spine`
+replays the spine (needs network the first time: PyPI for `start/02`, Maven Central for Delta's jars). All are a **floor, not proof** — they pass on frames that are
 visually wrong. The rendered route is the real bar, and the owner reviews it.
 
 ## Working agreement

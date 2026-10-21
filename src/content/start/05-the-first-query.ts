@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const theFirstQuery: Section = {
+  id: 'the-first-query',
+  title: 'The first query',
+  scene: 'first-query',
+  narration:
+    "With a table in place, we can ask it a question: how many orders are in each status? The tool in the editor asks it twice, once in each of the two languages this course uses. The first is SQL. Select the status and a count, from bronze dot orders, grouped by status and ordered by it. The second is PySpark, the DataFrame API: take the table, group by status, count, and order. The table on the right lines the two up clause by clause, and they say exactly the same thing. Neither one has run yet when it is written. Each builds a plan, and only an action, like show or collect, makes Spark execute it. That is why the tool can build both and then compare them. The terminal shows the answer. One cancelled, six completed and one pending, eight in all. And the last line is the comparison: PySpark gives the same rows. They do, because both spellings become the same plan inside Spark, so choose whichever reads better for the job in hand. This course mixes them freely, and Course 7 shows where each one is the clearer choice. Now look at that answer once more, because it is the reason the next ten courses exist. Six completed orders. But one of those six is order four's resend, and another is order seven, whose amount is not a number. A finance report built straight on this table would count orders that should not be counted, and would fail to add up an amount that is not there. The query is correct. The data underneath it is not yet fit to answer the question. Bronze is what arrived, and a question like this one belongs on silver, after the rules have been applied. Next, the same exploration as a notebook.",
+}

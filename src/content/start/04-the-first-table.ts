@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const theFirstTable: Section = {
+  id: 'the-first-table',
+  title: 'The first table',
+  scene: 'first-table',
+  narration:
+    "Now we write a table. The tool in the editor holds the eight sample orders from the first course, exactly as they arrived: every column is text, order four was sent twice, and order seven has an amount of n slash a. Bronze keeps all of that, because bronze does not judge. The highlighted lines build a DataFrame from those rows, create a schema called bronze, and save the data as a Delta table named bronze dot orders. The terminal confirms eight rows. Now look at what that one write left on disk. Spark wrote the table into the warehouse folder, under bronze dot db, then orders. Inside are two Parquet files holding the rows. There are two because our session runs two tasks at once, and each task wrote its own file. A different machine could write a different number, which is why this course never quotes file counts. Beside the data is the folder that makes this a Delta table: the delta log. It holds version zero of the table as a JSON file, a checksum of that version, and a folder that Delta four creates and leaves empty here. The last command lists the kind of each action in version zero, one per line. A commit record says what operation made it. Metadata holds the schema. Protocol says which Delta features a reader needs. And then one add action for each data file. That is the whole idea of Delta in five lines: the table is not the folder. It is the list of files that the log says belong to it. A reader asks the log, not the folder listing, which is why a half-written file that never reached the log is never read. The name bronze dot orders lives somewhere else entirely, in the local metastore folder that has appeared at the top of the project. Course 5 reads every version of this log. Next, the first query against it.",
+}

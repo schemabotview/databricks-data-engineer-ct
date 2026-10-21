@@ -17,11 +17,12 @@
     "shots:4k": "graphl-shots-4k",
     "gen:audio": "graphl-gen-audio",
     "gen:desc": "graphl-gen-desc",
-    "thumb": "graphl-thumb"
+    "thumb": "graphl-thumb",
+    "check:spine": "python3 scripts/spine.py"
   },
   "dependencies": {
     "@graphlearning/flow": "^2.2.0",
-    "@graphlearning/shell": "^0.13.1",
+    "@graphlearning/shell": "^0.14.0",
     "lucide-react": "^1.28.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",

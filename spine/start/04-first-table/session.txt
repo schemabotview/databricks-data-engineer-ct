@@ -1,0 +1,44 @@
+$ python tools/load_sample.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/home/ana/retail-lakehouse/.venv/lib/python3.1
+3/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings
+.xml
+Ivy Default Cache set to: /home/ana/.ivy2.5.2/cache
+The jars for the packages stored in: /home/ana/.ivy2.5.2/jars
+io.delta#delta-spark_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-9b63d0c8-932e-432b
+-9a3c-e67e61ff969e;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.13;4.0.0 in central
+	found io.delta#delta-storage;4.0.0 in central
+	found org.antlr#antlr4-runtime;4.13.1 in central
+:: resolution report :: resolve 150ms :: artifacts dl 5ms
+	:: modules in use:
+	io.delta#delta-spark_2.13;4.0.0 from central in [default]
+	io.delta#delta-storage;4.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.13.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-9b63d0c8-932e-432b-9a3c-e67e61
+ff969e
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/6ms)
+bronze.orders: 8 rows
+$ cd spark-warehouse/bronze.db/orders && ls
+_delta_log
+part-00000-8129616d-d4d8-46c4-a929-ed9e866c46dd-c000.snappy.parquet
+part-00001-1c37ad81-e496-4a43-b49b-07ffc0b326f2-c000.snappy.parquet
+$ ls _delta_log
+00000000000000000000.crc
+00000000000000000000.json
+_staged_commits
+$ grep -o '^{"[a-z]*"' -i _delta_log/00000000000000000000.json
+{"commitInfo"
+{"metaData"
+{"protocol"
+{"add"
+{"add"

@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const aNewProject: Section = {
+  id: 'a-new-project',
+  title: 'A new project',
+  scene: 'new-project',
+  narration:
+    "We start from an empty folder, and five commands turn it into a project, all in the terminal at the bottom. First we make the folder and move into it. Then python dash m venv creates a virtual environment, the project's own copy of Python, and activating it means every python and pip in this terminal now uses that copy instead of the machine's. Next we install two packages, each pinned to an exact version: pyspark four point zero point one, which is Spark itself, and delta-spark four point zero point zero, which is Delta Lake's Python side. Pinning matters. A project that says only pyspark gets whatever version is newest on the day it is installed, and then a frame in this course might not match what you see. Then pip freeze writes down everything that was installed into requirements dot txt, which is the file in the editor. Five lines. Our two pins are there, and so are three packages they brought with them: py4j, which lets Python talk to Spark's JVM, and importlib metadata with its own helper, zipp, which delta-spark needs. Anyone who installs from this file gets exactly these versions. The last command checks Java. Spark runs on the Java virtual machine, so Python alone is not enough, and Spark four needs Java seventeen or twenty-one. This machine has OpenJDK twenty-one. The list on the right says what we have and have not got yet. pyspark brings Spark with all of its own Java jars. delta-spark brings only Delta's Python functions. Delta's Java jars are not on the machine yet: they arrive the first time a session asks for them, which is the next lesson. On Databricks, none of these commands are needed, because the Runtime already contains Spark, Delta and Java. Locally, these five lines are the whole of the setup. Next, the session that speaks Delta.",
+}

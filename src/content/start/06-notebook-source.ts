@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const notebookSource: Section = {
+  id: 'notebook-source',
+  title: 'Notebook source',
+  scene: 'notebook-source',
+  narration:
+    "On a workspace, exploration like this usually happens in a notebook, and the last lesson of this course shows what a notebook really is. The file in the editor is in the notebook source format from Course 2. The first line tells a workspace to open it as a notebook. Each line that reads command, followed by dashes, starts a new cell. And the lines that begin with magic hold a cell in another language, here a markdown heading. Everything else is ordinary Python. That means we can run it locally as a plain script, and the terminal shows it doing exactly that. There is one difference, and the second cell's comment points it out. On a workspace, a variable called spark already exists in every notebook. Locally nothing creates it, so this notebook builds the session itself, the same way every job does. The table on the right lists the markers and what each one means on a workspace. The third cell asks three questions of bronze. How many rows? Eight. How many different order IDs? Seven, because order four was sent twice. And how many completed orders have an amount we can actually add up? Only four: orders one, two, four and five. Order seven is completed, but its amount is n slash a. Order three was cancelled, and order six is still pending. So eight rows in bronze become four good sales, and the gap between those two numbers is the work ahead: deciding, in code, which rows count, and accounting for every one that does not. That is silver, in Course 7. The project now has a session, a table, a query and a notebook, all running locally. Before we bring in any more data, we need to decide who is allowed to read it. Next, governance with Unity Catalog.",
+}
