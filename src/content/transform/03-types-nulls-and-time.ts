@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const typesNullsAndTime: Section = {
+  id: 'types-nulls-and-time',
+  title: 'Types, NULL and time',
+  scene: 'types-nulls-time',
+  narration:
+    "Most transformation bugs are not crashes. They are values that are quietly wrong, and this tool shows four of the most common, each from a real run. First, types. Bronze holds every amount as text, so silver has to convert it. The tool uses try cast, which turns forty point zero zero into the decimal forty, minus five into minus five, and n slash a into NULL, rather than failing. A plain cast, with Spark four's ANSI mode on, would fail the whole job on that one bad value. Try cast is right, but it creates NULLs, so the next habit is to count them. Second, NULL itself. The tool counts rows where the amount equals NULL, and gets zero. It counts rows where the amount is NULL, and gets one. A comparison with NULL is never true, not even NULL equals NULL, so a filter written with equals silently finds nothing. Third, time. The tool reads the same text, the first of October at nine fourteen, as a timestamp under two session time zones, UTC and New York, and prints each as seconds since the epoch. The two numbers differ by fourteen thousand four hundred seconds, which is four hours. The same text meant two different instants, depending only on a setting. Fourth, nested data. Two orders worth sixty-five in total each carry an array of items. Exploding the arrays, one row per item, and then summing the amount gives one hundred and five, because order one's amount was repeated for each of its two items. The table on the right lists the traps, and the list gives the habit that prevents each. Use try cast, and count the NULLs it makes. Write IS NULL, never equals NULL. Store times in UTC, and convert only to display them. And aggregate before you explode, or deduplicate after. Next, the join mistake that inflates a total.",
+}

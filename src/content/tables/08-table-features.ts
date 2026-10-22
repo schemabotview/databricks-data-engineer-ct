@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const tableFeatures: Section = {
+  id: 'table-features',
+  title: 'Table features and protocols',
+  scene: 'table-features',
+  narration:
+    "Every Delta table says, in its log, what a program must understand in order to read it and to write it. That is the protocol, from the very first commit we looked at, and this last lesson reads it for three of the lab tables. The script asks each table for its details and prints the minimum reader version, the minimum writer version, and the list of table features. The terminal shows a real run. Lab ret, the plain table from the VACUUM lesson, needs reader one and writer two. Lab feed needs writer seven, because it uses the change data feed, which appears in its feature list. And lab contract needs writer three, for its check constraint. Two of the features, append only and invariants, appear on every table, as the basic set this version of Delta records. The table on the right says the important part plainly: turning a feature on raises the bar for everyone. A program that only supports an older writer version can still read lab feed, but it may no longer write to it. The list says what to check before you turn on a feature. Every reader and every writer of the table must support it, and that includes tools outside Databricks, like another engine reading the same files. Some features cannot simply be switched off again once they are on. And Databricks has table features that open-source Delta does not, so a table written on the platform with one of those may not be readable by an older open-source reader. Check what else reads a table before you change what it requires. That completes the table itself: files and a log, versions and history, a contract, safe changes, and the limits of recovery. Next, we bring real data into it, file by file, as it arrives.",
+}

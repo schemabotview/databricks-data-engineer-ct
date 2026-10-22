@@ -1,0 +1,45 @@
+$ python tools/delta/vacuum.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/home/ana/retail-lakehouse/.venv/lib/python3.1
+3/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings
+.xml
+Ivy Default Cache set to: /home/ana/.ivy2.5.2/cache
+The jars for the packages stored in: /home/ana/.ivy2.5.2/jars
+io.delta#delta-spark_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-8b191fe6-77af-409d
+-be97-4b7b4155293a;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.13;4.0.0 in central
+	found io.delta#delta-storage;4.0.0 in central
+	found org.antlr#antlr4-runtime;4.13.1 in central
+:: resolution report :: resolve 155ms :: artifacts dl 5ms
+	:: modules in use:
+	io.delta#delta-spark_2.13;4.0.0 from central in [default]
+	io.delta#delta-storage;4.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.13.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-8b191fe6-77af-409d-be97-4b7b41
+55293a
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/5ms)
+versions 1, 2, 3: [1, 2] [1, 2, 3] [2, 3]
+refused: requirement failed: Are you sure you would like to vacuum files with such a
+ low retention period?
+files older than 0 hours: 2
+Deleted 2 files and directories in a total of 1 directories.
+version 3 after VACUUM: [2, 3]
+ERROR Executor: Exception in task 0.0 in stage 210.0 (TID 33411)
+WARN TaskSetManager: Lost task 0.0 in stage 210.0 (TID 33411) (localhost executor dr
+iver): org.apache.spark.SparkException: [FAILED_READ_FILE.FILE_NOT_EXIST] Encountere
+d error while reading file file:/home/ana/retail-lakehouse/spark-warehouse/lab.db/re
+t/part-00000-94e124c0-d5eb-4a0a-beef-9f7df04f705f-c000.snappy.parquet. File does not
+ exist. It is possible the underlying files have been updated.
+ERROR TaskSetManager: Task 0 in stage 210.0 failed 1 times; aborting job
+version 1 after VACUUM: [FAILED_READ_FILE.FILE_NOT_EXIST] Encountered error while re
+ading file file:/home/ana/retail-lakehouse/spark-warehouse/lab.db/ret/part-00000-94e
+124c0-d5eb-4a0a-beef-9f7df04f705f-c000.snappy.parquet.

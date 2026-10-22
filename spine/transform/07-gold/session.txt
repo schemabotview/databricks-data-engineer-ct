@@ -1,0 +1,48 @@
+$ python tools/transform/gold_contract.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/home/ana/retail-lakehouse/.venv/lib/python3.1
+3/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings
+.xml
+Ivy Default Cache set to: /home/ana/.ivy2.5.2/cache
+The jars for the packages stored in: /home/ana/.ivy2.5.2/jars
+io.delta#delta-spark_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-194fed50-0b3f-4380
+-8f9b-72e094ff39fa;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.13;4.0.0 in central
+	found io.delta#delta-storage;4.0.0 in central
+	found org.antlr#antlr4-runtime;4.13.1 in central
+:: resolution report :: resolve 269ms :: artifacts dl 8ms
+	:: modules in use:
+	io.delta#delta-spark_2.13;4.0.0 from central in [default]
+	io.delta#delta-storage;4.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.13.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-194fed50-0b3f-4380-8f9b-72e094
+ff39fa
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/17ms)
++--------+-------------+-------------------------------------+
+|col_name|data_type    |comment                              |
++--------+-------------+-------------------------------------+
+|city    |string       |Store city, from the stores reference|
+|orders  |bigint       |Number of COMPLETED orders           |
+|sales   |decimal(18,2)|Sum of amount over COMPLETED orders  |
++--------+-------------+-------------------------------------+
+
+ERROR Utils: Aborting task
+ERROR DeltaFileFormatWriter: Job job_202610220131355383935901223068170_0040 aborted.
+ERROR Executor: Exception in task 0.0 in stage 40.0 (TID 419)
+WARN TaskSetManager: Lost task 0.0 in stage 40.0 (TID 419) (localhost executor drive
+r): org.apache.spark.SparkException: [TASK_WRITE_FAILED] Task failed while writing r
+ows to file:/home/ana/retail-lakehouse/spark-warehouse/gold.db/sales. SQLSTATE: 5803
+0
+ERROR TaskSetManager: Task 0 in stage 40.0 failed 1 times; aborting job
+ERROR DeltaFileFormatWriter: Aborting job 2e515215-8bb7-475b-b1ba-57accd4eff34
+refused: [DELTA_VIOLATE_CONSTRAINT_WITH_VALUES] CHECK constraint sales_not_negative 
+(sales >= 0) violated by row with values:

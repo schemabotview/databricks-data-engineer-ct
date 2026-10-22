@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const malformedRecords: Section = {
+  id: 'malformed-records',
+  title: 'Malformed records and quarantine',
+  scene: 'malformed-records',
+  narration:
+    "Some rows will not parse at all, and the question is what happens to them. The tool in the editor reads the three sample files with a typed schema, so the store is an integer and the amount a decimal, and adds one more column, bad record, to hold the raw text of any line that does not fit. The parse mode is permissive, which is the default: never fail, keep every row, set what cannot be parsed to null, and put the original line into the bad-record column. The terminal shows a real run. One row did not fit: order seven, whose amount is n slash a. Its amount is null, and its whole raw line is kept: o7, 9, n slash a, completed. The last line is the reconciliation: eight rows, seven parsed, one quarantined. Every row is accounted for, and the bad one can be shown to whoever owns the source. The table on the right lists the three modes. Permissive keeps the bad row, with nulls and its raw line. Drop malformed drops it, silently, so the eight rows become seven and nothing says why. Fail fast makes the whole read fail on the first bad row. Drop malformed is the one to avoid in a pipeline, because it loses data without a trace. Fail fast is right when a single bad row means the whole file is wrong. Permissive, with the raw line kept, is the usual choice for bronze. The list says how to use it. Keep the raw line, because someone has to fix the source, and they will need to see exactly what was sent. Count both sides, so the reconciliation always adds up. On Databricks, Auto Loader's rescued data column, from two lessons ago, does a similar job automatically. And Course 7 turns this into explicit quality rules, with a quarantine table of its own. Next, letting the platform do the ingestion for you.",
+}

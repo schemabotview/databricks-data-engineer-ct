@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const messageBuses: Section = {
+  id: 'message-buses',
+  title: 'Message buses',
+  scene: 'message-bus',
+  narration:
+    "Some sources do not write files at all. They publish events to a message bus, like Apache Kafka, as they happen, and ingestion reads the bus as a stream. The code on the left is Spark's own Kafka source, from the Apache Spark documentation. The broker and topic are made up, and it is not run here, because there is no broker in this environment. It reads a stream in the Kafka format, from a broker address, subscribed to a topic called store orders, starting from the earliest event the topic still holds. Each event's value arrives as bytes, so the second part casts it to text, and keeps the topic, partition, offset and timestamp beside it. Then it writes to a bronze table, with a checkpoint, exactly like the file stream earlier in this course. The table on the right compares the two kinds of source. With landed files, the unit of progress is a file. With a topic, it is an offset in each partition: a position in a numbered sequence of events. Files stay until someone deletes them. A topic keeps events only for its retention period, and then they are gone. Both restart from the checkpoint, which for Kafka holds the offsets read so far. And replaying is only possible while the data is still there: for files, while they exist; for a topic, only within retention. That is where the assumptions in the list come from. The offsets in the checkpoint must still exist in the topic. If the ingestion job is down for longer than the topic's retention, the events in between are lost, and no checkpoint can bring them back. The same event can be delivered twice, so keep the offset in bronze, which identifies it. And order is only guaranteed within a partition, never across the whole topic. Next, a backfill, and a walk through the finished bronze table.",
+}

@@ -1,0 +1,336 @@
+$ python tools/delta/contract.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/home/ana/retail-lakehouse/.venv/lib/python3.1
+3/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings
+.xml
+Ivy Default Cache set to: /home/ana/.ivy2.5.2/cache
+The jars for the packages stored in: /home/ana/.ivy2.5.2/jars
+io.delta#delta-spark_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-4c0c67bd-a6e8-4992
+-9251-ea5fd343b9b2;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.13;4.0.0 in central
+	found io.delta#delta-storage;4.0.0 in central
+	found org.antlr#antlr4-runtime;4.13.1 in central
+:: resolution report :: resolve 159ms :: artifacts dl 5ms
+	:: modules in use:
+	io.delta#delta-spark_2.13;4.0.0 from central in [default]
+	io.delta#delta-storage;4.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.13.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-4c0c67bd-a6e8-4992-9251-ea5fd3
+43b9b2
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/5ms)
+extra column: [_LEGACY_ERROR_TEMP_DELTA_0007] A schema mismatch detected when writin
+g to the Delta table (Table ID: cc8cf050-2f7f-4a82-8178-46eca0cf4ce8).
+{"ts": "2026-10-22 01:16:04.938", "level": "ERROR", "logger": "SQLQueryContextLogger
+", "msg": "[CAST_INVALID_INPUT] The value 'abc' of the type \"STRING\" cannot be cas
+t to \"INT\" because it is malformed. Correct the value as per the syntax, or change
+ its target type. Use `try_cast` to tolerate malformed input and return NULL instead
+. SQLSTATE: 22018", "context": {"errorClass": "CAST_INVALID_INPUT"}, "exception": {"
+class": "Py4JJavaError", "msg": "An error occurred while calling o42.sql.\n: org.apa
+che.spark.SparkNumberFormatException: [CAST_INVALID_INPUT] The value 'abc' of the ty
+pe \"STRING\" cannot be cast to \"INT\" because it is malformed. Correct the value a
+s per the syntax, or change its target type. Use `try_cast` to tolerate malformed in
+put and return NULL instead. SQLSTATE: 22018\n== SQL (line 1, position 1) ==\nINSERT
+ INTO lab.contract VALUES ('x', 'abc', 1.00, 'NEW'...\n^^^^^^^^^^^^^^^^^^^^^^^^\n\n\
+tat org.apache.spark.sql.errors.QueryExecutionErrors$.invalidInputInCastToNumberErro
+r(QueryExecutionErrors.scala:145)\n\tat org.apache.spark.sql.catalyst.util.UTF8Strin
+gUtils$.withException(UTF8StringUtils.scala:51)\n\tat org.apache.spark.sql.catalyst.
+util.UTF8StringUtils$.toIntExact(UTF8StringUtils.scala:34)\n\tat org.apache.spark.sq
+l.catalyst.expressions.Cast.$anonfun$castToInt$2(Cast.scala:816)\n\tat org.apache.sp
+ark.sql.catalyst.expressions.Cast.$anonfun$castToInt$2$adapted(Cast.scala:816)\n\tat
+ org.apache.spark.sql.catalyst.expressions.Cast.buildCast(Cast.scala:580)\n\tat org.
+apache.spark.sql.catalyst.expressions.Cast.$anonfun$castToInt$1(Cast.scala:816)\n\ta
+t org.apache.spark.sql.catalyst.expressions.Cast.nullSafeEval(Cast.scala:1196)\n\tat
+ org.apache.spark.sql.catalyst.expressions.UnaryExpression.eval(Expression.scala:577
+)\n\tat org.apache.spark.sql.catalyst.expressions.CheckOverflowInTableInsert.eval(Ca
+st.scala:2210)\n\tat org.apache.spark.sql.catalyst.expressions.Alias.eval(namedExpre
+ssions.scala:161)\n\tat org.apache.spark.sql.catalyst.expressions.InterpretedMutable
+Projection.apply(InterpretedMutableProjection.scala:89)\n\tat org.apache.spark.sql.c
+atalyst.optimizer.ConvertToLocalRelation$$anonfun$apply$48.$anonfun$applyOrElse$83(O
+ptimizer.scala:2265)\n\tat scala.collection.immutable.List.map(List.scala:247)\n\tat
+ scala.collection.immutable.List.map(List.scala:79)\n\tat org.apache.spark.sql.catal
+yst.optimizer.ConvertToLocalRelation$$anonfun$apply$48.applyOrElse(Optimizer.scala:2
+265)\n\tat org.apache.spark.sql.catalyst.optimizer.ConvertToLocalRelation$$anonfun$a
+pply$48.applyOrElse(Optimizer.scala:2260)\n\tat org.apache.spark.sql.catalyst.trees.
+TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:470)\n\tat org.apache.sp
+ark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:86)\n\tat org.apache.s
+park.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:470)\n\tat 
+org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.org$apache$spark$sql$catalys
+t$plans$logical$AnalysisHelper$$super$transformDownWithPruning(LogicalPlan.scala:37)
+\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.transformDownWithP
+runing(AnalysisHelper.scala:360)\n\tat org.apache.spark.sql.catalyst.plans.logical.A
+nalysisHelper.transformDownWithPruning$(AnalysisHelper.scala:356)\n\tat org.apache.s
+park.sql.catalyst.plans.logical.LogicalPlan.transformDownWithPruning(LogicalPlan.sca
+la:37)\n\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.transformDownWi
+thPruning(LogicalPlan.scala:37)\n\tat org.apache.spark.sql.catalyst.trees.TreeNode.$
+anonfun$transformDownWithPruning$3(TreeNode.scala:475)\n\tat org.apache.spark.sql.ca
+talyst.trees.UnaryLike.mapChildren(TreeNode.scala:1231)\n\tat org.apache.spark.sql.c
+atalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:1230)\n\tat org.apache.spark.sql
+.catalyst.plans.logical.AppendData.mapChildren(v2Commands.scala:99)\n\tat org.apache
+.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scala:475)\n\ta
+t org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.org$apache$spark$sql$catal
+yst$plans$logical$AnalysisHelper$$super$transformDownWithPruning(LogicalPlan.scala:3
+7)\n\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.transformDownWit
+hPruning(AnalysisHelper.scala:360)\n\tat org.apache.spark.sql.catalyst.plans.logical
+.AnalysisHelper.transformDownWithPruning$(AnalysisHelper.scala:356)\n\tat org.apache
+.spark.sql.catalyst.plans.logical.LogicalPlan.transformDownWithPruning(LogicalPlan.s
+cala:37)\n\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.transformDown
+WithPruning(LogicalPlan.scala:37)\n\tat org.apache.spark.sql.catalyst.trees.TreeNode
+.transformWithPruning(TreeNode.scala:436)\n\tat org.apache.spark.sql.catalyst.optimi
+zer.ConvertToLocalRelation$.apply(Optimizer.scala:2260)\n\tat org.apache.spark.sql.c
+atalyst.optimizer.ConvertToLocalRelation$.apply(Optimizer.scala:2258)\n\tat org.apac
+he.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$2(RuleExecutor.scala:242)\
+n\tat scala.collection.immutable.ArraySeq.foldLeft(ArraySeq.scala:222)\n\tat org.apa
+che.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:239)
+\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(R
+uleExecutor.scala:231)\n\tat scala.collection.immutable.List.foreach(List.scala:334)
+\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:2
+31)\n\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$
+1(RuleExecutor.scala:201)\n\tat org.apache.spark.sql.catalyst.QueryPlanningTracker$.
+withTracker(QueryPlanningTracker.scala:89)\n\tat org.apache.spark.sql.catalyst.rules
+.RuleExecutor.executeAndTrack(RuleExecutor.scala:201)\n\tat org.apache.spark.sql.exe
+cution.QueryExecution.$anonfun$lazyOptimizedPlan$2(QueryExecution.scala:202)\n\tat o
+rg.apache.spark.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.
+scala:148)\n\tat org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase
+$2(QueryExecution.scala:278)\n\tat org.apache.spark.sql.execution.QueryExecution$.wi
+thInternalError(QueryExecution.scala:654)\n\tat org.apache.spark.sql.execution.Query
+Execution.$anonfun$executePhase$1(QueryExecution.scala:278)\n\tat org.apache.spark.s
+ql.SparkSession.withActive(SparkSession.scala:804)\n\tat org.apache.spark.sql.execut
+ion.QueryExecution.executePhase(QueryExecution.scala:277)\n\tat org.apache.spark.sql
+.execution.QueryExecution.$anonfun$lazyOptimizedPlan$1(QueryExecution.scala:198)\n\t
+at scala.util.Try$.apply(Try.scala:217)\n\tat org.apache.spark.util.Utils$.doTryWith
+CallerStacktrace(Utils.scala:1378)\n\tat org.apache.spark.util.LazyTry.tryT$lzycompu
+te(LazyTry.scala:46)\n\tat org.apache.spark.util.LazyTry.tryT(LazyTry.scala:46)\n\ta
+t org.apache.spark.util.LazyTry.get(LazyTry.scala:58)\n\tat org.apache.spark.sql.exe
+cution.QueryExecution.optimizedPlan(QueryExecution.scala:212)\n\tat org.apache.spark
+.sql.execution.QueryExecution.assertOptimized(QueryExecution.scala:214)\n\tat org.ap
+ache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(QueryExecution.s
+cala:234)\n\tat scala.util.Try$.apply(Try.scala:217)\n\tat org.apache.spark.util.Uti
+ls$.doTryWithCallerStacktrace(Utils.scala:1378)\n\tat org.apache.spark.util.LazyTry.
+tryT$lzycompute(LazyTry.scala:46)\n\tat org.apache.spark.util.LazyTry.tryT(LazyTry.s
+cala:46)\n\tat org.apache.spark.util.LazyTry.get(LazyTry.scala:58)\n\tat org.apache.
+spark.sql.execution.QueryExecution.executedPlan(QueryExecution.scala:248)\n\tat org.
+apache.spark.sql.execution.QueryExecution.simpleString(QueryExecution.scala:297)\n\t
+at org.apache.spark.sql.execution.QueryExecution.org$apache$spark$sql$execution$Quer
+yExecution$$explainString(QueryExecution.scala:344)\n\tat org.apache.spark.sql.execu
+tion.QueryExecution.explainString(QueryExecution.scala:312)\n\tat org.apache.spark.s
+ql.execution.SQLExecution$.$anonfun$withNewExecutionId0$8(SQLExecution.scala:149)\n\
+tat org.apache.spark.sql.execution.SQLExecution$.withSessionTagsApplied(SQLExecution
+.scala:272)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecu
+tionId0$7(SQLExecution.scala:125)\n\tat org.apache.spark.JobArtifactSet$.withActiveJ
+obArtifactState(JobArtifactSet.scala:94)\n\tat org.apache.spark.sql.artifact.Artifac
+tManager.$anonfun$withResources$1(ArtifactManager.scala:112)\n\tat org.apache.spark.
+sql.artifact.ArtifactManager.withClassLoaderIfNeeded(ArtifactManager.scala:106)\n\ta
+t org.apache.spark.sql.artifact.ArtifactManager.withResources(ArtifactManager.scala:
+111)\n\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId0
+$6(SQLExecution.scala:125)\n\tat org.apache.spark.sql.execution.SQLExecution$.withSQ
+LConfPropagated(SQLExecution.scala:295)\n\tat org.apache.spark.sql.execution.SQLExec
+ution$.$anonfun$withNewExecutionId0$1(SQLExecution.scala:124)\n\tat org.apache.spark
+.sql.SparkSession.withActive(SparkSession.scala:804)\n\tat org.apache.spark.sql.exec
+ution.SQLExecution$.withNewExecutionId0(SQLExecution.scala:78)\n\tat org.apache.spar
+k.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:237)\n\tat org.a
+pache.spark.sql.execution.QueryExecution.$anonfun$eagerlyExecuteCommands$1(QueryExec
+ution.scala:155)\n\tat org.apache.spark.sql.execution.QueryExecution$.withInternalEr
+ror(QueryExecution.scala:654)\n\tat org.apache.spark.sql.execution.QueryExecution.or
+g$apache$spark$sql$execution$QueryExecution$$eagerlyExecute$1(QueryExecution.scala:1
+54)\n\tat org.apache.spark.sql.execution.QueryExecution$$anonfun$eagerlyExecuteComma
+nds$3.applyOrElse(QueryExecution.scala:169)\n\tat org.apache.spark.sql.execution.Que
+ryExecution$$anonfun$eagerlyExecuteCommands$3.applyOrElse(QueryExecution.scala:164)\
+n\tat org.apache.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning
+$1(TreeNode.scala:470)\n\tat org.apache.spark.sql.catalyst.trees.CurrentOrigin$.with
+Origin(origin.scala:86)\n\tat org.apache.spark.sql.catalyst.trees.TreeNode.transform
+DownWithPruning(TreeNode.scala:470)\n\tat org.apache.spark.sql.catalyst.plans.logica
+l.LogicalPlan.org$apache$spark$sql$catalyst$plans$logical$AnalysisHelper$$super$tran
+sformDownWithPruning(LogicalPlan.scala:37)\n\tat org.apache.spark.sql.catalyst.plans
+.logical.AnalysisHelper.transformDownWithPruning(AnalysisHelper.scala:360)\n\tat org
+.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.transformDownWithPruning$(An
+alysisHelper.scala:356)\n\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPla
+n.transformDownWithPruning(LogicalPlan.scala:37)\n\tat org.apache.spark.sql.catalyst
+.plans.logical.LogicalPlan.transformDownWithPruning(LogicalPlan.scala:37)\n\tat org.
+apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:446)\n\tat org
+.apache.spark.sql.execution.QueryExecution.eagerlyExecuteCommands(QueryExecution.sca
+la:164)\n\tat org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyCommandExec
+uted$1(QueryExecution.scala:126)\n\tat org.apache.spark.util.Utils$.getTryWithCaller
+Stacktrace(Utils.scala:1439)\n\tat org.apache.spark.util.LazyTry.get(LazyTry.scala:5
+8)\n\tat org.apache.spark.sql.execution.QueryExecution.commandExecuted(QueryExecutio
+n.scala:131)\n\tat org.apache.spark.sql.classic.Dataset.<init>(Dataset.scala:277)\n\
+tat org.apache.spark.sql.classic.Dataset$.$anonfun$ofRows$5(Dataset.scala:140)\n\tat
+ org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:804)\n\tat org.apac
+he.spark.sql.classic.Dataset$.ofRows(Dataset.scala:136)\n\tat org.apache.spark.sql.c
+lassic.SparkSession.$anonfun$sql$1(SparkSession.scala:462)\n\tat org.apache.spark.sq
+l.SparkSession.withActive(SparkSession.scala:804)\n\tat org.apache.spark.sql.classic
+.SparkSession.sql(SparkSession.scala:449)\n\tat org.apache.spark.sql.classic.SparkSe
+ssion.sql(SparkSession.scala:467)\n\tat java.base/jdk.internal.reflect.NativeMethodA
+ccessorImpl.invoke0(Native Method)\n\tat java.base/jdk.internal.reflect.NativeMethod
+AccessorImpl.invoke(NativeMethodAccessorImpl.java:75)\n\tat java.base/jdk.internal.r
+eflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:52)\n\t
+at java.base/java.lang.reflect.Method.invoke(Method.java:580)\n\tat py4j.reflection.
+MethodInvoker.invoke(MethodInvoker.java:244)\n\tat py4j.reflection.ReflectionEngine.
+invoke(ReflectionEngine.java:374)\n\tat py4j.Gateway.invoke(Gateway.java:282)\n\tat 
+py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)\n\tat py4j.comm
+ands.CallCommand.execute(CallCommand.java:79)\n\tat py4j.ClientServerConnection.wait
+ForCommands(ClientServerConnection.java:184)\n\tat py4j.ClientServerConnection.run(C
+lientServerConnection.java:108)\n\tat java.base/java.lang.Thread.run(Thread.java:158
+3)\n\tSuppressed: org.apache.spark.util.Utils$OriginalTryStackTraceException: Full s
+tacktrace of original doTryWithCallerStacktrace caller\n\t\tat org.apache.spark.sql.
+errors.QueryExecutionErrors$.invalidInputInCastToNumberError(QueryExecutionErrors.sc
+ala:145)\n\t\tat org.apache.spark.sql.catalyst.util.UTF8StringUtils$.withException(U
+TF8StringUtils.scala:51)\n\t\tat org.apache.spark.sql.catalyst.util.UTF8StringUtils$
+.toIntExact(UTF8StringUtils.scala:34)\n\t\tat org.apache.spark.sql.catalyst.expressi
+ons.Cast.$anonfun$castToInt$2(Cast.scala:816)\n\t\tat org.apache.spark.sql.catalyst.
+expressions.Cast.$anonfun$castToInt$2$adapted(Cast.scala:816)\n\t\tat org.apache.spa
+rk.sql.catalyst.expressions.Cast.buildCast(Cast.scala:580)\n\t\tat org.apache.spark.
+sql.catalyst.expressions.Cast.$anonfun$castToInt$1(Cast.scala:816)\n\t\tat org.apach
+e.spark.sql.catalyst.expressions.Cast.nullSafeEval(Cast.scala:1196)\n\t\tat org.apac
+he.spark.sql.catalyst.expressions.UnaryExpression.eval(Expression.scala:577)\n\t\tat
+ org.apache.spark.sql.catalyst.expressions.CheckOverflowInTableInsert.eval(Cast.scal
+a:2210)\n\t\tat org.apache.spark.sql.catalyst.expressions.Alias.eval(namedExpression
+s.scala:161)\n\t\tat org.apache.spark.sql.catalyst.expressions.InterpretedMutablePro
+jection.apply(InterpretedMutableProjection.scala:89)\n\t\tat org.apache.spark.sql.ca
+talyst.optimizer.ConvertToLocalRelation$$anonfun$apply$48.$anonfun$applyOrElse$83(Op
+timizer.scala:2265)\n\t\tat scala.collection.immutable.List.map(List.scala:247)\n\t\
+tat scala.collection.immutable.List.map(List.scala:79)\n\t\tat org.apache.spark.sql.
+catalyst.optimizer.ConvertToLocalRelation$$anonfun$apply$48.applyOrElse(Optimizer.sc
+ala:2265)\n\t\tat org.apache.spark.sql.catalyst.optimizer.ConvertToLocalRelation$$an
+onfun$apply$48.applyOrElse(Optimizer.scala:2260)\n\t\tat org.apache.spark.sql.cataly
+st.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.scala:470)\n\t\tat or
+g.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(origin.scala:86)\n\t\tat
+ org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithPruning(TreeNode.scal
+a:470)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.org$apache$sp
+ark$sql$catalyst$plans$logical$AnalysisHelper$$super$transformDownWithPruning(Logica
+lPlan.scala:37)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.AnalysisHelper.t
+ransformDownWithPruning(AnalysisHelper.scala:360)\n\t\tat org.apache.spark.sql.catal
+yst.plans.logical.AnalysisHelper.transformDownWithPruning$(AnalysisHelper.scala:356)
+\n\t\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPlan.transformDownWithPr
+uning(LogicalPlan.scala:37)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.Logi
+calPlan.transformDownWithPruning(LogicalPlan.scala:37)\n\t\tat org.apache.spark.sql.
+catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$3(TreeNode.scala:475)\n\t\
+tat org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren(TreeNode.scala:1231)\n
+\t\tat org.apache.spark.sql.catalyst.trees.UnaryLike.mapChildren$(TreeNode.scala:123
+0)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.AppendData.mapChildren(v2Comm
+ands.scala:99)\n\t\tat org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWit
+hPruning(TreeNode.scala:475)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.Log
+icalPlan.org$apache$spark$sql$catalyst$plans$logical$AnalysisHelper$$super$transform
+DownWithPruning(LogicalPlan.scala:37)\n\t\tat org.apache.spark.sql.catalyst.plans.lo
+gical.AnalysisHelper.transformDownWithPruning(AnalysisHelper.scala:360)\n\t\tat org.
+apache.spark.sql.catalyst.plans.logical.AnalysisHelper.transformDownWithPruning$(Ana
+lysisHelper.scala:356)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPl
+an.transformDownWithPruning(LogicalPlan.scala:37)\n\t\tat org.apache.spark.sql.catal
+yst.plans.logical.LogicalPlan.transformDownWithPruning(LogicalPlan.scala:37)\n\t\tat
+ org.apache.spark.sql.catalyst.trees.TreeNode.transformWithPruning(TreeNode.scala:43
+6)\n\t\tat org.apache.spark.sql.catalyst.optimizer.ConvertToLocalRelation$.apply(Opt
+imizer.scala:2260)\n\t\tat org.apache.spark.sql.catalyst.optimizer.ConvertToLocalRel
+ation$.apply(Optimizer.scala:2258)\n\t\tat org.apache.spark.sql.catalyst.rules.RuleE
+xecutor.$anonfun$execute$2(RuleExecutor.scala:242)\n\t\tat scala.collection.immutabl
+e.ArraySeq.foldLeft(ArraySeq.scala:222)\n\t\tat org.apache.spark.sql.catalyst.rules.
+RuleExecutor.$anonfun$execute$1(RuleExecutor.scala:239)\n\t\tat org.apache.spark.sql
+.catalyst.rules.RuleExecutor.$anonfun$execute$1$adapted(RuleExecutor.scala:231)\n\t\
+tat scala.collection.immutable.List.foreach(List.scala:334)\n\t\tat org.apache.spark
+.sql.catalyst.rules.RuleExecutor.execute(RuleExecutor.scala:231)\n\t\tat org.apache.
+spark.sql.catalyst.rules.RuleExecutor.$anonfun$executeAndTrack$1(RuleExecutor.scala:
+201)\n\t\tat org.apache.spark.sql.catalyst.QueryPlanningTracker$.withTracker(QueryPl
+anningTracker.scala:89)\n\t\tat org.apache.spark.sql.catalyst.rules.RuleExecutor.exe
+cuteAndTrack(RuleExecutor.scala:201)\n\t\tat org.apache.spark.sql.execution.QueryExe
+cution.$anonfun$lazyOptimizedPlan$2(QueryExecution.scala:202)\n\t\tat org.apache.spa
+rk.sql.catalyst.QueryPlanningTracker.measurePhase(QueryPlanningTracker.scala:148)\n\
+t\tat org.apache.spark.sql.execution.QueryExecution.$anonfun$executePhase$2(QueryExe
+cution.scala:278)\n\t\tat org.apache.spark.sql.execution.QueryExecution$.withInterna
+lError(QueryExecution.scala:654)\n\t\tat org.apache.spark.sql.execution.QueryExecuti
+on.$anonfun$executePhase$1(QueryExecution.scala:278)\n\t\tat org.apache.spark.sql.Sp
+arkSession.withActive(SparkSession.scala:804)\n\t\tat org.apache.spark.sql.execution
+.QueryExecution.executePhase(QueryExecution.scala:277)\n\t\tat org.apache.spark.sql.
+execution.QueryExecution.$anonfun$lazyOptimizedPlan$1(QueryExecution.scala:198)\n\t\
+tat scala.util.Try$.apply(Try.scala:217)\n\t\tat org.apache.spark.util.Utils$.doTryW
+ithCallerStacktrace(Utils.scala:1378)\n\t\tat org.apache.spark.util.LazyTry.tryT$lzy
+compute(LazyTry.scala:46)\n\t\tat org.apache.spark.util.LazyTry.tryT(LazyTry.scala:4
+6)\n\t\tat org.apache.spark.util.LazyTry.get(LazyTry.scala:58)\n\t\tat org.apache.sp
+ark.sql.execution.QueryExecution.optimizedPlan(QueryExecution.scala:212)\n\t\tat org
+.apache.spark.sql.execution.QueryExecution.assertOptimized(QueryExecution.scala:214)
+\n\t\tat org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyExecutedPlan$1(Q
+ueryExecution.scala:234)\n\t\tat scala.util.Try$.apply(Try.scala:217)\n\t\tat org.ap
+ache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1378)\n\t\tat org.apach
+e.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)\n\t\tat org.apache.spark.util
+.LazyTry.tryT(LazyTry.scala:46)\n\t\tat org.apache.spark.util.LazyTry.get(LazyTry.sc
+ala:58)\n\t\tat org.apache.spark.sql.execution.QueryExecution.executedPlan(QueryExec
+ution.scala:248)\n\t\tat org.apache.spark.sql.execution.QueryExecution.simpleString(
+QueryExecution.scala:297)\n\t\tat org.apache.spark.sql.execution.QueryExecution.org$
+apache$spark$sql$execution$QueryExecution$$explainString(QueryExecution.scala:344)\n
+\t\tat org.apache.spark.sql.execution.QueryExecution.explainString(QueryExecution.sc
+ala:312)\n\t\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecut
+ionId0$8(SQLExecution.scala:149)\n\t\tat org.apache.spark.sql.execution.SQLExecution
+$.withSessionTagsApplied(SQLExecution.scala:272)\n\t\tat org.apache.spark.sql.execut
+ion.SQLExecution$.$anonfun$withNewExecutionId0$7(SQLExecution.scala:125)\n\t\tat org
+.apache.spark.JobArtifactSet$.withActiveJobArtifactState(JobArtifactSet.scala:94)\n\
+t\tat org.apache.spark.sql.artifact.ArtifactManager.$anonfun$withResources$1(Artifac
+tManager.scala:112)\n\t\tat org.apache.spark.sql.artifact.ArtifactManager.withClassL
+oaderIfNeeded(ArtifactManager.scala:106)\n\t\tat org.apache.spark.sql.artifact.Artif
+actManager.withResources(ArtifactManager.scala:111)\n\t\tat org.apache.spark.sql.exe
+cution.SQLExecution$.$anonfun$withNewExecutionId0$6(SQLExecution.scala:125)\n\t\tat 
+org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scal
+a:295)\n\t\tat org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutio
+nId0$1(SQLExecution.scala:124)\n\t\tat org.apache.spark.sql.SparkSession.withActive(
+SparkSession.scala:804)\n\t\tat org.apache.spark.sql.execution.SQLExecution$.withNew
+ExecutionId0(SQLExecution.scala:78)\n\t\tat org.apache.spark.sql.execution.SQLExecut
+ion$.withNewExecutionId(SQLExecution.scala:237)\n\t\tat org.apache.spark.sql.executi
+on.QueryExecution.$anonfun$eagerlyExecuteCommands$1(QueryExecution.scala:155)\n\t\ta
+t org.apache.spark.sql.execution.QueryExecution$.withInternalError(QueryExecution.sc
+ala:654)\n\t\tat org.apache.spark.sql.execution.QueryExecution.org$apache$spark$sql$
+execution$QueryExecution$$eagerlyExecute$1(QueryExecution.scala:154)\n\t\tat org.apa
+che.spark.sql.execution.QueryExecution$$anonfun$eagerlyExecuteCommands$3.applyOrElse
+(QueryExecution.scala:169)\n\t\tat org.apache.spark.sql.execution.QueryExecution$$an
+onfun$eagerlyExecuteCommands$3.applyOrElse(QueryExecution.scala:164)\n\t\tat org.apa
+che.spark.sql.catalyst.trees.TreeNode.$anonfun$transformDownWithPruning$1(TreeNode.s
+cala:470)\n\t\tat org.apache.spark.sql.catalyst.trees.CurrentOrigin$.withOrigin(orig
+in.scala:86)\n\t\tat org.apache.spark.sql.catalyst.trees.TreeNode.transformDownWithP
+runing(TreeNode.scala:470)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.Logic
+alPlan.org$apache$spark$sql$catalyst$plans$logical$AnalysisHelper$$super$transformDo
+wnWithPruning(LogicalPlan.scala:37)\n\t\tat org.apache.spark.sql.catalyst.plans.logi
+cal.AnalysisHelper.transformDownWithPruning(AnalysisHelper.scala:360)\n\t\tat org.ap
+ache.spark.sql.catalyst.plans.logical.AnalysisHelper.transformDownWithPruning$(Analy
+sisHelper.scala:356)\n\t\tat org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
+.transformDownWithPruning(LogicalPlan.scala:37)\n\t\tat org.apache.spark.sql.catalys
+t.plans.logical.LogicalPlan.transformDownWithPruning(LogicalPlan.scala:37)\n\t\tat o
+rg.apache.spark.sql.catalyst.trees.TreeNode.transformDown(TreeNode.scala:446)\n\t\ta
+t org.apache.spark.sql.execution.QueryExecution.eagerlyExecuteCommands(QueryExecutio
+n.scala:164)\n\t\tat org.apache.spark.sql.execution.QueryExecution.$anonfun$lazyComm
+andExecuted$1(QueryExecution.scala:126)\n\t\tat scala.util.Try$.apply(Try.scala:217)
+\n\t\tat org.apache.spark.util.Utils$.doTryWithCallerStacktrace(Utils.scala:1378)\n\
+t\tat org.apache.spark.util.LazyTry.tryT$lzycompute(LazyTry.scala:46)\n\t\tat org.ap
+ache.spark.util.LazyTry.tryT(LazyTry.scala:46)\n\t\t... 22 more\n", "stacktrace": [{
+"class": null, "method": "deco", "file": "/home/ana/retail-lakehouse/.venv/lib/pytho
+n3.13/site-packages/pyspark/errors/exceptions/captured.py", "line": "282"}, {"class"
+: null, "method": "get_return_value", "file": "/home/ana/retail-lakehouse/.venv/lib/
+python3.13/site-packages/py4j/protocol.py", "line": "327"}]}}
+bad store_id: [CAST_INVALID_INPUT] The value 'abc' of the type "STRING" cannot be ca
+st to "INT" because it is malformed.
+ERROR Utils: Aborting task
+ERROR DeltaFileFormatWriter: Job job_202610220116054871091900588311330_0011 aborted.
+ERROR Executor: Exception in task 0.0 in stage 11.0 (TID 104)
+WARN TaskSetManager: Lost task 0.0 in stage 11.0 (TID 104) (localhost executor drive
+r): org.apache.spark.SparkException: [TASK_WRITE_FAILED] Task failed while writing r
+ows to file:/home/ana/retail-lakehouse/spark-warehouse/lab.db/contract. SQLSTATE: 58
+030
+ERROR TaskSetManager: Task 0 in stage 11.0 failed 1 times; aborting job
+ERROR DeltaFileFormatWriter: Aborting job aef88b62-842f-432c-ad95-5f5ec1009a05
+no order_id: [DELTA_NOT_NULL_CONSTRAINT_VIOLATED] NOT NULL constraint violated for c
+olumn: order_id.
+ERROR Utils: Aborting task
+ERROR DeltaFileFormatWriter: Job job_202610220116057214777252386506059_0012 aborted.
+ERROR Executor: Exception in task 0.0 in stage 12.0 (TID 105)
+WARN TaskSetManager: Lost task 0.0 in stage 12.0 (TID 105) (localhost executor drive
+r): org.apache.spark.SparkException: [TASK_WRITE_FAILED] Task failed while writing r
+ows to file:/home/ana/retail-lakehouse/spark-warehouse/lab.db/contract. SQLSTATE: 58
+030
+ERROR TaskSetManager: Task 0 in stage 12.0 failed 1 times; aborting job
+ERROR DeltaFileFormatWriter: Aborting job 1246f3b0-3e86-4b75-a119-c984618eaec5
+negative amount: [DELTA_VIOLATE_CONSTRAINT_WITH_VALUES] CHECK constraint positive_am
+ount (amount > 0) violated by row with values:
+columns now: order_id, store_id, amount, status, channel

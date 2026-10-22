@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const sourceContracts: Section = {
+  id: 'source-contracts',
+  title: 'Source contracts',
+  scene: 'source-contracts',
+  narration:
+    "Governance and reliable tables are in place, so now data can arrive. Before writing any ingestion code, though, it pays to ask the source five questions, because the answers decide what the code has to do. The cards across the top are those questions. Format: what is in a file, with or without a header, and how dates and decimals are written. Keys: what makes a row unique, whether the same row can arrive twice, and whether it can change after it arrives. Arrival: whole files or single events, how often, how late, and in what order. Retention: how long the source keeps what it sent, so whether we can ever ask for it again. And owner: who changes the format, who tells us first, and what they actually promise. The table in the middle answers those questions for this project's three sources. These answers are the course's own assumptions for the example, not facts about a real company. Store order files are CSV with a header, keyed by order ID, sent a file per batch, and resends happen. The source keeps them for thirty days. Order changes from the till system arrive as change records, keyed by order ID and a sequence number, continuously and sometimes out of order, kept for only seven days. And the stores reference is a small CSV, keyed by store ID, replaced whenever a store opens, so only the latest version exists. The list at the bottom says why this comes before code. A resend is only recognisable as a duplicate if you know the key. Whether data arrives late or out of order decides between a batch job and a stream, which is Course 8. And once the source forgets, after thirty days or seven, bronze is the only copy that exists, which is exactly why bronze keeps everything raw and unjudged. Next, the simplest way to load files, and the mistake it makes easy.",
+}

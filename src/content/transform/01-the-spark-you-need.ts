@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const theSparkYouNeed: Section = {
+  id: 'the-spark-you-need',
+  title: 'The Spark you need here',
+  scene: 'spark-model',
+  narration:
+    "Bronze is complete, and this course turns it into silver and gold. One more file has landed first. File d, in the samples, carries three new events: order six is now completed, order eight has an amount of minus five, and order nine names store fifteen, which does not exist. So bronze now holds eleven events, and every lesson in this course starts from those eleven. Before transforming anything, there is a little of Spark's model worth having in mind, and this lesson measures it rather than describing it. The tool builds a query: bronze orders, grouped by status, counted, and sorted. Then it asks Spark's own status tracker how many jobs have run. The terminal shows the answer from a real run: zero. Building the query ran nothing at all. Spark only recorded a plan. Then collect asks for the rows, and the count jumps, because collect is an action, and actions are what make Spark execute the plan. The answer is one cancelled, eight completed and two pending, from the eleven events. The last lines print the plan's exchanges. An exchange is a shuffle: rows moving between partitions, the pieces of data that separate tasks work on. Grouping by status needs every row with the same status in one place, and so does sorting by it, so each one moves rows. The table on the right is the four words this course relies on: a transformation is a step in a plan, an action runs the plan, a partition is the piece of data a task reads, and a shuffle moves rows between pieces. That is all this course needs. The list says where the rest lives. How plans are optimized, how stages and tasks are cut, and how to make them fast are the subject of the Apache Spark course in this series, and this course does not repeat it. Next, the same question asked in SQL and in Python.",
+}

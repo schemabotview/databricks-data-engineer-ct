@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const joinsAndCardinality: Section = {
+  id: 'joins-and-cardinality',
+  title: 'Joins and cardinality',
+  scene: 'join-cardinality',
+  narration:
+    "Silver will enrich each order with its store's city, by joining to the stores reference, which has now arrived in the project as a small CSV: seven is Leeds, nine York, twelve Hull. A join looks harmless, and this lesson shows the one way it goes wrong silently. The tool starts from the five completed orders that silver will finally hold, worth one hundred and seventy in total. It joins them to the stores reference. Then it makes a second copy of the reference in which York appears twice, the way it would if a reference file were resent, and joins to that. The terminal shows a real run. Joined to the clean stores: five rows, one hundred and seventy. Joined to the copy with York twice: six rows, one hundred and eighty-five. Nothing failed. Order four, the one York order, matched two store rows, so it became two rows, and its fifteen was counted twice. The table on the right is the arithmetic: one duplicate key in the reference, one extra row, fifteen too many. The rule is in the list. A join multiplies: a row that matches n rows on the other side becomes n rows. There is no error, just a bigger total, and a total that is too big usually looks perfectly plausible. So check the key before you join. The last lines of the tool are that guard: group the reference by store ID, and keep any key that appears more than once. It finds store nine, twice. A pipeline should run that check, and stop or quarantine, before it trusts a reference table. And the final habit is to state the grain of every table: one row per what? The stores reference is one row per store. Once that is written down, a second York is a broken contract rather than a surprise. Next, how to keep one row per order when bronze has several.",
+}

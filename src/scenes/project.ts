@@ -43,3 +43,25 @@ export function projectTree(paths: string[], active: string, fresh: string[] = [
       .sort((a, b) => Number(!(a.folder || a.children)) - Number(!(b.folder || b.children)) || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
   return sort(root, '')
 }
+
+// The tree as a frame from Course 6 on shows it: every folder closed (with its file count) except the
+// ones that hold the open file or a file new in this section, and their other files folded. The project keeps growing, and an open
+// tree taller than the explorer pane would grow the frame and move every panel.
+export function focusTree(paths: string[], active: string, fresh: string[] = []): TreeEntry[] {
+  const keep = [active, ...fresh].map((p) => p.replace(/\/$/, ''))
+  const folders = new Set<string>()
+  for (const raw of paths) {
+    const parts = raw.replace(/^~/, '').split(' ')[0].replace(/\/$/, '').split('/')
+    const last = raw.split(' ')[0].endsWith('/') ? parts.length : parts.length - 1
+    for (let i = 1; i <= last; i++) folders.add(parts.slice(0, i).join('/'))
+  }
+  const collapse = [...folders].filter((f) => !keep.some((k) => k === f || k.startsWith(`${f}/`)))
+  // inside an open folder, the files that are neither open nor new fold to one `··· N files` row —
+  // the editor's fold mark
+  const fold = (entries: TreeEntry[]): TreeEntry[] => {
+    const quiet = entries.filter((e) => !e.folder && !e.children && e.state !== 'active' && e.state !== 'new')
+    const rest = entries.filter((e) => !quiet.includes(e)).map((e) => (e.children ? { ...e, children: fold(e.children) } : e))
+    return quiet.length > 1 ? [...rest, { name: `··· ${quiet.length} files`, state: 'muted' }] : [...rest, ...quiet]
+  }
+  return fold(projectTree(paths, active, fresh, collapse))
+}

@@ -28,7 +28,7 @@ export const build: Scene = {
           icon: 'none',
           children: [
             step('orders', '6', 'Order files', 'one CSV or JSON file per arrival, resends included', 'file', 'external'),
-            step('cdc', '8', 'Customer changes', 'a CDC feed: inserts, updates, deletes', 'repeat', 'external'),
+            step('cdc', '8', 'Order changes', 'a CDC feed from the till system: inserts, updates, deletes', 'repeat', 'external'),
             step('stores', '7', 'Stores', 'reference data: 7 Leeds, 9 York, 12 Hull', 'building', 'external'),
           ],
         },
@@ -42,13 +42,13 @@ export const build: Scene = {
           children: [
             step('bronze', '6', 'bronze', 'what arrived, as it arrived', 'database', 'storage'),
             step('silver', '7', 'silver', 'typed, deduplicated, quarantined, enriched', 'funnel', 'storage'),
-            step('customers', '8', 'customers', 'history kept as SCD type 2', 'history', 'storage'),
-            step('gold', '7', 'gold', 'sales per city and day', 'sigma', 'storage'),
+            step('history', '8', 'order history', 'every version, kept as SCD type 2', 'history', 'storage'),
+            step('gold', '7', 'gold', 'completed sales per city', 'sigma', 'storage'),
           ],
           edges: [
             { source: 'bronze', target: 'silver' },
             { source: 'silver', target: 'gold' },
-            { source: 'customers', target: 'gold' },
+            { source: 'silver', target: 'history' },
           ],
         },
         {

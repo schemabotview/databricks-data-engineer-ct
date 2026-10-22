@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const sqlAndDataframes: Section = {
+  id: 'sql-and-dataframes',
+  title: 'SQL and DataFrames',
+  scene: 'sql-and-dataframes',
+  narration:
+    "Every transformation in this course can be written in two languages, SQL or the DataFrame API in Python, and people often wonder whether the choice matters to Spark. This tool tests it. The SQL query counts completed orders per store. The Python version does the same with where, group by, count and order by. Then the tool compares two things: the rows each returns, and the physical plan Spark built for each, with Spark's internal expression numbers removed, because those differ between any two queries. The terminal shows a real run. The result first: store seven has three completed events, store nine three, store twelve one, and store fifteen one. Then the two comparisons: same rows, true; same plan, true. Both spellings are parsed into the same logical plan, the optimizer cannot tell them apart, and the same physical plan runs. So the choice is about the people reading the code, and the table on the right gives a working rule. Reach for SQL when the query is something people will read and review, like a business definition. Reach for DataFrames when the logic is built up in code, in a loop or from configuration, and when you want to test a piece of it as a Python function. And when either would do, either is fine, because the same plan runs. The list points at something else in that result, which matters for the rest of the course. Store fifteen is in it. So is order four's resend, and order seven, whose amount is not a number. Bronze has no rules yet, so any number computed straight from it counts things that should not be counted. Every lesson from here moves us towards silver, where those rules live. Next, the types, NULLs and times that quietly break transformations.",
+}

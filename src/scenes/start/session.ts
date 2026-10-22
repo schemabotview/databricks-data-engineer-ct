@@ -17,7 +17,7 @@ export const sessionFrame: Scene = ideFrame(
   'delta-session',
   'retail-lakehouse',
   startTree(3, 'src/retail/session.py', ['conf', 'src/retail/__init__.py', 'src/retail/session.py', '.gitignore', 'pyproject.toml']),
-  { file: 'src/retail/session.py', code, show: [[8, 22]], highlight: [14, 15, 16, 17, 19, 22], terminal: session },
+  { file: 'src/retail/session.py', code, show: [[8, 23]], highlight: [13, 14, 15, 16, 18, 20, 23], terminal: session },
   {
     id: 'session-pane',
     label: 'side',
@@ -30,7 +30,8 @@ export const sessionFrame: Scene = ideFrame(
         headers: ['line', 'adds'],
         values: [
           ['spark.sql.extensions', 'MERGE, VACUUM, HISTORY'],
-          ['spark_catalog', 'tables made as Delta'],
+          ['spark_catalog', 'Delta’s catalog'],
+          ['sources.default', 'new tables are Delta'],
           ['enableHiveSupport()', 'names kept on disk'],
           ['configure_…_delta_pip', 'Delta’s jars'],
         ],

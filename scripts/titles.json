@@ -3,5 +3,8 @@
   "why-databricks": "Why Databricks? Spark, Delta Lake, the Lakehouse and Bronze/Silver/Gold Explained",
   "how-databricks-runs": "How Databricks Works: Control Plane, Compute, Unity Catalog, Runtime and Notebooks Explained",
   "start": "Start a Databricks Project Locally: PySpark, Delta Lake, Your First Delta Table and Notebook Source",
-  "govern": "Databricks Unity Catalog Explained: Three-Part Names, Volumes, Managed Tables, Grants and Lineage"
+  "govern": "Databricks Unity Catalog Explained: Three-Part Names, Volumes, Managed Tables, Grants and Lineage",
+  "tables": "Delta Lake Explained: the Transaction Log, ACID, Schema Enforcement, MERGE, Time Travel and VACUUM",
+  "ingest": "Databricks Ingestion Explained: Source Contracts, COPY INTO, Auto Loader, Checkpoints, Schema Drift and Bronze",
+  "transform": "Silver and Gold on Databricks: Spark Plans, Types and Time, Join Cardinality, Dedupe, Quality Rules and a Gold Contract"
 }

@@ -37,10 +37,10 @@ feature is essential to the core progression.
 
 ## The spine: `retail-lakehouse`
 
-A retail chain's stores land **order files** in cloud storage; a CDC feed carries **customer
-updates**; a small **store reference table** maps ids to cities. The project ingests them to
-**bronze**, cleans and deduplicates them into **silver**, summarises completed sales per city and day
-into **gold**, keeps customer history as SCD type 2, and runs as a scheduled job with tests, a bundle
+A retail chain's stores land **order files** in cloud storage; a CDC feed carries **order
+changes** from the till system; a small **store reference table** maps ids to cities. The project ingests them to
+**bronze**, cleans and deduplicates them into **silver**, summarises completed sales per city
+into **gold**, keeps order history as SCD type 2, and runs as a scheduled job with tests, a bundle
 and monitoring.
 
 The project is laid out as a **Databricks bundle** from the first step, so the folder the learner
@@ -56,13 +56,13 @@ retail-lakehouse/
   resources/retail_pipeline.yml   the declarative pipeline                         (9)
   governance/grants.sql           catalogs, schemas, grants                        (4)
   data/landing/orders/            arriving order files                             (6)
-  data/landing/customers_cdc/     the customer change feed                         (8)
+  data/samples/cdc/               the order change feed                            (8)
   data/reference/stores.csv       store id → city                                  (7)
   src/retail/                     the package
     session.py                    one local SparkSession with Delta                (3)
     bronze.py                     land files as they arrived                       (6)
     silver.py                     parse, validate, deduplicate, enrich              (7)
-    gold.py                       sales per city and day                            (7)
+    gold.py                       completed sales per city                          (7)
     quality.py                    the rules and the reconciliation                 (7 → 12)
     cdc.py                        sequence-guarded MERGE, SCD 1 and 2                (8)
   notebooks/explore.py            a notebook in source format                       (3)
@@ -218,7 +218,7 @@ Tier per section: **R** run, **D** documented, **M** model, **I** illustrative, 
 5. Windows and deterministic deduplication — the latest event per order, with a tie-breaker (R)
 6. Quality rules and quarantine — 11 = 6 + 1 + 1 + 3 (R)
 7. Gold as a contract — grain, measures, comments and CHECK constraints (R)
-8. The silver and gold flow — order detail, customer attributes, and a summary that reconciles (R)
+8. The silver and gold flow — order detail, store attributes, and a summary that reconciles (R)
 
 ### Part II — Keep it correct
 

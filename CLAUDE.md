@@ -45,9 +45,9 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 | 2 | `how-databricks-runs` | How the platform runs your code | 6 | authored, awaiting owner review (no narration audio yet) |
 | 3 | `start` | Start the project | 6 | authored, awaiting owner review (no narration audio yet) |
 | 4 | `govern` | Govern it | 7 | authored, awaiting owner review (no narration audio yet) |
-| 5 | `tables` | Make the table reliable | 8 | planned |
-| 6 | `ingest` | Bring the data in | 9 | planned |
-| 7 | `transform` | Build silver and gold | 8 | planned |
+| 5 | `tables` | Make the table reliable | 8 | authored, awaiting owner review (no narration audio yet) |
+| 6 | `ingest` | Bring the data in | 9 | authored, awaiting owner review (no narration audio yet) |
+| 7 | `transform` | Build silver and gold | 8 | authored, awaiting owner review (no narration audio yet) |
 | 8 | `changes` | Handle change | 10 | planned |
 | 9 | `pipelines` | Declare the pipeline | 8 | planned |
 | 10 | `schedule` | Schedule it | 7 | planned |
@@ -69,6 +69,27 @@ Delta table locally (the managed folder goes, the external one stays and still r
 runs `tools/grant_matrix.py`, a MODEL of the documented grant rules that reads `governance/grants.sql` (finance
 reads gold only; engineers bronze + silver; `retail-job` reads bronze + silver, writes silver; finance reading
 silver lacks USE SCHEMA and SELECT). Course 10 reuses the model for the job's refused write to gold.
+
+Course 5 is eight local runs, one per section, each a `tools/delta/*.py` script on its own `lab.*` table
+(so they never touch the spine's bronze/silver/gold): the log's actions per version, a refused concurrent
+append (o1 ends 41.00 COMPLETED), four refused writes then `mergeSchema`, UPDATE / DELETE / MERGE and a
+refused duplicate-key MERGE, history and a RESTORE that adds version 6, VACUUM making version 1 unreadable,
+the change feed (and DELTA_MISSING_CHANGE_DATA before it was enabled), and each table's protocol versions.
+The frozen Course 5 facts hold except where a script says otherwise on screen; file counts are never quoted.
+
+Course 6 has five spine steps and four documented frames. Run: a plain batch append loaded twice (8 then 16
+rows, 7 order ids), `retail.bronze.ingest()` over the arrival timeline (3, 6, 6, 8; 16 with the checkpoint
+deleted), schema drift (a fixed schema reads `"12,50"` as 1250.00 and drops `channel`), the three parse modes
+(8 rows = 7 parsed + 1 quarantined), and the bronze reconciliation (8 rows, 7 order ids). Documented, not
+run: COPY INTO, Auto Loader (`cloudFiles`), Lakeflow Connect, Kafka; the local runs use Spark's file stream
+source, which the frames say is the analogue, not Auto Loader.
+
+Course 7 is eight spine steps over bronze after files a–d have landed (`setup` lands them and ingests). The
+frozen Course 7 numbers are reproduced: 11 = 6 silver + 1 identical resend + 1 superseded o6 + 3 quarantined;
+gold Leeds 3 / 75.00, York 1 / 15.00, Hull 1 / 80.00 = 170.00; join inflation 5 rows / 170.00 against 6 /
+185.00. One deviation from the old chapter, said on screen: bronze has no `event_ts`, so "latest" is the
+newest landing file (`source_file` descending), which is deterministic because file names sort by arrival.
+`retail.silver`, `retail.quality`, `retail.gold` and `retail.run` are the project's modules from here on.
 
 ## The spine: code is executed, not pasted
 
@@ -151,7 +172,7 @@ Silver (`silver_orders`) = 6 typed unique rows (o4 merged, o7 rejected); gold (`
 sales per store, `7 → 2 orders 65.00 · 9 → 1 15.00 · 12 → 1 80.00`, total **160.00**; reconciliation
 **8 = 6 + 1 resend + 1 rejected**; first query returns CANCELLED 1 / COMPLETED 6 / PENDING 1, but only
 **4** distinct valid completed orders. Same six-order core as `apache-spark-ct`. Extend it in later
-chapters (customer updates, reference data); do not change these numbers.
+chapters (order changes, reference data); do not change these numbers.
 
 ### Course 5 `tables` (was Chapter 3; local run)
 
@@ -300,6 +321,31 @@ models; they claim nothing about Databricks. The final narration ends with the p
 | `storage-locations` | IAM role → credential → location → table → location.sql beside three-controls table and list | `govern-storage-credentials-and-locations` |
 | `lineage-audit` | lineage chain → lineage query beside evidence-kinds table and an illustrative result | `govern-discovery-lineage-audit` |
 | `share-federate` | ingest / share / federate lists → trade table beside ask-first list | `govern-sharing-and-federation` |
+| `delta-versions` | IDE: tools/delta/versions.py, the actions in each commit and the rows each version reads | `tables-files-log-snapshots` |
+| `write-conflict` | IDE: tools/delta/conflict.py, writer A refused after writer B commits | `tables-acid-and-concurrent-writes` |
+| `schema-contract` | IDE: tools/delta/contract.py, four refused writes then a declared evolution | `tables-schema-enforcement` |
+| `dml-merge` | IDE: tools/delta/changes.py, UPDATE / DELETE / MERGE and a refused ambiguous MERGE | `tables-dml-and-merge` |
+| `history-restore` | IDE: tools/delta/history.py, history, time travel and RESTORE as a new version | `tables-history-and-restore` |
+| `vacuum` | IDE: tools/delta/vacuum.py, which versions stay readable after VACUUM | `tables-retention-and-vacuum` |
+| `change-feed` | IDE: tools/delta/change_feed.py, row-level changes with their commit versions | `tables-change-data-feed` |
+| `table-features` | IDE: tools/delta/features.py, the protocol each lab table now demands | `tables-table-features` |
+| `source-contracts` | five-questions list → the three sources answered table beside why-ask list | `ingest-source-contracts` |
+| `batch-load` | IDE: tools/ingest/batch_twice.py, a plain append run twice doubles bronze; COPY INTO beside it | `ingest-batch-loads` |
+| `auto-loader` | Auto Loader code (documented) → what-it-adds table beside the local analogue | `ingest-auto-loader` |
+| `file-progress` | IDE: src/retail/bronze.py, five ingest runs and the checkpoint's folders | `ingest-file-discovery-and-checkpoints` |
+| `schema-drift` | IDE: tools/ingest/drift.py, a fixed schema quietly wrong, inference widening to string | `ingest-schema-inference-and-drift` |
+| `malformed-records` | IDE: tools/ingest/malformed.py, PERMISSIVE / DROPMALFORMED / FAILFAST and the quarantined row | `ingest-malformed-records` |
+| `managed-connectors` | who-does-what table → before-choosing, still-yours and ask-first lists | `ingest-managed-connectors` |
+| `message-bus` | Kafka read (documented) → offsets → files-against-a-bus table beside assumptions | `ingest-message-buses` |
+| `bronze-walkthrough` | IDE: tools/ingest/reconcile.py, source to bronze counted per file | `ingest-bronze-walkthrough` |
+| `spark-model` | IDE: tools/transform/lazy.py, transformations build a plan and an action runs it | `transform-the-spark-you-need` |
+| `sql-and-dataframes` | IDE: tools/transform/same_plan.py, SQL and PySpark compile to the same plan | `transform-sql-and-dataframes` |
+| `types-nulls-time` | IDE: tools/transform/types_and_time.py, four ways to be quietly wrong | `transform-types-nulls-and-time` |
+| `join-cardinality` | IDE: tools/transform/join_check.py, a duplicated key inflating gold (5 / 170.00 vs 6 / 185.00) | `transform-joins-and-cardinality` |
+| `window-dedupe` | IDE: tools/transform/latest.py, row_number keeps the newest file's row | `transform-windows-and-deduplication` |
+| `quality-quarantine` | IDE: src/retail/quality.py, rules as data and 11 events accounted for | `transform-quality-rules-and-quarantine` |
+| `gold-contract` | IDE: src/retail/gold.py, the contract's columns, NOT NULLs and CHECK | `transform-gold-as-a-contract` |
+| `silver-gold-flow` | IDE: src/retail/run.py, landed files to gold with detail = summary | `transform-the-silver-and-gold-flow` |
 
 ## Invariants — do not break
 

@@ -51,7 +51,10 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 2 | `how-databricks-runs` | 6 | yes (documented concept frames; §4–§5 local runs) | pending |
 | 3 | `start` | 6 | yes (IDE frames; every pane replayed by `npm run check:spine`) | pending |
 | 4 | `govern` | 7 | yes (documented concept frames; §3 a local DROP run, §4 a model of the grants) | pending |
-| 5–13 | see the plan | 73 | no | — |
+| 5 | `tables` | 8 | yes (every section a local Delta run on `lab.*` tables) | pending |
+| 6 | `ingest` | 9 | yes (five local runs; COPY INTO, Auto Loader, connectors and Kafka documented) | pending |
+| 7 | `transform` | 8 | yes (every section a local run over the spine's bronze) | pending |
+| 8–13 | see the plan | 48 | no | — |
 
 ## Evidence scripts (from the previous course)
 

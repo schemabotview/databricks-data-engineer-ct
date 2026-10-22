@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const batchLoads: Section = {
+  id: 'batch-loads',
+  title: 'Batch loads and COPY INTO',
+  scene: 'batch-load',
+  narration:
+    "The simplest way to load files is a batch job: read every file in a folder, and append the rows to a table. The project now has the three sample order files under data samples, the same eight rows as before, split across files a, b and c. The tool in the editor does exactly that load, and then, deliberately, does it a second time, the way a scheduler retry or a person running it twice would. The terminal shows a real run. After the first load, eight rows and seven order IDs. After the second, sixteen rows, and still seven order IDs. Nothing failed, and every row is now in the table twice. A plain append remembers nothing about what it loaded before, so running it twice is simply loading twice. On Databricks, the documented answer to this is COPY INTO, on the right. It loads files from a path, here a volume, into a table, and it remembers each file it has loaded. Run it a second time over the same folder and it loads nothing new, because every file is already recorded as done. That makes a repeated load safe, and it is why COPY INTO is a good fit for files that arrive in batches. This is documented, not run here: COPY INTO needs the platform. The list says where the safety ends. It knows files by their path. If a source sends a corrected file under the same name, COPY INTO has already seen that path and skips it, so a correction has to be forced in, deliberately. And it says nothing about duplicate rows inside the files, like order four, which really was sent twice in two different files. That is bronze's to keep and silver's to resolve. Remembering what has been read is the idea the next three lessons build on. Next, Auto Loader, the platform's tool for files that keep arriving.",
+}

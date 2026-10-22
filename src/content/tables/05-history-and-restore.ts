@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const historyAndRestore: Section = {
+  id: 'history-and-restore',
+  title: 'History, time travel and restore',
+  scene: 'history-restore',
+  narration:
+    "Every change we made to lab orders is still in its log, and Delta gives three different commands to use that history. People often mix them up, so the table on the right separates them. Describe history lists the commits. Version as of reads an old version. And restore writes a new version that looks like an old one. The script uses all three. First the history, in the terminal: version zero, create table; one and two, the two writes; three, the update; four, the delete; and five, the merge. Each row is a commit, with who made it and what it did. Then time travel. Reading the table as of version two, order six was still pending. Reading it now, order six is completed. Nothing was copied to make that possible: version two is just an older list of files, and those files are still there. Then the restore, back to version four, before the merge. The terminal shows what that really did. It did not delete version five. It wrote a new version, six, whose files match version four, and the table is back to six rows. The last line proves the point: version five can still be read, with its seven rows. The list on the right draws the consequence. Restore moves the table forward, never backwards, which means a restore can itself be undone by restoring again. That makes it the safe way to roll back a bad write: the bad version stays in the history, as evidence, and the table's readers simply see the good state again. Time travel, on the other hand, is for reading and comparing, for example checking what a report would have shown yesterday. There is one condition under all of this. History lasts only as long as the files of the old versions do, and something eventually deletes them. Next, VACUUM, and the day an old version stops being readable.",
+}
