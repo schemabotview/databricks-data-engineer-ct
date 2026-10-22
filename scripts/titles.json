@@ -8,5 +8,7 @@
   "ingest": "Databricks Ingestion Explained: Source Contracts, COPY INTO, Auto Loader, Checkpoints, Schema Drift and Bronze",
   "transform": "Silver and Gold on Databricks: Spark Plans, Types and Time, Join Cardinality, Dedupe, Quality Rules and a Gold Contract",
   "changes": "Streaming and CDC on Delta: Watermarks, State, Stream Joins, Checkpoints, Idempotent Sinks, SCD and the Change Feed",
-  "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations, AUTO CDC and Refreshes"
+  "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations, AUTO CDC and Refreshes",
+  "schedule": "Lakeflow Jobs Explained: Task DAGs, Parameters, Triggers, Run-If, Repair, Idempotency and Run-As",
+  "fast": "Databricks Performance Explained: Spark UI Evidence, Joins and Skew, Small Files, Liquid Clustering and Cost"
 }

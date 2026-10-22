@@ -1,0 +1,44 @@
+# Documented, not run: the daily job, deployed with the bundle (Course 12).
+# Field names checked through search summaries of the docs; re-check before use.
+resources:
+  jobs:
+    retail_daily:
+      name: retail-daily
+      parameters:
+        - name: run_date
+          default: "{{job.start_time.iso_date}}"
+        - name: expected_rows
+          default: "8"
+      schedule:
+        quartz_cron_expression: "0 30 6 * * ?"   # 06:30 every day
+        timezone_id: Europe/London
+      run_as:
+        service_principal_name: retail-job       # Course 4's job principal
+      tasks:
+        - task_key: ingest
+          python_wheel_task:
+            package_name: retail
+            entry_point: ingest       # entry points: the wheel's (Course 12)
+            parameters: ["--run-date", "{{job.parameters.run_date}}"]
+        - task_key: transform
+          depends_on: [{task_key: ingest}]
+          python_wheel_task: {package_name: retail, entry_point: transform}
+        - task_key: validate
+          depends_on: [{task_key: transform}]
+          python_wheel_task: {package_name: retail, entry_point: validate}
+        - task_key: rows_ok
+          depends_on: [{task_key: ingest}]
+          condition_task:
+            op: GREATER_THAN_OR_EQUAL
+            left: "{{tasks.ingest.values.rows_read}}"
+            right: "{{job.parameters.expected_rows}}"
+        - task_key: publish
+          depends_on:
+            - {task_key: validate}
+            - {task_key: rows_ok, outcome: "true"}
+          max_retries: 1
+          python_wheel_task: {package_name: retail, entry_point: publish}
+        - task_key: alert
+          depends_on: [{task_key: transform}]
+          run_if: AT_LEAST_ONE_FAILED
+          python_wheel_task: {package_name: retail, entry_point: alert}

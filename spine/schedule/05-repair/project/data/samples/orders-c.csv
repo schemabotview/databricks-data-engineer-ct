@@ -1,0 +1,3 @@
+order_id,store_id,amount,status
+o4,9,15.00,COMPLETED
+o7,9,n/a,COMPLETED

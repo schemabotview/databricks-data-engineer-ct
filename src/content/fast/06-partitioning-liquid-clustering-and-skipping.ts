@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const partitioningLiquidClusteringAndSkipping: Section = {
+  id: 'partitioning-liquid-clustering-and-skipping',
+  title: 'Partitioning, liquid clustering and skipping',
+  scene: 'fast-layouts',
+  narration:
+    "Delta keeps the minimum and maximum of each column for every file. If a query asks for store seven and a file's stores run from twenty to thirty, that file is skipped without being opened. That only works if the data is arranged so files hold narrow ranges, and this frame compares five ways of arranging the same million orders. The terminal's table shows files, and files opened for two filters. With no layout, twenty-four files, all opened for either filter. Compaction alone, two files, both opened. Z-order by store, nineteen files, and the store filter opens just one. Liquid clustering by store, also nineteen files and one opened. But a filter on the customer opens all nineteen on both, because a layout helps the columns it was built for. Partitioned by order date, a folder per day: seven hundred and twenty files, because each of twenty-four writers wrote into each of thirty days, and the store filter opens all of them. A filter on one date opens twenty-four, the files of that day. Partitioning by customer, a column with a thousand values, makes two thousand files. The last line checks the baseline: every layout still holds one million rows and the same sum. The table on the right is the store seven column. The list draws the lessons. Partitions help only filters on the partition column, and a column with many values makes far too many files. Liquid clustering, according to the documentation, replaces both partitioning and Z-order for new tables, and its columns can be changed later. Next, letting the platform do this maintenance.",
+}

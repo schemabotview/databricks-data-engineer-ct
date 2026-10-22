@@ -1,0 +1,16 @@
+$ python tools/schedule/run_as.py
+                read bronze  read silver  write silver  read gold
+finance         no           no           no            yes
+data-engineers  yes          yes          yes           no
+retail-job      yes          yes          yes           no
+
+finance reading retail.silver.orders is refused; it lacks:
+  USE SCHEMA on retail.silver
+  SELECT on retail.silver
+
+retail_daily runs as retail-job (resources/retail_daily.yml), so:
+  ingest    write retail.bronze.orders   refused
+             lacks MODIFY on retail.bronze
+  transform write retail.silver.orders   ok
+  publish   write retail.gold.sales      refused
+             lacks USE SCHEMA on retail.gold, MODIFY on retail.gold

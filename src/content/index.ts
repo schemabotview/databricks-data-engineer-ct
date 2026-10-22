@@ -7,6 +7,8 @@ import { ingest } from './ingest'
 import { transform } from './transform'
 import { changes } from './changes'
 import { pipelines } from './pipelines'
+import { schedule } from './schedule'
+import { fast } from './fast'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order, one entry per course of docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md. A
@@ -21,6 +23,8 @@ export const COURSES: Record<string, Course> = {
   [transform.id]: transform,
   [changes.id]: changes,
   [pipelines.id]: pipelines,
+  [schedule.id]: schedule,
+  [fast.id]: fast,
 }
 
 export type { Course, Section }

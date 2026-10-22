@@ -1,0 +1,7 @@
+$ python tools/fast/cost.py
+layout                files read  units a day
+no layout                     24         0.96
+compaction only                2         0.08
+liquid clustering              1         0.04
+partitioned by date          720         28.8
+assumed: 3 s a file, 2 machines, 1 unit a machine-hour, 24 runs a day

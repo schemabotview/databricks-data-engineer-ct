@@ -50,8 +50,8 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 | 7 | `transform` | Build silver and gold | 8 | authored, awaiting owner review (no narration audio yet) |
 | 8 | `changes` | Handle change | 10 | authored, awaiting owner review (no narration audio yet) |
 | 9 | `pipelines` | Declare the pipeline | 8 | authored, awaiting owner review (no narration audio yet) |
-| 10 | `schedule` | Schedule it | 7 | planned |
-| 11 | `fast` | Make it fast and cheap | 8 | planned |
+| 10 | `schedule` | Schedule it | 7 | authored, awaiting owner review (no narration audio yet) |
+| 11 | `fast` | Make it fast and cheap | 8 | authored, awaiting owner review (no narration audio yet) |
 | 12 | `operate` | Ship and operate it | 10 | planned |
 | 13 | `defend` | Defend the design | 5 | planned |
 
@@ -106,6 +106,23 @@ pipelines as dp`) and `resources/retail_pipeline.yml`, plus two spine steps: `pi
 three expectation policies over the project's own rules (warn keeps 11, drop 8, fail writes nothing) and
 `pipelines/05` runs a Delta stream refused by a source UPDATE (`DELTA_SOURCE_TABLE_IGNORE_CHANGES`), then
 `skipChangeCommits`. The AUTO CDC result and the failed update's event log are illustrative and say so.
+
+Course 10 adds `resources/retail_daily.yml` (DOCUMENTED: six tasks, a condition task, run_if, a schedule,
+run_as retail-job) and a MODEL of the documented Jobs rules, `tools/schedule/jobs.py`, whose task bodies are
+real Spark (`tools/schedule/tasks.py`, the Chapter 1 files a–c). Frozen results reproduced: a failed transform
+leaves validate/publish SKIPPED and the alert SUCCEEDED; repair keeps ingest (bronze 8, 1 published row of
+160.00); a full rerun with an append ingest gives bronze 16 (8 with MERGE); a retried publish after its write
+leaves 2 rows (1 with MERGE); 6 rows read → publish EXCLUDED. New: Course 4's grant model shows retail-job
+refused MODIFY on bronze and on gold; the model over the project's own modules runs twice with gold 170.00
+both days.
+
+Course 11 is six spine steps over one million hash-generated orders (`tools/make_orders.py`,
+`tools/fast/lab.py`: shuffle partitions 4, AQE off, OPTIMIZE target 400 KB) and two documented frames. Every
+frozen count is reproduced: 1,000,000 rows / 50,497,436.00; 24 files, all opened; task quantiles 36,115 /
+43,880 / 64,525 / 855,480 / 855,480; 200 / 4 / 1 aggregation tasks; BroadcastHashJoin 1 shuffle against
+SortMergeJoin 3; partitions 319,925 / 855,480 / 299,626; 128 files → 25; layouts 24/24, 2/2, Z-order 1 of 19,
+liquid 1 of 19, by date 720/720 (one date 24), by customer 2,000 files; the hypothetical cost 0.96 / 0.08 /
+0.04 / 28.8. `tools/fast/evidence.py` reads the Spark UI's REST API, so its step needs port 4040 free.
 
 ## The spine: code is executed, not pasted
 
@@ -380,6 +397,21 @@ models; they claim nothing about Databricks. The final narration ends with the p
 | `auto-cdc` | AUTO CDC (documented) and the clauses it replaces, beside an illustrative SCD 2 result | `pipelines-auto-cdc-and-scd` |
 | `pipeline-refresh` | update / refresh selected / full refresh over what a full refresh replays | `pipelines-updates-and-refreshes` |
 | `pipeline-event-log` | event-log query (documented) and an illustrative failed update, walked back to o8 | `pipelines-event-logs-and-a-walkthrough` |
+| `job-dag` | resources/retail_daily.yml (documented) beside the DAG it declares and the task types | `schedule-jobs-and-task-dags` |
+| `job-parameters` | IDE: tools/schedule/tasks.py, a task value and a condition: 8 rows publish, 6 excluded | `schedule-parameters-and-task-values` |
+| `job-triggers` | four trigger kinds over a hypothetical freshness-against-runs table | `schedule-schedules-and-triggers` |
+| `job-failure-paths` | IDE: tools/schedule/jobs.py, a failed transform and the alert that still runs | `schedule-conditions-and-failure-paths` |
+| `job-repair` | IDE: tools/schedule/repair.py, repair, full rerun and retry: append against MERGE | `schedule-retries-repair-and-idempotency` |
+| `job-run-as` | IDE: tools/schedule/run_as.py, Course 4's model refusing two of the job's writes | `schedule-run-as-identities` |
+| `job-orchestrated` | IDE: tools/schedule/daily.py, the project's modules as a job, two days, 170.00 | `schedule-the-orchestrated-flow` |
+| `fast-baseline` | IDE: tools/make_orders.py, one million orders and the checksum | `fast-a-correct-baseline` |
+| `fast-evidence` | IDE: tools/fast/evidence.py, task quantiles and task counts from the REST API | `fast-reading-execution-evidence` |
+| `fast-compute` | classic / serverless / Photon lists over what-to-fix-first table (documented) | `fast-compute-sizing-serverless-and-photon` |
+| `fast-joins-skew` | IDE: tools/fast/joins.py, broadcast against sort-merge, skew and salting | `fast-joins-skew-and-shuffles` |
+| `fast-small-files` | IDE: tools/fast/compaction.py, 128 files to 25 | `fast-small-files-and-compaction` |
+| `fast-layouts` | IDE: tools/fast/layouts.py, files opened per layout and filter | `fast-partitioning-liquid-clustering-and-skipping` |
+| `fast-predictive` | what predictive optimization runs over where it applies (documented) | `fast-predictive-optimization` |
+| `fast-comparison` | IDE: tools/fast/cost.py, hypothetical cost on measured files read | `fast-a-worked-comparison` |
 
 ## Invariants — do not break
 

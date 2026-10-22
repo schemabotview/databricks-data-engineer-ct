@@ -1,0 +1,38 @@
+$ python tools/fast/layouts.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/home/ana/retail-lakehouse/.venv/lib/python3.1
+3/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings
+.xml
+Ivy Default Cache set to: /home/ana/.ivy2.5.2/cache
+The jars for the packages stored in: /home/ana/.ivy2.5.2/jars
+io.delta#delta-spark_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-ff4fc449-3326-4cce
+-88d4-228ed3bded91;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.13;4.0.0 in central
+	found io.delta#delta-storage;4.0.0 in central
+	found org.antlr#antlr4-runtime;4.13.1 in central
+:: resolution report :: resolve 255ms :: artifacts dl 16ms
+	:: modules in use:
+	io.delta#delta-spark_2.13;4.0.0 from central in [default]
+	io.delta#delta-storage;4.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.13.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-ff4fc449-3326-4cce-88d4-228ed3
+bded91
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/8ms)
+layout            files  store_id = 7  customer_id = 5
+compaction only       2             2
+no layout            24            24               24
+Z-order              19             1               19
+liquid               19             1               19
+by order_date       720           720              718
+by customer_id: 2000 files
+by order_date, one date: 24 files opened
+every layout: 1,000,000 rows, sum 50,497,436.00

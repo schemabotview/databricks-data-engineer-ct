@@ -85,3 +85,17 @@ export const scheduleFiles = (upTo: number) => [
   ...pipelinesFiles(8),
   ...Object.entries(SCHEDULE_BY_SECTION).filter(([n]) => Number(n) <= upTo).flatMap(([, files]) => files),
 ]
+
+// Course 11's files, by the section that adds them.
+const FAST_BY_SECTION: Record<number, string[]> = {
+  1: ['tools/make_orders.py', 'tools/fast/lab.py'],
+  2: ['tools/fast/evidence.py'],
+  4: ['tools/fast/joins.py'],
+  5: ['tools/fast/compaction.py'],
+  6: ['tools/fast/layouts.py'],
+  8: ['tools/fast/cost.py'],
+}
+export const fastFiles = (upTo: number) => [
+  ...scheduleFiles(7),
+  ...Object.entries(FAST_BY_SECTION).filter(([n]) => Number(n) <= upTo).flatMap(([, files]) => files),
+]

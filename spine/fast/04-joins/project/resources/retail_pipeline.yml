@@ -1,0 +1,13 @@
+# Documented, not run: a bundle resource, deployed with the project (Course 12).
+# Field names checked through search summaries of the docs; re-check before use.
+resources:
+  pipelines:
+    retail_pipeline:
+      name: retail-pipeline
+      catalog: retail          # where the datasets are published
+      schema: silver
+      serverless: true
+      continuous: false        # triggered: one update per run, then stop
+      libraries:
+        - file:
+            path: ../pipelines/retail.py

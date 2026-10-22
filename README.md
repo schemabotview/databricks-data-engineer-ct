@@ -56,7 +56,9 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 7 | `transform` | 8 | yes (every section a local run over the spine's bronze) | pending |
 | 8 | `changes` | 10 | yes (every section a local stream or CDC run) | pending |
 | 9 | `pipelines` | 8 | yes (documented frames; §4 a model of expectations, §5 a local run) | pending |
-| 10–13 | see the plan | 30 | no | — |
+| 10 | `schedule` | 7 | yes (the job documented; a local model of its rules with real Delta effects) | pending |
+| 11 | `fast` | 8 | yes (local counts, no timings; compute and predictive optimization documented) | pending |
+| 12–13 | see the plan | 15 | no | — |
 
 ## Evidence scripts (from the previous course)
 

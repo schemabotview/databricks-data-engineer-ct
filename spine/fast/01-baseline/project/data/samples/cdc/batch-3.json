@@ -1,0 +1,2 @@
+{"order_id": "o1", "op": "U", "seq": 2, "store_id": 7, "amount": "45.00", "status": "PENDING"}
+{"order_id": "o3", "op": "I", "seq": 1, "store_id": 9, "amount": "60.00", "status": "PENDING"}
