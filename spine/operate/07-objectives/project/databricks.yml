@@ -1,0 +1,41 @@
+# Documented, not validated: `databricks bundle validate` needs a workspace.
+# Declarative Automation Bundles (once Databricks Asset Bundles); field names
+# checked through search summaries of the docs. Re-check before use.
+bundle:
+  name: retail-lakehouse
+
+include:
+  - resources/*.yml            # the job (Course 10), the pipeline (Course 9)
+
+artifacts:
+  retail_wheel:
+    type: whl
+    build: pip wheel . --no-deps -w dist
+    path: .
+
+variables:
+  catalog:
+    default: retail
+
+targets:
+  dev:
+    mode: development          # names prefixed per user, schedules paused
+    default: true
+    workspace:
+      host: https://dev.example.cloud.databricks.com
+    variables:
+      catalog: retail_dev
+  staging:
+    workspace:
+      host: https://staging.example.cloud.databricks.com
+    variables:
+      catalog: retail_staging
+  prod:
+    mode: production
+    workspace:
+      host: https://prod.example.cloud.databricks.com
+    run_as:
+      service_principal_name: retail-job
+    permissions:
+      - level: CAN_VIEW
+        group_name: finance

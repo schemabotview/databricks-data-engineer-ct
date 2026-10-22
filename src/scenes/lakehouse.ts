@@ -99,3 +99,28 @@ export const fastFiles = (upTo: number) => [
   ...scheduleFiles(7),
   ...Object.entries(FAST_BY_SECTION).filter(([n]) => Number(n) <= upTo).flatMap(([, files]) => files),
 ]
+
+// Course 12's files, by the section that adds them.
+const OPERATE_BY_SECTION: Record<number, string[]> = {
+  1: ['src/retail/jobs.py'],
+  2: ['tools/operate/wheel_contents.py', '~dist/'],
+  3: ['tests/conftest.py', 'tests/helpers.py', 'tests/test_quality.py', 'tests/test_flow.py', 'tools/operate/bug_diff.py'],
+  4: ['databricks.yml'],
+  5: ['.github/workflows/deploy.yml'],
+  7: ['tools/operate/objectives.py'],
+  8: ['tools/operate/deletion.py'],
+}
+export const operateFiles = (upTo: number) => [
+  ...fastFiles(8),
+  ...Object.entries(OPERATE_BY_SECTION).filter(([n]) => Number(n) <= upTo).flatMap(([, files]) => files),
+]
+
+// Course 13's files, by the section that adds them.
+const DEFEND_BY_SECTION: Record<number, string[]> = {
+  2: ['src/retail/partner.py', 'data/samples/orders-e.csv', 'data/samples/partner-1.csv', 'data/reference/store_codes.csv', 'tools/defend/requirements.py'],
+  4: ['tools/defend/latency.py'],
+}
+export const defendFiles = (upTo: number) => [
+  ...operateFiles(10),
+  ...Object.entries(DEFEND_BY_SECTION).filter(([n]) => Number(n) <= upTo).flatMap(([, files]) => files),
+]

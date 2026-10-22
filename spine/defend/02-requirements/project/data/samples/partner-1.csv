@@ -1,0 +1,4 @@
+order_id,store_code,amount,status
+p1,LDS,30.00,COMPLETED
+p2,YRK,12.00,COMPLETED
+p3,XXX,9.00,COMPLETED

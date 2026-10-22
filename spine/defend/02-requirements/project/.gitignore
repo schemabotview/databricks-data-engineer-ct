@@ -1,0 +1,8 @@
+.venv/
+*.egg-info/
+# what a local run writes: the tables, and the metastore that names them
+spark-warehouse/
+metastore_db/
+derby.log
+# the wheel a build writes (Course 12)
+dist/

@@ -52,8 +52,8 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 | 9 | `pipelines` | Declare the pipeline | 8 | authored, awaiting owner review (no narration audio yet) |
 | 10 | `schedule` | Schedule it | 7 | authored, awaiting owner review (no narration audio yet) |
 | 11 | `fast` | Make it fast and cheap | 8 | authored, awaiting owner review (no narration audio yet) |
-| 12 | `operate` | Ship and operate it | 10 | planned |
-| 13 | `defend` | Defend the design | 5 | planned |
+| 12 | `operate` | Ship and operate it | 10 | authored, awaiting owner review (no narration audio yet) |
+| 13 | `defend` | Defend the design | 5 | authored, awaiting owner review (no narration audio yet) |
 
 Course 1 is concept frames. Its §4 tables are the Chapter 1 local run
 (`scripts/verify/ch01_foundations.py`) and its §5 gold table the Chapter 5 run
@@ -123,6 +123,20 @@ frozen count is reproduced: 1,000,000 rows / 50,497,436.00; 24 files, all opened
 SortMergeJoin 3; partitions 319,925 / 855,480 / 299,626; 128 files → 25; layouts 24/24, 2/2, Z-order 1 of 19,
 liquid 1 of 19, by date 720/720 (one date 24), by customer 2,000 files; the hypothetical cost 0.96 / 0.08 /
 0.04 / 28.8. `tools/fast/evidence.py` reads the Spark UI's REST API, so its step needs port 4040 free.
+
+Course 12 adds `src/retail/jobs.py` (the job's five entry points, declared in `pyproject.toml`), a
+`latest()` function in `silver.py`, `tests/` (7 tests: 4 unit, 1 integration, 2 data-quality, run with the
+`spine/test.txt` requirements set, which adds pytest), and documented `databricks.yml` and
+`.github/workflows/deploy.yml`. Runs: only `session.py` is local; the wheel carries no Spark; `pytest` 7 passed
+and an oldest-file bug shown as a row diff; quality 8 of 11 = 72.7% and freshness 30 min against
+illustrative objectives (file times set by the step's setup, a fixed 10:20 clock); after DELETE the old
+version and the feed still hold c1, after VACUUM only the derived total does (100.00 → 35.00 rebuilt).
+
+Course 13 adds `src/retail/partner.py` (a second source keyed by store code, mapped through
+`data/reference/store_codes.csv`), `orders-e.csv` (o4 → 18.00) and `partner-1.csv`. Frozen results
+reproduced through the project's own modules: 170.00 → 173.00 (silver still 6) → 215.00 (silver 8, p3
+quarantined), 15 = 8 + 3 + 4; three micro-batches by a MERGE guarded on the source file, plus a replayed
+batch, equal the full rebuild. Without `event_ts`, the correction wins because it is the newest file.
 
 ## The spine: code is executed, not pasted
 
@@ -412,6 +426,21 @@ models; they claim nothing about Databricks. The final narration ends with the p
 | `fast-layouts` | IDE: tools/fast/layouts.py, files opened per layout and filter | `fast-partitioning-liquid-clustering-and-skipping` |
 | `fast-predictive` | what predictive optimization runs over where it applies (documented) | `fast-predictive-optimization` |
 | `fast-comparison` | IDE: tools/fast/cost.py, hypothetical cost on measured files read | `fast-a-worked-comparison` |
+| `operate-modules` | IDE: src/retail/jobs.py, only session.py is local | `operate-modular-code` |
+| `operate-wheel` | IDE: pyproject.toml, a real wheel and what it leaves to the runtime | `operate-wheels-and-environments` |
+| `operate-tests` | IDE: tests/test_flow.py, 7 passed and a bug caught as a row diff | `operate-tests` |
+| `operate-bundles` | databricks.yml (documented) beside what it declares | `operate-declarative-automation-bundles` |
+| `operate-promotion` | dev → CI → staging → prod over the CI sketch and rolling back | `operate-targets-ci-and-promotion` |
+| `operate-observability` | a system-table query (documented), an illustrative result, four kinds of evidence | `operate-observability` |
+| `operate-objectives` | IDE: tools/operate/objectives.py, 72.7% and 30 min, both breached | `operate-incidents-and-objectives` |
+| `operate-deletion` | IDE: tools/operate/deletion.py, where a deleted customer still is | `operate-recovery-and-deletion` |
+| `operate-identities` | three identities (illustrative) over a secret read at run time | `operate-secrets-and-identities` |
+| `operate-ownership` | cost by team (documented, illustrative units) over who answers for what | `operate-ownership-and-cost-attribution` |
+| `defend-end-to-end` | the project as a chain beside which-component-guarantees-what with evidence | `defend-end-to-end` |
+| `defend-requirements` | IDE: src/retail/partner.py, 170.00 → 173.00 → 215.00 | `defend-changed-requirements` |
+| `defend-platforms` | job + code / pipeline / managed ingestion compared, choosing and what no choice removes | `defend-jobs-pipelines-or-managed-ingestion` |
+| `defend-critique` | IDE: tools/defend/latency.py, micro-batches equal the rebuild, failures critiqued | `defend-failure-and-recovery-critique` |
+| `defend-decisions` | decisions and alternatives over cost assumptions and unresolved risks | `defend-the-decision-record` |
 
 ## Invariants — do not break
 

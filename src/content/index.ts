@@ -9,6 +9,8 @@ import { changes } from './changes'
 import { pipelines } from './pipelines'
 import { schedule } from './schedule'
 import { fast } from './fast'
+import { operate } from './operate'
+import { defend } from './defend'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order, one entry per course of docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md. A
@@ -25,6 +27,8 @@ export const COURSES: Record<string, Course> = {
   [pipelines.id]: pipelines,
   [schedule.id]: schedule,
   [fast.id]: fast,
+  [operate.id]: operate,
+  [defend.id]: defend,
 }
 
 export type { Course, Section }

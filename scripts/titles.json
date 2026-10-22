@@ -10,5 +10,7 @@
   "changes": "Streaming and CDC on Delta: Watermarks, State, Stream Joins, Checkpoints, Idempotent Sinks, SCD and the Change Feed",
   "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations, AUTO CDC and Refreshes",
   "schedule": "Lakeflow Jobs Explained: Task DAGs, Parameters, Triggers, Run-If, Repair, Idempotency and Run-As",
-  "fast": "Databricks Performance Explained: Spark UI Evidence, Joins and Skew, Small Files, Liquid Clustering and Cost"
+  "fast": "Databricks Performance Explained: Spark UI Evidence, Joins and Skew, Small Files, Liquid Clustering and Cost",
+  "operate": "Shipping a Databricks Project: Wheels, Tests, Declarative Automation Bundles, CI, Observability and Ownership",
+  "defend": "Defending a Lakehouse Design: Guarantees, Changed Requirements, Platform Choices, Failure Critique and a Decision Record"
 }

@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const theDecisionRecord: Section = {
+  id: 'the-decision-record',
+  title: 'The decision record',
+  scene: 'defend-decisions',
+  narration:
+    "The last frame is a decision record: the document that lets someone else, or you in a year, understand why the design is the way it is. The table at the top lists six decisions, each with the alternative that was turned down and the reason. Three layers, bronze, silver and gold, instead of one cleaned table, because raw data is the recovery copy. The latest row by newest landing file, instead of by event time, because these files carry no event time. Quarantine instead of drop, because every event must be accounted for. A sequence-guarded merge instead of arrival order, because records arrive late and get replayed. Liquid clustering by store instead of date partitions, because the store filter opened one file instead of seven hundred and twenty. And a job over our own modules instead of a pipeline, because it could be tested locally first. The left list states the cost assumptions, and states them as hypothetical: three seconds a file, two machines, one unit a machine-hour, twenty-four runs a day, and no price quoted anywhere. The right list is the part most records leave out: the risks still open. Silent drift, where a plausible wrong amount passes every rule. The two grants retail job still lacks. Every platform claim in this course, which must be checked against the live documentation before it is relied on. And sources that keep their data for only seven to thirty days, so a slow incident can lose data for good. This course has built one project and defended it. To go further, continue with unfamiliar sources and operating scenarios, and build practical competence through implementation experience and feedback.",
+}

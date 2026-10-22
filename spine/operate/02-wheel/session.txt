@@ -1,0 +1,8 @@
+$ pip wheel . --no-deps -w dist -q
+$ python tools/operate/wheel_contents.py
+retail_lakehouse-0.1.0-py3-none-any.whl
+code: __init__.py, bronze.py, cdc.py, errors.py, gold.py, jobs.py, quality.py, run.p
+y, session.py, silver.py
+requires: pytest; extra == "test"
+not required: pyspark, delta-spark — the runtime provides them
+entry points: alert, ingest, publish, transform, validate

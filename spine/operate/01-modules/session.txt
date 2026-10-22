@@ -1,0 +1,10 @@
+$ ls -C src/retail
+__init__.py  cdc.py	gold.py  quality.py  session.py
+bronze.py    errors.py	jobs.py  run.py      silver.py
+$ grep -rn 'master(\|enableHiveSupport\|configure_spark' src tools notebooks
+src/retail/session.py:4:from delta import configure_spark_with_delta_pip
+src/retail/session.py:11:        SparkSession.builder.master("local[2]").appName(app
+)
+src/retail/session.py:20:        .enableHiveSupport()
+src/retail/session.py:23:    return configure_spark_with_delta_pip(builder).getOrCre
+ate()
