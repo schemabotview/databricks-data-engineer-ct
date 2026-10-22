@@ -1,0 +1,10 @@
+[project]
+name = "retail-lakehouse"
+version = "0.1.0"
+requires-python = ">=3.13"
+# none: Spark and Delta come from the runtime — locally, from requirements.txt
+dependencies = []
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"

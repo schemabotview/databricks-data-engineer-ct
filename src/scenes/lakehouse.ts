@@ -71,3 +71,17 @@ export const pipelinesFiles = (upTo: number) => [
   ...changesFiles(10),
   ...Object.entries(PIPELINES_BY_SECTION).filter(([n]) => Number(n) <= upTo).flatMap(([, files]) => files),
 ]
+
+// Course 10's files, by the section that adds them.
+const SCHEDULE_BY_SECTION: Record<number, string[]> = {
+  1: ['resources/retail_daily.yml'],
+  2: ['tools/schedule/jobs.py', 'tools/schedule/tasks.py', 'tools/schedule/params.py'],
+  4: ['tools/schedule/failure.py'],
+  5: ['tools/schedule/repair.py'],
+  6: ['tools/schedule/run_as.py'],
+  7: ['tools/schedule/daily.py'],
+}
+export const scheduleFiles = (upTo: number) => [
+  ...pipelinesFiles(8),
+  ...Object.entries(SCHEDULE_BY_SECTION).filter(([n]) => Number(n) <= upTo).flatMap(([, files]) => files),
+]

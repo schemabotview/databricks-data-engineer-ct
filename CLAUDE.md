@@ -48,8 +48,8 @@ registered in `src/content/index.ts` / `src/scenes/index.ts` only once authored.
 | 5 | `tables` | Make the table reliable | 8 | authored, awaiting owner review (no narration audio yet) |
 | 6 | `ingest` | Bring the data in | 9 | authored, awaiting owner review (no narration audio yet) |
 | 7 | `transform` | Build silver and gold | 8 | authored, awaiting owner review (no narration audio yet) |
-| 8 | `changes` | Handle change | 10 | planned |
-| 9 | `pipelines` | Declare the pipeline | 8 | planned |
+| 8 | `changes` | Handle change | 10 | authored, awaiting owner review (no narration audio yet) |
+| 9 | `pipelines` | Declare the pipeline | 8 | authored, awaiting owner review (no narration audio yet) |
 | 10 | `schedule` | Schedule it | 7 | planned |
 | 11 | `fast` | Make it fast and cheap | 8 | planned |
 | 12 | `operate` | Ship and operate it | 10 | planned |
@@ -90,6 +90,22 @@ gold Leeds 3 / 75.00, York 1 / 15.00, Hull 1 / 80.00 = 170.00; join inflation 5 
 185.00. One deviation from the old chapter, said on screen: bronze has no `event_ts`, so "latest" is the
 newest landing file (`source_file` descending), which is deterministic because file names sort by arrival.
 `retail.silver`, `retail.quality`, `retail.gold` and `retail.run` are the project's modules from here on.
+
+Course 8 is ten spine steps over two small samples: ten order events in four JSON files
+(`data/samples/stream/`, mtimes set so Spark reads them in order, `maxFilesPerTrigger` 1) and eight order
+CDC records in three batches (`data/samples/cdc/`). The stream lessons set `spark.sql.shuffle.partitions` to
+4 (`tools/changes/feed.py`; 200 made a stream-stream join crawl). Frozen results reproduced: 27 rows read
+against 10; watermarks none / 09:04 / 09:13 / 09:21 / 09:34 and windows 95.00 / 110.00 / 10.00 (o12 dropped,
+o10 counted, the resend twice). New: dedupe state 3-5-7-9 against 3-3-4-3-1; a crash after batch 2 leaves
+append 12 rows against MERGE 9; `src/retail/cdc.py` gives the same table by sequence, reversed and replayed
+(by arrival: o1 PENDING, o3 resurrected); the feed holds 9 rows for 8 records; a vacuumed feed is gone and
+a rebuild from the raw records equals the table.
+
+Course 9 is documented frames over two new project files, `pipelines/retail.py` (`from pyspark import
+pipelines as dp`) and `resources/retail_pipeline.yml`, plus two spine steps: `pipelines/04` is a MODEL of the
+three expectation policies over the project's own rules (warn keeps 11, drop 8, fail writes nothing) and
+`pipelines/05` runs a Delta stream refused by a source UPDATE (`DELTA_SOURCE_TABLE_IGNORE_CHANGES`), then
+`skipChangeCommits`. The AUTO CDC result and the failed update's event log are illustrative and say so.
 
 ## The spine: code is executed, not pasted
 
@@ -346,6 +362,24 @@ models; they claim nothing about Databricks. The final narration ends with the p
 | `quality-quarantine` | IDE: src/retail/quality.py, rules as data and 11 events accounted for | `transform-quality-rules-and-quarantine` |
 | `gold-contract` | IDE: src/retail/gold.py, the contract's columns, NOT NULLs and CHECK | `transform-gold-as-a-contract` |
 | `silver-gold-flow` | IDE: src/retail/run.py, landed files to gold with detail = summary | `transform-the-silver-and-gold-flow` |
+| `recompute-or-increment` | IDE: tools/changes/incremental.py, 27 rows read against 10 | `changes-recompute-or-increment` |
+| `event-time-watermarks` | IDE: tools/changes/watermarks.py, each batch's watermark and the windows it wrote | `changes-event-time-and-watermarks` |
+| `stream-state` | IDE: tools/changes/state.py, dedupe state with and without a watermark | `changes-stateful-aggregation-and-deduplication` |
+| `stream-joins` | IDE: tools/changes/joins.py, orders to payments within 15 minutes, inner and outer | `changes-streaming-joins` |
+| `checkpoints-restarts` | IDE: tools/changes/restarts.py, a restart resumes; a new grouping key is refused | `changes-checkpoints-and-restarts` |
+| `sinks-idempotency` | IDE: tools/changes/sinks.py, a replayed batch: append 12 against MERGE 9 | `changes-sinks-foreachbatch-and-idempotency` |
+| `source-cdc` | IDE: src/retail/cdc.py, change records by arrival and by sequence | `changes-source-cdc` |
+| `scd-types` | IDE: tools/changes/scd.py, SCD type 1 and type 2 from the same records | `changes-scd-type-1-and-type-2` |
+| `cdf-vs-cdc` | IDE: tools/changes/cdf_vs_cdc.py, 8 source records against 9 feed rows | `changes-table-cdf-and-source-cdc` |
+| `worked-recovery` | IDE: tools/changes/recovery.py, history vacuumed, rebuilt from the raw records | `changes-a-worked-recovery` |
+| `imperative-declarative` | run.py beside pipelines/retail.py (documented), who-decides table and list | `pipelines-imperative-and-declarative` |
+| `dataset-kinds` | pipeline SQL (documented) beside the three dataset kinds and how to choose | `pipelines-streaming-tables-materialized-views-and-views` |
+| `pipeline-graph` | the graph the definitions produce over the bundle resource and the four words | `pipelines-dependencies-flows-and-sinks` |
+| `expectations` | IDE: tools/pipelines/policies.py, a model: warn 11, drop 8, fail 0 | `pipelines-expectations` |
+| `incremental-semantics` | IDE: tools/pipelines/source_update.py, a stream refused by a source UPDATE | `pipelines-incremental-semantics` |
+| `auto-cdc` | AUTO CDC (documented) and the clauses it replaces, beside an illustrative SCD 2 result | `pipelines-auto-cdc-and-scd` |
+| `pipeline-refresh` | update / refresh selected / full refresh over what a full refresh replays | `pipelines-updates-and-refreshes` |
+| `pipeline-event-log` | event-log query (documented) and an illustrative failed update, walked back to o8 | `pipelines-event-logs-and-a-walkthrough` |
 
 ## Invariants — do not break
 

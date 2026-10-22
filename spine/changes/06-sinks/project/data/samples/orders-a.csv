@@ -1,0 +1,4 @@
+order_id,store_id,amount,status
+o1,7,40.00,COMPLETED
+o2,7,25.00,COMPLETED
+o3,9,60.00,CANCELLED

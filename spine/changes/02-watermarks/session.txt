@@ -1,0 +1,34 @@
+$ python tools/changes/watermarks.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/home/ana/retail-lakehouse/.venv/lib/python3.1
+3/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings
+.xml
+Ivy Default Cache set to: /home/ana/.ivy2.5.2/cache
+The jars for the packages stored in: /home/ana/.ivy2.5.2/jars
+io.delta#delta-spark_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-ebdd8a83-10ec-4fde
+-8ef8-27b03d659485;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.13;4.0.0 in central
+	found io.delta#delta-storage;4.0.0 in central
+	found org.antlr#antlr4-runtime;4.13.1 in central
+:: resolution report :: resolve 160ms :: artifacts dl 4ms
+	:: modules in use:
+	io.delta#delta-spark_2.13;4.0.0 from central in [default]
+	io.delta#delta-storage;4.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.13.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-ebdd8a83-10ec-4fde-8ef8-27b03d
+659485
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/6ms)
+batch 0: 3 rows, watermark none  | wrote nothing
+batch 1: 3 rows, watermark 09:04 | wrote nothing
+batch 2: 2 rows, watermark 09:13 | wrote 09:00 = 95.00
+batch 3: 2 rows, watermark 09:21 | wrote 09:10 = 110.00
+batch 4: 0 rows, watermark 09:34 | wrote 09:20 = 10.00

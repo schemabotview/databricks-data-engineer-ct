@@ -6,5 +6,7 @@
   "govern": "Databricks Unity Catalog Explained: Three-Part Names, Volumes, Managed Tables, Grants and Lineage",
   "tables": "Delta Lake Explained: the Transaction Log, ACID, Schema Enforcement, MERGE, Time Travel and VACUUM",
   "ingest": "Databricks Ingestion Explained: Source Contracts, COPY INTO, Auto Loader, Checkpoints, Schema Drift and Bronze",
-  "transform": "Silver and Gold on Databricks: Spark Plans, Types and Time, Join Cardinality, Dedupe, Quality Rules and a Gold Contract"
+  "transform": "Silver and Gold on Databricks: Spark Plans, Types and Time, Join Cardinality, Dedupe, Quality Rules and a Gold Contract",
+  "changes": "Streaming and CDC on Delta: Watermarks, State, Stream Joins, Checkpoints, Idempotent Sinks, SCD and the Change Feed",
+  "pipelines": "Lakeflow Declarative Pipelines Explained: Streaming Tables, Materialized Views, Expectations, AUTO CDC and Refreshes"
 }

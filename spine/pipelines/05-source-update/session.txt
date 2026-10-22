@@ -1,0 +1,35 @@
+$ python tools/pipelines/source_update.py
+WARNING: Using incubator modules: jdk.incubator.vector
+:: loading settings :: url = jar:file:/home/ana/retail-lakehouse/.venv/lib/python3.1
+3/site-packages/pyspark/jars/ivy-2.5.3.jar!/org/apache/ivy/core/settings/ivysettings
+.xml
+Ivy Default Cache set to: /home/ana/.ivy2.5.2/cache
+The jars for the packages stored in: /home/ana/.ivy2.5.2/jars
+io.delta#delta-spark_2.13 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-88325875-88ea-4961
+-9655-0d570925469f;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.13;4.0.0 in central
+	found io.delta#delta-storage;4.0.0 in central
+	found org.antlr#antlr4-runtime;4.13.1 in central
+:: resolution report :: resolve 236ms :: artifacts dl 9ms
+	:: modules in use:
+	io.delta#delta-spark_2.13;4.0.0 from central in [default]
+	io.delta#delta-storage;4.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.13.1 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-88325875-88ea-4961-9655-0d5709
+25469f
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/11ms)
+first run, copy has: 2 rows
+ERROR MicroBatchExecution: Query [id = 9f8f9d83-0467-4b8d-a4a1-09278b9a7f28, runId =
+ ecba75c2-45d8-4042-8e31-fc90eead94b7] terminated with error
+after an UPDATE: [DELTA_SOURCE_TABLE_IGNORE_CHANGES]
+with skipChangeCommits: 2 rows — the update never arrives
+after an INSERT: 3 rows

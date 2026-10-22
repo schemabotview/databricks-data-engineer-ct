@@ -1,0 +1,9 @@
+import type { Section } from '../types'
+
+export const imperativeAndDeclarative: Section = {
+  id: 'imperative-and-declarative',
+  title: 'Imperative and declarative',
+  scene: 'imperative-declarative',
+  narration:
+    "Course seven built the flow as an application: the run module calls bronze, then silver, then gold, in that order, and each step writes its own table. That is imperative code. We decide the order, the writes, the checkpoints, and what to do when something fails. Databricks offers a second way to say the same thing, Lakeflow declarative pipelines, and the right-hand file shows our flow in it. This file is documented, not run, because pipelines need a workspace, and its names were checked against the documentation's summaries. Read it from the top. The pipelines module is imported as dp. Each function returns a DataFrame and is marked with a decorator. Bronze orders is a table, read as a stream from the landing volume with Auto Loader. Silver orders is a table too, with three expectations, the quality rules, written as decorators. And gold sales is a materialized view. Notice what is missing. No function writes anything, and no function is called. The table underneath says who decides what. With run dot py we call the steps in order. With a pipeline, the order comes from what each function reads: silver reads bronze by name, so bronze runs first. We keep our own checkpoints; the pipeline keeps its. We create and write our tables; the pipeline keeps declared datasets in step with their definitions. Bad rows go to our quarantine code, or to expectations. And a failed run is ours to rerun, or the pipeline retries the update. The list keeps it honest. The transformations inside are the same Spark as before. What changes is who runs them. Next, the three kinds of dataset a pipeline can declare.",
+}

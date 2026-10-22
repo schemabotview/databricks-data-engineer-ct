@@ -54,7 +54,9 @@ The plan's reference surface is **Databricks on AWS documentation** (researched 
 | 5 | `tables` | 8 | yes (every section a local Delta run on `lab.*` tables) | pending |
 | 6 | `ingest` | 9 | yes (five local runs; COPY INTO, Auto Loader, connectors and Kafka documented) | pending |
 | 7 | `transform` | 8 | yes (every section a local run over the spine's bronze) | pending |
-| 8–13 | see the plan | 48 | no | — |
+| 8 | `changes` | 10 | yes (every section a local stream or CDC run) | pending |
+| 9 | `pipelines` | 8 | yes (documented frames; §4 a model of expectations, §5 a local run) | pending |
+| 10–13 | see the plan | 30 | no | — |
 
 ## Evidence scripts (from the previous course)
 

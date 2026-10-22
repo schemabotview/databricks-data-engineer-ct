@@ -5,6 +5,8 @@ import { govern } from './govern'
 import { tables } from './tables'
 import { ingest } from './ingest'
 import { transform } from './transform'
+import { changes } from './changes'
+import { pipelines } from './pipelines'
 import type { Course, Section } from './types'
 
 // Course registry, in syllabus order, one entry per course of docs/DATABRICKS-DATA-ENGINEER-COURSE-PLAN.md. A
@@ -17,6 +19,8 @@ export const COURSES: Record<string, Course> = {
   [tables.id]: tables,
   [ingest.id]: ingest,
   [transform.id]: transform,
+  [changes.id]: changes,
+  [pipelines.id]: pipelines,
 }
 
 export type { Course, Section }
